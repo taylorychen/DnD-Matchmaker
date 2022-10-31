@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema(
       activePostings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Active Postings" }],
       archivedPostings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Archived Postings" }],
       pendingRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pending Requests" }],
+      approvedRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: "Approved Requests" }],
 
     },
   );
