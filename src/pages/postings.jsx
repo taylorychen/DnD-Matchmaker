@@ -7,7 +7,9 @@ function Postings(){
         <div>
             <Header></Header>
             <h1>hi! Welcome to the postings page/landing page</h1>
-            <div> to go to a different page:</div>
+            <button onclick="sayHello()">
+                create a new posting
+            </button>
             <Footer></Footer>
         </div>
     );
