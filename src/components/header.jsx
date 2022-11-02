@@ -1,19 +1,26 @@
 import React from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import "./header.css"
 
-function Header() {
-  return (
-    <nav>
-      <ul>
-  <div>nav bar  
-  <Link to="/Postings">Postings</Link>  
-   <Link to="/Profile">Profile</Link>  
-   <Link to="/haha">Error</Link>  
-   <Link to="/">Login Page</Link>  
- </div>
-      </ul>
-    </nav>
-  );
+//TODO: if the user is not sign in then have the profile dropdown menu be a signin button instead 
+
+export default function Header() {
+  return <nav className="nav">
+    <a href='#' className="welcome">Unhinged: D&D Matchmaker</a>
+    <ul>
+      <li>
+        <a className="posting" href="/Postings">Postings</a>
+      </li>
+      <li>
+        <div className="dropdown">
+          <button className="dropdown-button">Profile</button>
+          <div className="dropdown-items">
+            <a href="/Profile">Home</a>
+            <a href="/Profile">My Postings</a>
+            <a href="/Profile">My Requests</a>
+            <a href="/Profile">Sign Out</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </nav>
 }
-
-export default Header;
