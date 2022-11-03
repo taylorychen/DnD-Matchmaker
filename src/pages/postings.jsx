@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import PostingCards from "../components/postings-card";
 
 function Postings(){
     return(
@@ -10,6 +11,7 @@ function Postings(){
             <button onclick="sayHello()">
                 create a new posting
             </button>
+            <PostingCards></PostingCards>
             <Footer></Footer>
         </div>
     );

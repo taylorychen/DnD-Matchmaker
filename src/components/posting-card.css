@@ -1,0 +1,26 @@
+.card {
+    max-width: 300px;
+    margin: 100px;
+    text-align: center;
+    box-shadow: 0 9px 15px 0 rgba(193, 51, 51, 0.2);
+  }
+  
+  .info {
+    color: grey;
+    font-size: 15px;
+  }
+  button {
+    margin-right: auto;
+    position: center;
+    margin-left: auto;
+  }
+  
+  .main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .span {
+    margin: 0 10px;
+  }
