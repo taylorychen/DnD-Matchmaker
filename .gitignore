@@ -21,3 +21,25 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# firebase
+/.vscode
+node_modules
+/coverage
+/.coverage
+/.nyc_output
+firebase-debug.log
+firebase-debug.*.log
+npm-debug.log
+ui-debug.log
+yarn.lock
+.npmrc
+
+.DS_Store
+.idea
+*.iml
+*.tgz
+scripts/*.json
+
+lib/
+dev/
