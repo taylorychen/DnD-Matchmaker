@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Firebase configuration
@@ -13,5 +14,6 @@ const firebaseConfig = {
   measurementId: "G-NSWQ77ZEB1",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase and Firestore
+export const firebase = initializeApp(firebaseConfig);
+export const db = getFirestore(firebase);
