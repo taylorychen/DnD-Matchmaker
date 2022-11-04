@@ -1,26 +1,32 @@
-import { db } from '../firebase'
-import { doc, setDoc, getDoc, updateDoc, Timestamp, arrayUnion } from "firebase/firestore";
-
+import { db } from "config";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  Timestamp,
+  arrayUnion,
+} from "firebase/firestore";
 
 async function getUser(email) {
   const user = await getDoc(doc(db, "/Users/" + email));
   if (user.exists()) {
     return user.data();
-  } 
+  }
   return null;
 }
 
-async function createUser(email, fn, ln, dt) {
+async function createUser(email, firstName, lastName, discordTag) {
   const userRef = doc(db, "/Users/" + email);
   const userSnap = await getDoc(userRef);
   if (userSnap.exists()) {
     return;
-  } 
+  }
   setDoc(userRef, {
     email: email,
-    firstName: fn,
-    lastName: ln,
-    discordTag: dt,
+    firstName: firstName,
+    lastName: lastName,
+    discordTag: discordTag,
     activePostings: [],
     archivedPostings: [],
     approvedRequests: [],
@@ -33,10 +39,10 @@ async function createPost(email, title, desc, tags, location, maxPlayers) {
   const userSnap = await getDoc(userRef);
   if (!userSnap.exists()) {
     return;
-  } 
+  }
 
   const now = Timestamp.now();
-  const postID = email + "__" +now.valueOf();
+  const postID = email + "_" + now.valueOf();
   setDoc(doc(db, "Posts", postID), {
     owner: email,
     title: title,
@@ -54,8 +60,4 @@ async function createPost(email, title, desc, tags, location, maxPlayers) {
       activePostings: arrayUnion(postID),
     });
   });
- 
-
 }
-
-
