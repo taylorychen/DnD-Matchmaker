@@ -8,7 +8,7 @@ function Postings(){
         <div>
             <Header></Header>
             <h1>hi! Welcome to the postings page/landing page</h1>
-            <button onclick="sayHello()">
+            <button onClick="sayHello()">
                 create a new posting
             </button>
             <PostingCards></PostingCards>
