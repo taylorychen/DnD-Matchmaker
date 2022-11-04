@@ -15,11 +15,11 @@ function Login(){
                     <label>Password </label>
                     <input type="password" name="pass" required />
                 </div>
-                <button onclick="sayHello()">
+                <button onClick="sayHello()">
                     Login
                 </button>
                 <div> don't have an account? </div>
-                <button onclick="sayHello()">
+                <button onClick="sayHello()">
                     create account
                 </button>
             </div>
