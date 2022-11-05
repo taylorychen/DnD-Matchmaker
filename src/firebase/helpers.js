@@ -1,8 +1,9 @@
 import { db } from '../firebase'
 import { doc, setDoc, getDoc, updateDoc, Timestamp, arrayUnion } from "firebase/firestore";
 
+// SIMPLE DATABSE MANIPULATIONS
 
-export async function getUser(email) {
+export async function getUser(email) { 
   // given a user's (unique) email, return the User's data in the form of a DocumentData object
   const user = await getDoc(doc(db, "/Users/" + email));
   if (user.exists()) {
@@ -62,8 +63,51 @@ export async function createPost(email, title, desc, tags, location, maxPlayers)
       activePostings: arrayUnion(postID),
     });
   });
- 
+}
+
+
+// COMPLEX DATABASE MANIPULATIONS
+
+export async function requestToJoinGroup(postID, userID) {
+  // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
+
+  // check if user exists (is this necessary?)
+  const userRef = doc(db, "/Users/" + userID);
+  const userSnap = await getDoc(userRef);
+  if (!userSnap.exists()) {
+    return;
+  } 
+
+  // check if user is in the group (approved) already
+  // const userReqests = userSnap.data().approvedRequests;
+  // const postRef = doc(db, "/Posts" + postID);
+  // const postSnap = await getDoc(postRef);
+  // const postRequests = postSnap.data().approvedUsers;
+  // if (postRequests.includes(userID) || userReqests.includes(postID)) {
+  //   return;
+  // }
+
+  // add user to post's pendingUsers
+  const postRef = doc(db, "/Posts" + postID);
+  updateDoc(postRef, {
+    pendingUsers: arrayUnion(userID)
+  });
+
+  // add post to user's pendingRequests
+  updateDoc(userRef, {
+    pendingRequests: arrayUnion(postID)
+  });
 
 }
 
+export async function approveRequestToJoinGroup(postID, userID) {
+  
+}
+
+
+// DATABASE QUERIES
+
+
+
+// REAL-TIME QUERIES
 
