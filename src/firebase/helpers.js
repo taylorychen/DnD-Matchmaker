@@ -10,6 +10,11 @@ import {
   arrayRemove,
 } from "firebase/firestore";
 
+/**
+ * get user based on email
+ * @param {string} email
+ * @returns user's data
+ */
 export async function getUser(email) {
   const user = await getDoc(doc(db, "/Users/" + email));
   if (user.exists()) {
@@ -18,12 +23,19 @@ export async function getUser(email) {
   return null;
 }
 
+/**
+ * creates user with given attributes
+ * @param {string} email
+ * @param {string} firstName
+ * @param {string} lastName
+ * @param {string} discordTag
+ */
 export async function createUser(email, firstName, lastName, discordTag) {
   const userRef = doc(db, "/Users/" + email);
   const userSnap = await getDoc(userRef);
   if (userSnap.exists()) {
     console.log(`user ${email} already exists`);
-    return false;
+    return true;
   }
   setDoc(userRef, {
     email: email,
@@ -36,9 +48,18 @@ export async function createUser(email, firstName, lastName, discordTag) {
     pendingRequests: [],
   });
   console.log(`CREATED user ${email}`);
-  return true;
+  return false;
 }
 
+/**
+ * creates a post with the given attributes
+ * @param {string} email
+ * @param {string} title
+ * @param {string} description
+ * @param {Array.<string>} tags
+ * @param {string} location
+ * @param {number} maxPlayers
+ */
 export async function createPost(
   email,
   title,

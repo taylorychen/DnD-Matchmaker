@@ -9,8 +9,12 @@ const users = [
   "gayatri@gmail.com",
 ];
 
-export function createRandomPosts(amount) {
-  for (let i = 0; i < amount; i++) {
+/**
+ * creates random posts in the database
+ * @param {number} number number of posts to create
+ */
+export function createRandomPosts(number) {
+  for (let i = 0; i < number; i++) {
     const randomNum = Math.floor(Math.random() * users.length);
     const owner = users[randomNum];
     const title = `${faker.word.adjective()} game`;
