@@ -1,7 +1,12 @@
 import React from "react";
 import Header from "../components/header";
+import { currentUserEmail, login, logout } from '../firebase/auth'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../firebase'
 
 function Login(){
+    const [ currUser ] = useAuthState(auth);
+
     return(
             <div>
                 <Header></Header>
@@ -19,9 +24,13 @@ function Login(){
                     Login
                 </button>
                 <div> don't have an account? </div>
-                <button onClick="sayHello()">
+                <button onClick={() => {login()}}>
                     create account
                 </button>
+                <button onClick={() => {logout()}}>
+                    log out
+                </button>
+                <div>{currUser ? currentUserEmail() : "not signed in"}</div>
             </div>
         
     );
