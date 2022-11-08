@@ -2,25 +2,25 @@
 @tailwind components;
 @tailwind utilities;*/
 
-*{
-    margin: 0; 
-    padding: 0; 
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-  @font-face{
-    font-family:Imported ;
+@font-face {
+    font-family: Imported;
     src: url(../fonts/fancy_font.ttf);
-  }
+}
 
-  div{
+div {
     font-family: "Times New Roman", sans-serif;
-  }
+}
 
-  input[type="text"],
-  input[type="password"] {
+input[type="text"],
+input[type="password"] {
     border: 1px solid rgba(0, 0, 0, 0.2);
-    background-color: '#e7e7db';
+    background-color: "#e7e7db";
     color: black;
     border-style: solid;
     border-color: #9e0b0f;
@@ -29,13 +29,13 @@
     background-position: center;
     height: 5vh;
     width: 20vw;
-    background-color: #e7e7db; 
+    background-color: #e7e7db;
     justify-content: space-between;
     gap: 8px;
-    margin: 10px;
-  }
+    margin: 5px;
+}
 
-  button {
+button {
     font-family: Imported;
     height: 3vh;
     width: 5vw;
@@ -46,21 +46,21 @@
     /*border-color: #e7e7db;*/
     background-color: #9e0b0f;
     color: #e7e7db;
-  }
+}
 
-  br{
+br {
     padding: 10%;
-  }
+}
 
-  label{
+label {
     font-family: "Times New Roman", sans-serif;
-    text-align: center; 
+    text-align: center;
     font-size: 20px;
-    color:  #9e0b0f;
+    color: #9e0b0f;
     font-weight: bold;
-  }
+}
 
-  h1{
+h1 {
     font-family: Imported;
     font-size: 50px;
     /* border-style: solid; */
@@ -68,22 +68,22 @@
     gap: 5px;
     margin-top: -40px;
     margin-bottom: 10px;
-  }
+}
 
-  body {
+body {
     text-align: center;
     justify-content: center;
     align-items: center;
     background-image: url("../images/ddbackgroundtan.jpg");
     background-position: center;
-    height: '100vh';
-    width: '100vw';
-    background-size: 'cover';
-    background-repeat: 'no-repeat';
+    height: "100vh";
+    width: "100vw";
+    background-size: "cover";
+    background-repeat: "no-repeat";
     font-family: Imported;
-  }
+}
 
-  /* .input-container {
+/* .input-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
