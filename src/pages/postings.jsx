@@ -1,22 +1,53 @@
 import React from "react";
+import { Grid, Typography } from "@mui/material";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import PostingCards from "../components/postings-card";
-import ModalCreate from "../components/modal-create";
+import { db } from "../firebase/config";
+import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import { collection, query, where } from "firebase/firestore";
+import { createRandomPosts } from "../firebase/populate";
+import "../styles/index.css";
 
-function Postings(){
-    return(
-        <div>
-            <Header></Header>
-            <br></br>
-            <h1><center>Postings: Find Your Perfect Match</center></h1>
-            <label>Search: </label>
-            <input type="search" id="search" name="search"></input>
-            <ModalCreate></ModalCreate>
-            <PostingCards></PostingCards>
-            <Footer></Footer>
-        </div>
-    );
+function Postings() {
+  const postsRef = collection(db, "Posts");
+  const [postsSnapshot, postsLoading, postsError] = useCollectionOnce(
+    query(postsRef, where("isActive", "==", true))
+  );
+
+  return (
+    <div>
+      <Header />
+      <div class="page">
+        <Typography variant="h2" sx={{ my: 2 }}>
+          Postings
+        </Typography>
+        <Grid container spacing={2}>
+          {postsSnapshot && (
+            <>
+              {postsSnapshot.docs.map((doc) => {
+                return (
+                  <Grid item key={doc.data().date}>
+                    <PostingCards post={doc.data()} />
+                  </Grid>
+                );
+              })}
+            </>
+          )}
+        </Grid>
+
+        <button
+          onClick={() => {
+            createRandomPosts(1);
+          }}
+        >
+          add post
+        </button>
+      </div>
+
+      <Footer />
+    </div>
+  );
 }
 
 export default Postings;
