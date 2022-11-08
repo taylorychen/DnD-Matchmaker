@@ -8,15 +8,15 @@
     border-color: darkred;
 }
 
-.text {
+.stuff {
     width: 100vw;
-    height: 100vh;
+    height: 75vw;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     position: fixed;
-    color:darkred
+    color: darkred;
 }
 
 .modal-content {
@@ -36,14 +36,14 @@
 .close {
     position: absolute;
     top: 17px;
-    right:17px;
+    right: 17px;
     padding: 5px 7px;
     background-color: darkred;
-    color:#e7e7db;
+    color: #e7e7db;
 }
 
 .prettyButton {
     padding: 5px 7px;
     background-color: darkred;
-    color:#e7e7db;
+    color: #e7e7db;
 }

@@ -41,8 +41,8 @@ const ModalInfo = () => {
       </button>
 
       {modal && (
-        <div className="text">
-          <div onClick={toggleModal} className="text"></div>
+        <div className="stuff">
+          <div onClick={toggleModal} className="stuff"></div>
           <div className="modal-content">
             <h1>{groupName}</h1>
             <p className="info"> Location: {location}</p>
