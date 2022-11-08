@@ -5,7 +5,7 @@ import "./header.css"
 
 export default function Header() {
   return <nav className="nav">
-    <a href='#' className="welcome">Unhinged: D&D Matchmaker</a>
+    <a href='/' className="welcome">Unhinged: D&D Matchmaker</a>
     <ul>
       <li>
         <a className="posting" href="/Postings">Postings</a>
@@ -15,8 +15,6 @@ export default function Header() {
           <button className="dropdown-button">Profile</button>
           <div className="dropdown-items">
             <a href="/Profile">Home</a>
-            <a href="/Profile">My Postings</a>
-            <a href="/Profile">My Requests</a>
             <a href="/Profile">Sign Out</a>
           </div>
         </div>
