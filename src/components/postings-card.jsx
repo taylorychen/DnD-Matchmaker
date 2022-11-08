@@ -7,6 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "./posting-card.css";
+import ModalInfo from "./modal-info";
 import { deletePost, setActive, setInactive } from "../firebase/helpers";
 
 const PostingCards = ({ post }) => {
