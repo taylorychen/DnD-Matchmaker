@@ -24,3 +24,9 @@
   .span {
     margin: 0 10px;
   }
+  
+  .prettyButton {
+    padding: 5px 7px;
+    background-color: darkred;
+    color:#e7e7db;
+}

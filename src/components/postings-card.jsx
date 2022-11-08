@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./posting-card.css";
+import ModalInfo from "./modal-info";
 
 const PostingCards = () => {
   const [groupName, setGroupName] = useState("");
@@ -31,12 +32,12 @@ const PostingCards = () => {
         <p className="info">{NumberOfPlayers}</p>
         <p className="info">{AvailibleSpots}</p>
         <p>
-          <button>Join Request</button>
+          <button className="prettyButton">Join Request</button>
           <span className="span"></span>
-          <button>More Info</button>
+          <ModalInfo></ModalInfo>
         </p>
       </div>
-      <button onClick={() => displayCards()}>Next Page</button>
+      <button className="prettyButton" onClick={() => displayCards()}>Next Page</button>
     </div>
   );
 };
