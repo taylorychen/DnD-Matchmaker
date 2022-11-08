@@ -4,11 +4,16 @@ import "../components/login.css";
 import titlePNG from '../images/ddtitle.png'
 import background from "../images/ddbackgroundtan.jpg";
 import dice from "../images/DNDdiceRoll.gif";
+
+import { currentUserEmail, login, logout } from "../firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/config";
 //import { Row } from "react-bootstrap";
 
 
 function Login(){
 
+    const [currUser] = useAuthState(auth);
     /*document.body.style = 'background-image: linear-gradient(white, red);';*/
 
     return( 
@@ -68,8 +73,9 @@ function Login(){
                     
 
                             {/* login button */}
-                            <button onClick="sayHello()" style={{order: '5', height: '4vh', width: '6vw'}}>
+                            <button onClick={() => {login()}} style={{order: '5', height: '4vh', width: '6vw'}}>
                                 Login
+                        
                             </button>
 
                              <div style={{order: '6'}}> don't have an account? </div>
@@ -77,8 +83,17 @@ function Login(){
                               {/* create account */} 
                             <button onClick="sayHello()" style={{order: '7'}}>
                                 create account
-                            </button> 
+                    </button> 
                     
+                    <button
+        onClick={() => {
+          logout();
+        }}
+      >
+        log out
+      </button>
+                    
+      <div>{currUser ? currentUserEmail() : "not signed in"}</div>
                     </div>
 
                     <img src={dice} alt="loading..." style={{
