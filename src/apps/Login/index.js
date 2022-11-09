@@ -1,22 +1,21 @@
 import React from "react";
-import Header from "../components/header";
-import "../components/login.css";
-import titlePNG from "../images/ddtitle.png";
-import background from "../images/ddbackgroundtan.jpg";
-import dice from "../images/DNDdiceRoll.gif";
+import "./login.css";
+import titlePNG from "../../images/ddtitle.png";
+import background from "../../images/ddbackgroundtan.jpg";
+import dice from "../../images/DNDdiceRoll.gif";
 
-import { currentUserEmail, login, logout } from "../firebase/auth";
+import { currentUserEmail, login, logout } from "../../firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/config";
-//import { Row } from "react-bootstrap";
+import { auth } from "../../firebase/config";
+import Header from "../../components/header";
 
 function Login() {
     const [currUser] = useAuthState(auth);
     /*document.body.style = 'background-image: linear-gradient(white, red);';*/
 
     return (
-        <div>
-            <Header></Header>
+        <>
+            <Header />
             <body
                 style={{
                     display: "flex",
@@ -130,7 +129,7 @@ function Login() {
                         </div>
                     </div> */}
             </body>
-        </div>
+        </>
     );
 }
 

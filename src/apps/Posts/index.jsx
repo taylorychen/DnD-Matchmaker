@@ -25,12 +25,6 @@ function Posts() {
     return (
         <>
             <ModalCreate />
-
-            {/* <ModalCreate
-                open={openCreate}
-                handleOpen={handleOpenCreate}
-                handleClose={handleCloseCreate}
-            /> */}
             <Grid container spacing={2}>
                 {postsSnapshot && (
                     <>
