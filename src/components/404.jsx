@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "../components/header";
+import Header from "./header";
 
-function Error(){
-    return(
+function Error() {
+    return (
         <div>
             <Header></Header>
             <h1>Error</h1>
