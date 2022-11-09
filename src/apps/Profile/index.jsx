@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
 import "./profile.css";
 
 export default function Profile() {
@@ -68,8 +68,6 @@ export default function Profile() {
 
     return (
         <div>
-            <Header />
-            <h1>My Profile</h1>
             <div className="container">
                 <div className="sub-container">
                     <div className="filler"></div>
@@ -110,7 +108,6 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }
