@@ -206,7 +206,9 @@ export async function setInactive(postId, owner) {
  * @returns {boolean}
  */
 export async function isCurrentUserPostOwner(postID) {
-    return validPostOwner(postID, currentUserEmail());
+    return currentUserEmail()
+        ? validPostOwner(postID, currentUserEmail())
+        : false;
 }
 
 /**
@@ -231,7 +233,6 @@ export async function isCurrentUserRequestApproved(postID) {
         return null;
     }
     const approvedUsers = postSnap.data().approvedUsers;
-    console.log(approvedUsers);
 
     // see if approvedUsers contains the current user
     return approvedUsers.includes(user);
@@ -259,7 +260,6 @@ export async function isCurrentUserRequestPending(postID) {
         return null;
     }
     const pendingUsers = postSnap.data().pendingUsers;
-    console.log(pendingUsers);
 
     // see if pendingUsers contains the current user
     return pendingUsers.includes(user);
@@ -298,17 +298,17 @@ export async function leaveGroup(postID) {
     const postRef = doc(db, "/Posts" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists() || currentUserEmail() == null) {
-        return null;
+        return;
     }
 
     const userRef = doc(db, "/Users/" + currentUserEmail());
 
-    // remove user to post's pendingUsers
+    // remove user from post's pendingUsers
     updateDoc(postRef, {
         pendingUsers: arrayRemove(currentUserEmail()),
         approvedUsers: arrayRemove(currentUserEmail()),
     });
-    // remove post to user's pendingRequests
+    // remove post from user's pendingRequests
     updateDoc(userRef, {
         pendingRequests: arrayRemove(postID),
         approvedRequests: arrayRemove(postID),
@@ -322,7 +322,11 @@ export async function leaveGroup(postID) {
  * @param {string} userID
  * @param {boolean} answer
  */
-export async function answerRequestToJoinGroup(postID, userID, answer) {
+export async function approveOrDenyRequestToJoinGroup(
+    postID,
+    userID,
+    approveOrDeny
+) {
     // make sure current user is post owner
     if (!isCurrentUserPostOwner(postID)) {
         console.log(
@@ -344,22 +348,22 @@ export async function answerRequestToJoinGroup(postID, userID, answer) {
     // see if pendingUsers contains the current user
     if (pendingUsers.includes(userID)) {
         const userRef = doc(db, "/Users/" + userID);
-        // remove user to post's pendingUsers
+        // remove user from post's pendingUsers
         updateDoc(postRef, {
             pendingUsers: arrayRemove(userID),
         });
-        // remove post to user's pendingRequests
+        // remove post from user's pendingRequests
         updateDoc(userRef, {
             pendingRequests: arrayRemove(postID),
         });
-        if (answer) {
+        if (approveOrDeny) {
             // add user to post's approvedUsers
             updateDoc(postRef, {
                 approvedUsers: arrayUnion(userID),
             });
-            // remove post to user's pendingRequests
+            // add post to user's pendingRequests
             updateDoc(userRef, {
-                pendingRequests: arrayRemove(postID),
+                pendingRequests: arrayUnion(postID),
             });
         }
     }
