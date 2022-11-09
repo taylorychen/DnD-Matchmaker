@@ -9,11 +9,28 @@ export default function Profile() {
     // We don't even have usernames in for our users anyways
 
     // Relevant functions:
-    // currentUserEmail from auth
+    // currentUserEmail() from auth
     //  considering the changes I made in in PageProfile.jsx, we can gurantee that the user is signed in
     // getUser(email) from helpers (just add .name and .discordTag to get the data)
+    //  or just do getCurrentUserName() + getCurrentUserDiscord()
     // updateCurrentUserName(name)
     // updateCurrentUserDiscord(discord)
+
+    // If we're just gonna use React for this, update the components when the "update" button is pressed
+    // If you plan to switch to React-Firebase hooks, then you won't need to use the getters and setters.
+
+    // Functions for other parts
+    // getPost(postID)
+    // getCurrentUserActivePostings()
+    // getCurrentUserInactivePostings()
+    // getCurrentUserApprovedRequests()
+    // getCurrentUserPendingRequests()
+    // requestToJoinGroup(postID)
+    // leaveGroup(postID) (this can also be used to cancel join requests)
+    // answerRequestToJoinGroup(postID, userID, answer)
+
+    // Using React-Firebase hooks might be useful for displaying posts but I don't know how to use them the best
+
     const [name, setName] = useState("Your Name");
     const [username, setUsername] = useState("Your Username");
     const [email, setEmail] = useState("Your email");
