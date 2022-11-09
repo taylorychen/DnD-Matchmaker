@@ -266,12 +266,10 @@ export async function isCurrentUserRequestPending(postID) {
 }
 
 /**
- * for a post, see what the current user's status is
+ * add current user to post's pendingUsers and update user's pendingRequests
  * @param {string} postID
- * @returns {string} "approved", "pending", "no request", "what"
- *
+ * @returns
  */
-
 export async function requestToJoinGroup(postID) {
     // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
     if (currentUserEmail() == null) {
@@ -367,27 +365,61 @@ export async function answerRequestToJoinGroup(postID, userID, answer) {
     }
 }
 
-// /**
-//  * Returns the current user's name
-//  * if the data doesn't exist, returns "No User Data"
-//  * NOT FOR JSX PROBABLY
-//  * @returns {string}
-//  */
-// export async function getCurrentUserName() {
-//   const userData = await getUser(currentUserEmail());
-//   return userData ? userData.name : "No User Data";
-// }
+/**
+ * Returns the current user's name
+ * if the data doesn't exist, returns "No User Data"
+ * @returns {string}
+ */
+export async function getCurrentUserName() {
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.name : "No User Data";
+}
 
-// /**
-//  * Returns the current user's discord tag
-//  * if the data doesn't exist, returns "No User Data"
-//  * NOT FOR JSX PROBABLY
-//  * @returns {string}
-//  */
-// export async function getCurrentUserDiscord() {
-//   const userData = await getUser(currentUserEmail());
-//   return userData ? userData.discordTag : "No User Data";
-// }
+/**
+ * Returns the current user's discord tag
+ * if the data doesn't exist, returns "No User Data"
+ * @returns {string}
+ */
+export async function getCurrentUserDiscord() {
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.discordTag : "No User Data";
+}
+
+/**
+ * Returns array of the user's active post's IDs, or an empty array if something unexpected happens
+ * @returns {Array<string>}
+ */
+export async function getCurrentUserActivePostings() {
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.activePostings : [];
+}
+
+/**
+ * Returns array of the user's inactive post's IDs, or an empty array if something unexpected happens
+ * @returns {Array<string>}
+ */
+export async function getCurrentUserInactivePostings() {
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.inactivePostings : [];
+}
+
+/**
+ * Returns array of the user's approved requests post's IDs, or an empty array if something unexpected happens
+ * @returns {Array<string>}
+ */
+export async function getCurrentUserApprovedRequests() {
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.approvedRequests : [];
+}
+
+/**
+ * Returns array of the user's pending requests post's IDs, or an empty array if something unexpected happens
+ * @returns {Array<string>}
+ */
+export async function getCurrentUserPendingRequests() {
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.pendingRequests : [];
+}
 
 /**
  * updates the current user's name
