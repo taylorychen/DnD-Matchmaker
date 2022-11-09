@@ -1,65 +1,74 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import PostingCards from "../components/postings-card";
-import "./profile.css" 
+import "./profile.css";
 
-export default function Profile(){
-    const [name,setName]=useState('Your Name');
-    const [username,setUsername]=useState('Your Username');
-    const [email, setEmail]=useState('Your email');
-    const [discord, setDiscord]=useState('Your discord');
-    const [active, setActive] = useState('edit')
+export default function Profile() {
+    const [name, setName] = useState("Your Name");
+    const [username, setUsername] = useState("Your Username");
+    const [email, setEmail] = useState("Your email");
+    const [discord, setDiscord] = useState("Your discord");
+    const [active, setActive] = useState("edit");
 
     //Edit Section of the Profile
-    function Edit(){
-        return(
+    function Edit() {
+        return (
             <div className="edit">
                 <h3>EDIT PROFILE</h3>
                 <div className="edit-parent">
                     <div className="edit-item">
-                        <label><p>Name</p></label>
-                        <input type="text" name="name" placeholder={name}/>
+                        <label>
+                            <p>Name</p>
+                        </label>
+                        <input type="text" name="name" placeholder={name} />
                     </div>
                     <div className="edit-item">
                         <label>Username</label>
-                        <input type="text" name="username" placeholder={username}/>
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder={username}
+                        />
                     </div>
                     <div className="edit-item">
                         <label>Email</label>
-                        <input type="text" name="email" placeholder={email}/>
+                        <input type="text" name="email" placeholder={email} />
                     </div>
                     <div className="edit-item">
                         <label>Discord</label>
-                        <input type="text" name="discord" placeholder={discord}/>
+                        <input
+                            type="text"
+                            name="discord"
+                            placeholder={discord}
+                        />
                     </div>
                     <button>Update</button>
                 </div>
             </div>
-        )
+        );
     }
-    
+
     //User's postings section
-    function Postings(){
-        return(
+    function Postings() {
+        return (
             <div className="postings">
                 <h3>MY POSTINGS</h3>
             </div>
-        )
+        );
     }
-    
+
     //User's requests section
-    function Requests(){
-        return(
+    function Requests() {
+        return (
             <div className="requests">
                 <h3>MY REQUESTS</h3>
             </div>
-        )
+        );
     }
 
-    return(
+    return (
         <div>
-            <Header/>
+            <Header />
             <h1>My Profile</h1>
             <div className="container">
                 <div className="sub-container">
@@ -77,19 +86,31 @@ export default function Profile(){
                 <div className="sub-container">
                     <div className="section-toggle">
                         <ul className="toggle-options">
-                            <li><button onClick={()=> setActive("edit")}>Edit Profile</button></li>
-                            <li><button onClick={()=> setActive("postings")}>My Postings</button></li>
-                            <li><button onClick={()=> setActive("requests")}>My Requests</button></li>
+                            <li>
+                                <button onClick={() => setActive("edit")}>
+                                    Edit Profile
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={() => setActive("postings")}>
+                                    My Postings
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={() => setActive("requests")}>
+                                    My Requests
+                                </button>
+                            </li>
                         </ul>
                     </div>
                     <div className="section">
-                        {active === "edit" && <Edit/>}
-                        {active === "postings" && <Postings/>}
-                        {active === "requests" && <Requests/>}
+                        {active === "edit" && <Edit />}
+                        {active === "postings" && <Postings />}
+                        {active === "requests" && <Requests />}
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }
