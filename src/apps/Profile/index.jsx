@@ -4,6 +4,16 @@ import Footer from "../../components/footer";
 import "./profile.css";
 
 export default function Profile() {
+    // For whoever will be doing this: We will only be using Full Names and Discord Tags
+    // emails are set by our google auth and make the doc ID for the database so they can't be changed
+    // We don't even have usernames in for our users anyways
+
+    // Relevant functions:
+    // currentUserEmail from auth
+    //  considering the changes I made in in PageProfile.jsx, we can gurantee that the user is signed in
+    // getUser(email) from helpers (just add .name and .discordTag to get the data)
+    // updateCurrentUserName(name)
+    // updateCurrentUserDiscord(discord)
     const [name, setName] = useState("Your Name");
     const [username, setUsername] = useState("Your Username");
     const [email, setEmail] = useState("Your email");
