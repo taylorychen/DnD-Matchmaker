@@ -133,6 +133,11 @@ export async function deletePost(postId, owner) {
     return true;
 }
 
+//
+//
+//
+//
+
 /**
  * set post to active
  * @param {string} postId
@@ -211,6 +216,12 @@ export async function isCurrentUserPostOwner(postID) {
         : false;
 }
 
+//
+//
+//
+//
+//
+
 /**
  * returns T/F if the current user is part of the post's approvedUsers
  * returns null if no current user or nonexistant post
@@ -273,6 +284,7 @@ export async function isCurrentUserRequestPending(postID) {
 export async function requestToJoinGroup(postID) {
     // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
     if (currentUserEmail() == null) {
+        console.log("requestToJoinGroup: not signed in");
         return;
     }
     const userRef = doc(db, "/Users/" + currentUserEmail());
@@ -298,6 +310,7 @@ export async function leaveGroup(postID) {
     const postRef = doc(db, "/Posts" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists() || currentUserEmail() == null) {
+        console.log("leaveGroup: invalid post or not signed in");
         return;
     }
 
@@ -320,7 +333,7 @@ export async function leaveGroup(postID) {
  * answer: T/F -> approve/deny
  * @param {string} postID
  * @param {string} userID
- * @param {boolean} answer
+ * @param {boolean} approveOrDeny
  */
 export async function approveOrDenyRequestToJoinGroup(
     postID,
@@ -330,7 +343,7 @@ export async function approveOrDenyRequestToJoinGroup(
     // make sure current user is post owner
     if (!isCurrentUserPostOwner(postID)) {
         console.log(
-            "answerRequestToJoinGroup: Current user is not post owner (or some edge case came up)"
+            "approveOrDenyRequestToJoinGroup: Current user is not post owner (or some edge case came up)"
         );
         return false;
     }
@@ -341,6 +354,7 @@ export async function approveOrDenyRequestToJoinGroup(
     const postRef = doc(db, "/Posts" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
+        console.log("approveOrDenyRequestToJoinGroup: invalid post");
         return null;
     }
     const pendingUsers = postSnap.data().pendingUsers;
@@ -368,6 +382,11 @@ export async function approveOrDenyRequestToJoinGroup(
         }
     }
 }
+
+//
+//
+//
+//
 
 /**
  * Returns the current user's name
