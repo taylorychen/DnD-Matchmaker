@@ -1,8 +1,9 @@
 footer {
-  position: absolute;
+  /* position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 0; */
+  margin-top: auto;
   background: black;
   height: auto;
   width: 100vw;
@@ -18,34 +19,34 @@ footer {
   text-align: center;
 }
 
-h3 {
+.footer-content h3 {
   font-size: 2rem;
   font-weight: 500px;
 }
 
-p {
+.footer-content p {
   color: white;
   max-width: 70%;
   line-height: 30px;
   font-size: 1.25rem;
 }
 
-ul {
+.footer-content ul {
   display: flex;
   padding: 25px;
 }
 
-li {
+.footer-content ul li {
   display: block;
   font-size: 1.5rem;
 }
 
-a {
+.footer-content ul li a {
   color: white;
   text-decoration: none;
   padding: 30px;
 }
 
-a:hover {
-  color: red;
+.footer-content ul li a:hover {
+  color: #9e0b0f;
 }

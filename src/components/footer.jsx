@@ -15,16 +15,14 @@ function Footer() {
           Developed By: Taylor Chen | Connor Choi | Gayatri Puppala | Annie Tran
           | Angeline Xu
         </p>
-        <div className="footer-links">
-          <ul>
-            <li>
-              <a href="/Profile">Home</a>
-            </li>
-            <li>
-              <a href="/Postings">Postings</a>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li>
+            <a href="/Profile">Home</a>
+          </li>
+          <li>
+            <a href="/Postings">Postings</a>
+          </li>
+        </ul>
       </div>
     </footer>
   );
