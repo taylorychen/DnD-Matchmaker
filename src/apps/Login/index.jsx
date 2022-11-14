@@ -11,7 +11,7 @@ import Header from "../../components/header";
 
 function Login() {
     const [currUser] = useAuthState(auth);
-    /*document.body.style = 'background-image: linear-gradient(white, red);';*/
+    // can whoever is working on this remove the username/password boxes and just have the login/logout and maybe the current user?
 
     return (
         <>
