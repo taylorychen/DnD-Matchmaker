@@ -1,142 +1,142 @@
-h1{
-    text-align: center;
-    font-size: 4rem;
+.profile-container h1 {
+  text-align: center;
+  font-size: 4rem;
+  padding-top: 100px;
 }
-p{
-    margin: 0;
+.profile-container p {
+  margin: 0;
 }
-h3{
-    margin: 1.5rem;
-}
-
-.filler{
-    height: 12%;
-    border-radius: 15px 15px 0px 0px;
-    background-color: #9e0b0f;
+.profile-container h3 {
+  margin: 1.5rem;
 }
 
-.container{
-    display: flex;
-    margin: 3rem;
+.filler {
+  height: 12%;
+  border-radius: 15px 15px 0px 0px;
+  background-color: #9e0b0f;
 }
 
-.sub-container{
-    margin: 10px;
+.container {
+  display: flex;
+  margin: 3rem;
+}
+
+.sub-container {
+  margin: 10px;
 }
 
 /* info */
-.sub-container:first-child{
-    width: 30%;
-    min-height: 475px;
-    box-shadow: 0px 1px 5px 0.2px #9e0b0f;
-    border: 2px solid black;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 3rem;
+.sub-container:first-child {
+  width: 30%;
+  min-height: 475px;
+  box-shadow: 0px 1px 5px 0.2px #9e0b0f;
+  border: 2px solid black;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 3rem;
 }
 
-
-.info-tag{
-    padding-top: 5px;
-    font-size: 1.5rem;
+.info-tag {
+  padding-top: 5px;
+  font-size: 1.5rem;
 }
 
-.info{
-    font-size: 2rem;
+.info {
+  font-size: 2rem;
 }
 
 /* profile sections */
-.sub-container:nth-child(2){
-    display: block;
-    width: 70%;
+.sub-container:nth-child(2) {
+  display: block;
+  width: 70%;
 }
 
-.section-toggle{
-    width: 100%;
-    height: 20%;
+.section-toggle {
+  width: 100%;
+  height: 20%;
 }
 
-.toggle-options{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0;
+.toggle-options {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0;
 }
 
-.toggle-options li{
-    list-style: none;
-    height: 100%;
-    width: 100%;
-    border: 2px black solid;
-    border-radius: 15px 15px 0px 0px;
-    box-shadow: 0px 1px 5px 0.2px #9e0b0f;
-    text-align: center;
+.toggle-options li {
+  list-style: none;
+  height: 100%;
+  width: 100%;
+  border: 2px black solid;
+  border-radius: 15px 15px 0px 0px;
+  box-shadow: 0px 1px 5px 0.2px #9e0b0f;
+  text-align: center;
 }
 
-.toggle-options li button{
-    width: 100%;
-    height: 100%;
-    border-radius: 15px 15px 0px 0px;
-    text-decoration: none;
-    font-size: 2rem;
-    color: black;
-    background-color: white;
-    border: none;
+.toggle-options li button {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 15px 0px 0px;
+  text-decoration: none;
+  font-size: 2rem;
+  color: black;
+  background-color: white;
+  border: none;
 }
 
 .toggle-options button:hover,
-.toggle-options button.active{
-    color:#9e0b0f;
-    background-color: #e7e7db;
+.toggle-options button.active {
+  color: #9e0b0f;
+  background-color: #e7e7db;
 }
 
-.section{
-    border: 2px solid black;
-    border-radius: 0px 0px 15px 15px;
-    box-shadow: 0px 1px 5px 0.2px #9e0b0f;
-    width: 100%;
-    min-height: 380px;
+.section {
+  border: 2px solid black;
+  border-radius: 0px 0px 15px 15px;
+  box-shadow: 0px 1px 5px 0.2px #9e0b0f;
+  width: 100%;
+  min-height: 380px;
 }
 
 /* edit profile section */
-h3{
-    text-align: center;
+h3 {
+  text-align: center;
 }
 
-.edit-parent{
-    display: flex;
-    flex-wrap: wrap;
+.edit-parent {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.edit-item{
-    flex-basis: 50%;
-    width: 100%;
-    text-align: center;
-    padding: 1rem;
-    margin-bottom: 2rem;
+.edit-item {
+  flex-basis: 50%;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
 }
 
-label{
-    display: block;
-    margin-bottom: 10px;
+label {
+  display: block;
+  margin-bottom: 10px;
 }
 
-input{
-    text-align: center;
-    width: 100%;
-    height: 80%;
-    border-radius: 15px;
+input {
+  text-align: center;
+  width: 100%;
+  height: 80%;
+  border-radius: 15px;
 }
 
-.edit button{
-    width: 8rem;
-    height: 3rem;
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    background-color: #9e0b0f;
-    color: white;
+.edit button {
+  width: 8rem;
+  height: 3rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  background-color: #9e0b0f;
+  color: white;
 }
 
 /* My Postings section */

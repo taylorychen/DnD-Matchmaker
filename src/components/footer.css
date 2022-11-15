@@ -1,13 +1,9 @@
 footer {
-  /* position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0; */
   margin-top: auto;
   background: black;
   height: auto;
   width: 100vw;
-  padding: 25px;
+  padding: 30px;
   color: #9e0b0f;
 }
 
@@ -22,6 +18,7 @@ footer {
 .footer-content h3 {
   font-size: 2rem;
   font-weight: 500px;
+  margin: 1rem;
 }
 
 .footer-content p {
