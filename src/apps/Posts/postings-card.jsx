@@ -26,7 +26,7 @@ const PostingCards = ({ post }) => {
                     Location: {post.location}
                 </Typography>
                 <Typography variant="body1">
-                    Open Spots: {post.maxPlayers - post.currPlayers}
+                    Players: {post.currPlayers}/{post.maxPlayers}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {post.description}
