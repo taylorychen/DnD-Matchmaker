@@ -1,16 +1,48 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogTitle } from "@mui/material";
+import { Button, Dialog, DialogTitle, TextField, FormControl } from "@mui/material";
 import "./modal.css";
+import { createPost } from "../../firebase/helpers";
 
 // this modal component is for when users are trying to create a new post (database writing)
 const ModalCreate = () => {
+    const [gname, setGname] = useState("");
+    const [email, setEmail] = useState("");
+    const [location, setLocation] = useState("");
+    const [description, setDescription] = useState("");
+    const [number, setNumber] = useState(0); 
+
     const [open, setOpen] = useState(false);
+    
     const handleOpen = () => {
         setOpen(true);
     };
+    
     const handleClose = () => {
         setOpen(false);
+        setGname(""); //clear the state
+        setEmail("");
+        setLocation("");
+        setDescription("");
+        setNumber(0);
     };
+
+    const handleSubmit = () => {
+        if (gname === "" || email === "" || location === "" || description === "" || number === 0){
+            alert("you have to give inputs");
+        }
+        else{
+            setOpen(false);
+            createPost(email,gname,description,[],location, number);
+            alert("You have successfully created a post!");
+            setGname("");
+            setEmail("");
+            setLocation("");
+            setDescription("");
+            setNumber(0);
+        }
+    };
+
+
     return (
         <>
             <Button
@@ -20,58 +52,26 @@ const ModalCreate = () => {
             >
                 Create
             </Button>
-            <Dialog open={open} onClose={handleClose}>
+
+            <Dialog open={open}>
                 <div className="modal-content">
-                    <h2>New Post</h2>
-                    <label>Game Name: </label>
-                    <input type="text" name="gname" required />
-                    <label>Number of Players: </label>
-                    <input type="number" name="numOfPlayers" required />
-                    <label>Location: </label>
-                    <input type="text" name="location" required />
-                    <label>Description: </label>
-                    <textarea rows="5" cols="60" name="description"></textarea>
-                    <label>Tags: </label>
-                    <input
-                        type="checkbox"
-                        name="tag"
-                        value="fantasy"
-                        required
-                    />
-                    fantasy
-                    <input
-                        type="checkbox"
-                        name="tag"
-                        value="dragons"
-                        required
-                    />
-                    dragons
-                    <input
-                        type="checkbox"
-                        name="tag"
-                        value="roleplay"
-                        required
-                    />
-                    roleplay
-                    <input
-                        type="checkbox"
-                        name="tag"
-                        value="pathfinder"
-                        required
-                    />
-                    pathfinder
-                    <input type="checkbox" name="tag" value="eggs" required />
-                    eggs
-                    <input type="checkbox" name="tag" value="eggs" required />
-                    other
+                    <FormControl>
+                        <h2>trying</h2>
+                        <TextField required id="gname" label="Name the Game" variant="outlined" onChange={(e)=> {setGname(e.target.value); console.log(gname)}} />
+                        <span>  </span>
+                        <TextField required id="email" label="email" variant="outlined" onChange={(e)=> {setEmail(e.target.value); console.log(email)}} />
+                        <TextField required id="location" label="location" variant="outlined" onChange={(e)=> {setLocation(e.target.value); console.log(location)}} />
+                        <TextField required id="description" label="description" variant="outlined" onChange={(e)=> {setDescription(e.target.value); console.log(description)}} />
+                        <TextField required id="number" label="number" variant="outlined" onChange={(e)=> {setNumber(e.target.value); console.log(number)}} />
+                        <br></br>
+                        <br></br>
+                        <Button type="submit" variant="outlined" onClick={handleSubmit}>Submit</Button>
+                    </FormControl>
                     <br></br>
                     <br></br>
-                    <input type="submit" value="submit" />
-                    <br></br>
-                    <br></br>
-                    <button className="close" onclick={handleClose}>
-                        CLOSE
-                    </button>
+                    <Button onClick={handleClose}>
+                        close
+                    </Button>
                 </div>
             </Dialog>
         </>
