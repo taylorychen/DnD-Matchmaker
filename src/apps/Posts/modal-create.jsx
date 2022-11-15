@@ -5,6 +5,7 @@ import {
     DialogTitle,
     TextField,
     FormControl,
+    Checkbox,
 } from "@mui/material";
 import "./modal.css";
 import { createPost } from "../../firebase/helpers";
@@ -17,6 +18,7 @@ const ModalCreate = () => {
     const [location, setLocation] = useState("");
     const [description, setDescription] = useState("");
     const [number, setNumber] = useState(0);
+    const [tags, setTags] = useState([]);
 
     const [open, setOpen] = useState(false);
 
@@ -31,6 +33,7 @@ const ModalCreate = () => {
         setLocation("");
         setDescription("");
         setNumber(0);
+        setTags([]);
     };
 
     const handleSubmit = () => {
@@ -46,14 +49,34 @@ const ModalCreate = () => {
             alert("you have to use your own email!");
         } else {
             setOpen(false);
-            createPost(email, gname, description, [], location, number);
+            console.log("finalTags:", tags);
+            createPost(email, gname, description, tags, location, number);
             alert("You have successfully created a post!");
             setGname("");
             setEmail("");
             setLocation("");
             setDescription("");
             setNumber(0);
+            setTags([]);
         }
+    };
+
+    const handleTag = (theTag) => {
+        //find if the tag exists
+        const testing = tags.filter((word) => word === theTag);
+        console.log("testing", testing);
+        if (testing[0] === theTag) {
+            //if you found it
+            removeTag(theTag);
+        } else {
+            //if you did not find it
+            setTags(tags.concat(theTag));
+        }
+    };
+
+    const removeTag = (theTag) => {
+        const newArray = tags.filter((word) => word !== theTag);
+        setTags(newArray);
     };
 
     return (
@@ -119,6 +142,41 @@ const ModalCreate = () => {
                             onChange={(e) => {
                                 setNumber(e.target.value);
                                 console.log(number);
+                            }}
+                        />
+                        <div>dragons:</div>
+                        <Checkbox
+                            label="dragons"
+                            onChange={(e) => {
+                                handleTag("dragon");
+                            }}
+                        />
+                        <div>eggs:</div>
+                        <Checkbox
+                            label="eggs"
+                            onChange={(e) => {
+                                handleTag("eggs");
+                            }}
+                        />
+                        <div>edgelord:</div>
+                        <Checkbox
+                            label="edgelord"
+                            onChange={(e) => {
+                                handleTag("edgelord");
+                            }}
+                        />
+                        <div>roleplay:</div>
+                        <Checkbox
+                            label="roleplay"
+                            onChange={(e) => {
+                                handleTag("roleplay");
+                            }}
+                        />
+                        <div>wizards:</div>
+                        <Checkbox
+                            label="wizards"
+                            onChange={(e) => {
+                                handleTag("wizards");
                             }}
                         />
                         <br></br>

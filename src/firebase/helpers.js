@@ -78,7 +78,7 @@ export async function createPost(
     description,
     tags,
     location,
-    maxPlayers
+    maxPlayers,
 ) {
     const ownerRef = doc(db, "Users", email);
     const userSnap = await getDoc(ownerRef);
