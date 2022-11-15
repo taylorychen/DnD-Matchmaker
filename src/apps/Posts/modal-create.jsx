@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import {
     Button,
     Dialog,
-    DialogTitle,
     TextField,
     FormControl,
     Checkbox,
 } from "@mui/material";
 import "./modal.css";
 import { createPost } from "../../firebase/helpers";
-import { currentUserEmail, currentUser } from "../../firebase/auth";
+import { currentUserEmail } from "../../firebase/auth";
 
 // this modal component is for when users are trying to create a new post (database writing)
 const ModalCreate = () => {

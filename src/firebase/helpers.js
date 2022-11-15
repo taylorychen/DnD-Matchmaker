@@ -78,7 +78,7 @@ export async function createPost(
     description,
     tags,
     location,
-    maxPlayers,
+    maxPlayers
 ) {
     const ownerRef = doc(db, "Users", email);
     const userSnap = await getDoc(ownerRef);
@@ -112,11 +112,15 @@ export async function createPost(
 
 /**
  * Delete post with specified postId
- * @param {string} postId
- * @param {string} owner
+ * @param {string} postId (post's email)
+ * @param {string} owner (user's email)
  */
-export async function deletePost(postId, owner) {
-    if (!validPostOwner(postId, owner)) {
+export async function deletePost(postId, userEmail, owner) {
+    // if (!validPostOwner(userEmail, owner)) {
+    //     console.log("invalid post owner");
+    //     return false;
+    // }
+    if (userEmail != owner) {
         console.log("invalid post owner");
         return false;
     }
@@ -238,7 +242,7 @@ export async function isCurrentUserRequestApproved(postID) {
     // I think we can assume the user exists
 
     // get the post's data
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
         return null;
@@ -255,6 +259,7 @@ export async function isCurrentUserRequestApproved(postID) {
  * @param {string} postID
  * @returns {boolean | null}
  */
+
 export async function isCurrentUserRequestPending(postID) {
     const user = currentUserEmail();
     if (!user) {
@@ -265,7 +270,7 @@ export async function isCurrentUserRequestPending(postID) {
     // I think we can assume the user exists
 
     // get the post's data
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
         return null;
@@ -285,12 +290,16 @@ export async function requestToJoinGroup(postID) {
     // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
     if (currentUserEmail() == null) {
         console.log("requestToJoinGroup: not signed in");
-        return;
+        // return false;
     }
+    console.log("1");
+    console.log("2");
     const userRef = doc(db, "/Users/" + currentUserEmail());
 
     // add user to post's pendingUsers
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
+
+    console.log("3");
     updateDoc(postRef, {
         pendingUsers: arrayUnion(currentUserEmail()),
     });
@@ -299,6 +308,8 @@ export async function requestToJoinGroup(postID) {
     updateDoc(userRef, {
         pendingRequests: arrayUnion(postID),
     });
+    console.log("4");
+    // return true;
 }
 
 /**
@@ -473,5 +484,10 @@ export async function updateCurrentUserDiscord(discord) {
  */
 const validPostOwner = (postId, owner) => {
     if (owner.length >= postId.length) return false;
+    console.log(
+        "is the owner the same as the post?",
+        postId.substring(0, owner.length),
+        owner
+    );
     return postId.substring(0, owner.length) === owner;
 };
