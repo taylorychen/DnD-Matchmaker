@@ -1,0 +1,35 @@
+.button-modal {
+    padding: 10px 20px;
+    display: block;
+    margin: 100px auto 0;
+    font-size: 18px;
+    background-color: #e7e7db;
+    color: darkred;
+    border-color: darkred;
+}
+
+.modal-content {
+    line-height: 1.4;
+    background-color: #e7e7db;
+    padding: 14px 28px;
+    border-radius: 3px;
+    border-color: darkred;
+    max-width: 600px;
+    min-width: 300px;
+}
+
+.close {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    padding: 5px 7px;
+    background-color: darkred;
+    color: #e7e7db;
+}
+
+.prettyButton {
+    padding: 5px 7px;
+    background-color: darkred;
+    color: #e7e7db;
+    min-width: 100px;
+}
