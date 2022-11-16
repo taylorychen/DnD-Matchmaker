@@ -318,7 +318,7 @@ export async function requestToJoinGroup(postID) {
  * @param {string} postID
  */
 export async function leaveGroup(postID) {
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists() || currentUserEmail() == null) {
         console.log("leaveGroup: invalid post or not signed in");
@@ -362,7 +362,7 @@ export async function approveOrDenyRequestToJoinGroup(
     // make sure user is on pending list
 
     // get the post's data
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
         console.log("approveOrDenyRequestToJoinGroup: invalid post");
