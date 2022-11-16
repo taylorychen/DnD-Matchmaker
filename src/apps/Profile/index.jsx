@@ -4,6 +4,7 @@ import {
   getCurrentUserDiscord,
   updateCurrentUserDiscord,
   updateCurrentUserName,
+  getCurrentUserActivePostings,
 } from "../../firebase/helpers";
 import "./profile.css";
 import { currentUserEmail } from "../../firebase/auth";
@@ -24,52 +25,94 @@ export default function Profile() {
     }
   });
 
-  //Edit Section of the Profile
+  //Edit section
   function Edit() {
+    const [tempDiscord, setTempDiscord] = useState("Your discord");
+    const [tempName, setTempName] = useState(name);
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      updateCurrentUserName(tempName);
+      updateCurrentUserDiscord(tempDiscord);
+      getCurrentUserName().then((response) => {
+        setName(response);
+      });
+      getCurrentUserDiscord().then((response) => {
+        if (response === null) {
+          setDiscord("Your discord");
+        } else {
+          setDiscord(response);
+        }
+      });
+      console.log("Name: " + name);
+      console.log("Discord: " + tempDiscord);
+    };
     return (
       <div className="edit">
         <h3>EDIT PROFILE</h3>
-        <form id="update">
+        <form id="update" onSubmit={handleSubmit}>
           <div className="edit-parent">
             <div className="edit-item">
               <label>
                 <p>Name</p>
               </label>
-              <input type="text" name="name" placeholder={name} />
+              <input
+                type="text"
+                name="name"
+                placeholder={name}
+                onChange={(e) => setTempName(e.target.value)}
+              />
             </div>
             <div className="edit-item">
               <label>Discord</label>
-              <input type="text" name="discord" placeholder={discord} />
+              <input
+                type="text"
+                name="discord"
+                placeholder={discord}
+                onChange={(e) => setTempDiscord(e.target.value)}
+              />
             </div>
-            <button
-              form="update"
-              onClick={() => {
-                updateCurrentUserDiscord(discord);
-                updateCurrentUserName(name);
-              }}
-            >
-              Update
-            </button>
+
+            <button type="submit">Update</button>
           </div>
         </form>
       </div>
     );
   }
-
   //User's postings section
   function Postings() {
+    let arrayPostings = [];
+    getCurrentUserActivePostings().then((response) => {
+      arrayPostings = response;
+    });
+    console.log(arrayPostings);
+
+    const testArray = [{}, {}, {}, {}, {}];
     return (
       <div className="postings">
         <h3>MY POSTINGS</h3>
+        <div className="posts">
+          {/* {testArray.map((test) => {
+            return <div className="test">test card</div>;
+          })} */}
+        </div>
       </div>
     );
   }
 
-  //User's requests section
-  function Requests() {
+  //User's pending requests section
+  function PendingRequests() {
     return (
-      <div className="requests">
-        <h3>MY REQUESTS</h3>
+      <div className="pendingRequests">
+        <h3>PENDING</h3>
+      </div>
+    );
+  }
+
+  //User's pending requests section
+  function ApprovedRequests() {
+    return (
+      <div className="approvedRequests">
+        <h3>APPROVED</h3>
       </div>
     );
   }
@@ -82,8 +125,6 @@ export default function Profile() {
           <div className="filler"></div>
           <h3>{name}</h3>
           <div className="profile-info">
-            {/* <p className="info-tag">Username:</p>
-            <p className="info">{username}</p> */}
             <p className="info-tag">Email:</p>
             <p className="info">{currentUserEmail()}</p>
             <p className="info-tag">Discord:</p>
@@ -102,8 +143,13 @@ export default function Profile() {
                 </button>
               </li>
               <li>
-                <button onClick={() => setActive("requests")}>
-                  My Requests
+                <button onClick={() => setActive("pendingRequests")}>
+                  Pending
+                </button>
+              </li>
+              <li>
+                <button onClick={() => setActive("approvedRequests")}>
+                  Approved
                 </button>
               </li>
             </ul>
@@ -111,7 +157,8 @@ export default function Profile() {
           <div className="section">
             {active === "edit" && <Edit />}
             {active === "postings" && <Postings />}
-            {active === "requests" && <Requests />}
+            {active === "pendingRequests" && <PendingRequests />}
+            {active === "approvedRequests" && <ApprovedRequests />}
           </div>
         </div>
       </div>
