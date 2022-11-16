@@ -14,8 +14,8 @@
     padding: 14px 28px;
     border-radius: 3px;
     border-color: darkred;
-    width: 600px;
-    min-width: 300px;
+    /* width: 700px;
+    min-width: 300px; */
 }
 
 .close {

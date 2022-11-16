@@ -24,6 +24,7 @@ const PostingCards = ({ post }) => {
     );
     const [isRequested, setisRequested] = useState(false);
     const [isApproved, setisApproved] = useState(false);
+    const [isActive, setisActive] = useState(post.isActive);
 
     const handleRequest = (idkanymorebruh) => {
         if (post.owner == currentUserEmail()) {
@@ -64,7 +65,6 @@ const PostingCards = ({ post }) => {
     const handleDelete = () => {
         deletePost(
             `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`,
-            currentUserEmail(),
             post.owner
         );
         alert(
@@ -74,8 +74,32 @@ const PostingCards = ({ post }) => {
         );
     };
 
+    const handleActivation = (theBool) => {
+        if (theBool) {
+            //if it is true meaning IT IS active, deactivate it
+            console.log("1", post.isActive, "state:", isActive);
+            setisActive(false);
+            setInactive(
+                `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`,
+                post.owner
+            );
+            console.log("after function:", post.isActive);
+            alert("your post has been deactivated");
+        } else {
+            //if it is FALSE meaning it is NOT active, activate it
+            console.log("2x", post.isActive, "state", isActive);
+            setisActive(true);
+            setActive(
+                `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`,
+                post.owner
+            );
+            console.log("after function:", post.isActive);
+            alert("your post has been activated!");
+        }
+    };
+
     const displayCorrectButtons = () => {
-        if (post.owner == currentUserEmail()) {
+        if (post.owner == currentUserEmail() && post.isActive == true) {
             //if it is your own post
             return (
                 <>
@@ -91,29 +115,38 @@ const PostingCards = ({ post }) => {
                     </Button>
                     <Button
                         onClick={() => {
-                            setActive(
-                                `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`,
-                                post.owner
-                            );
-                        }}
-                        size="small"
-                        variant="outlined"
-                        color="success"
-                    >
-                        Activate
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            setInactive(
-                                `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`,
-                                post.owner
-                            );
+                            handleActivation(isActive);
                         }}
                         size="small"
                         variant="outlined"
                         color="error"
                     >
                         Deactivate
+                    </Button>
+                </>
+            );
+        } else if (post.owner == currentUserEmail() && post.isActive == false) {
+            return (
+                <>
+                    <Button
+                        onClick={() => {
+                            handleDelete();
+                        }}
+                        size="small"
+                        variant="outlined"
+                        color="error"
+                    >
+                        Delete
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            handleActivation(isActive);
+                        }}
+                        size="small"
+                        variant="outlined"
+                        color="success"
+                    >
+                        Activate
                     </Button>
                 </>
             );

@@ -115,12 +115,8 @@ export async function createPost(
  * @param {string} postId (post's email)
  * @param {string} owner (user's email)
  */
-export async function deletePost(postId, userEmail, owner) {
-    // if (!validPostOwner(userEmail, owner)) {
-    //     console.log("invalid post owner");
-    //     return false;
-    // }
-    if (userEmail != owner) {
+export async function deletePost(postId, owner) {
+    if (!validPostOwner(postId, owner)) {
         console.log("invalid post owner");
         return false;
     }
@@ -137,11 +133,6 @@ export async function deletePost(postId, userEmail, owner) {
     return true;
 }
 
-//
-//
-//
-//
-
 /**
  * set post to active
  * @param {string} postId
@@ -153,12 +144,11 @@ export async function setActive(postId, owner) {
         return false;
     }
 
-    // get refs to documents
-    const ownerRef = doc(db, "Users", owner);
-    const postRef = doc(db, "Posts", postId);
+    const ownerRef = doc(db, "/Users/" + owner);
+    const postRef = doc(db, "/Posts/" + postId);
 
     updateDoc(postRef, {
-        active: true,
+        isActive: true,
     })
         // add to active postings
         .then(() => {
@@ -188,10 +178,10 @@ export async function setInactive(postId, owner) {
     }
 
     // get refs to documents
-    const ownerRef = doc(db, "Users", owner);
-    const postRef = doc(db, "Posts", postId);
+    const ownerRef = doc(db, "/Users/" + owner);
+    const postRef = doc(db, "/Posts/" + postId);
     updateDoc(postRef, {
-        active: false,
+        isActive: false,
     })
         // add to inactive postings
         .then(() => {
@@ -219,12 +209,6 @@ export async function isCurrentUserPostOwner(postID) {
         ? validPostOwner(postID, currentUserEmail())
         : false;
 }
-
-//
-//
-//
-//
-//
 
 /**
  * returns T/F if the current user is part of the post's approvedUsers
@@ -460,7 +444,7 @@ export async function getCurrentUserPendingRequests() {
  * @param {string} name
  */
 export async function updateCurrentUserName(name) {
-    const userRef = doc(db, "/Users" + currentUserEmail());
+    const userRef = doc(db, "/Users/" + currentUserEmail());
     updateDoc(userRef, {
         name: name,
     });
@@ -471,7 +455,7 @@ export async function updateCurrentUserName(name) {
  * @param {string} discord
  */
 export async function updateCurrentUserDiscord(discord) {
-    const userRef = doc(db, "/Users" + currentUserEmail());
+    const userRef = doc(db, "/Users/" + currentUserEmail());
     updateDoc(userRef, {
         discordTag: discord,
     });
