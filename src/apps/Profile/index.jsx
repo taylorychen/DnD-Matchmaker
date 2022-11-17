@@ -90,10 +90,10 @@ export default function Profile() {
     return (
       <div className="postings">
         <h3>MY POSTINGS</h3>
-        <div className="posts">
-          {/* {testArray.map((test) => {
+        <div className="post-grid">
+          {testArray.map((test) => {
             return <div className="test">test card</div>;
-          })} */}
+          })}
         </div>
       </div>
     );

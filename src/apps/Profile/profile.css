@@ -99,7 +99,8 @@
   border-radius: 0px 0px 15px 15px;
   box-shadow: 0px 1px 5px 0.2px #9e0b0f;
   width: 100%;
-  min-height: 380px;
+  height: 450px;
+  overflow: scroll;
 }
 
 /* edit profile section */
@@ -142,8 +143,12 @@ input {
 }
 
 /* My Postings section */
+.post-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
 .test {
   border: 1px solid black;
-  width: 400px;
-  height: 400px;
+  width: 33%;
+  height: 30vh;
 }
