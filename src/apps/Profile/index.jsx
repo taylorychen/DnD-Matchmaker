@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import "./profile.css";
+import styles from "./profile.css";
 
 export default function Profile() {
     // For whoever will be doing this: We will only be using Full Names and Discord Tags
@@ -47,24 +47,32 @@ export default function Profile() {
                         <label>
                             <p>Name</p>
                         </label>
-                        <input type="text" name="name" placeholder={name} />
+                        <input
+                            class="text-input"
+                            name="name"
+                            placeholder={name}
+                        />
                     </div>
                     <div className="edit-item">
                         <label>Username</label>
                         <input
-                            type="text"
+                            class="text-input"
                             name="username"
                             placeholder={username}
                         />
                     </div>
                     <div className="edit-item">
                         <label>Email</label>
-                        <input type="text" name="email" placeholder={email} />
+                        <input
+                            class="text-input"
+                            name="email"
+                            placeholder={email}
+                        />
                     </div>
                     <div className="edit-item">
                         <label>Discord</label>
                         <input
-                            type="text"
+                            class="text-input"
                             name="discord"
                             placeholder={discord}
                         />

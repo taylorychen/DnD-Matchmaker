@@ -1,5 +1,5 @@
 import React from "react";
-import "./header.css";
+import styles from "./header.css";
 
 //TODO: if the user is not sign in then have the profile dropdown menu be a signin button instead
 

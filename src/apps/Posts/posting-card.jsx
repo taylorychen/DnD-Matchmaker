@@ -6,11 +6,11 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import "./posting-card.css";
+import styles from "./posting-card.css";
 import ModalInfo from "./modal-info";
 import { deletePost, setActive, setInactive } from "../../firebase/helpers";
 
-const PostingCards = ({ post }) => {
+const PostingCard = ({ post }) => {
     return (
         <Card variant="outlined" sx={{ maxWidth: 345 }}>
             <CardContent>
@@ -80,4 +80,4 @@ const PostingCards = ({ post }) => {
     );
 };
 
-export default PostingCards;
+export default PostingCard;

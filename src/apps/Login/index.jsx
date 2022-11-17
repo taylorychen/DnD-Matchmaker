@@ -1,5 +1,5 @@
 import React from "react";
-import "./login.css";
+import styles from "./login.css";
 import titlePNG from "../../images/ddtitle.png";
 import background from "../../images/ddbackgroundtan.jpg";
 import dice from "../../images/DNDdiceRoll.gif";
@@ -26,8 +26,6 @@ function Login() {
                     backgroundRepeat: "no-repeat",
                 }}
             >
-                {/* <h1>Welcome to UNHINGED: A Dungeons and Dragon's Matchmaker</h1> */}
-
                 {/* the box container */}
                 <div
                     style={{
@@ -65,7 +63,7 @@ function Login() {
                     <div className="input-container" style={{ order: "3" }}>
                         <label>Username </label>
 
-                        <input type="text" name="uname" required />
+                        <input class="text-input" name="uname" required />
                     </div>
 
                     {/* password */}

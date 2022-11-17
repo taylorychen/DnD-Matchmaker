@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Dialog, DialogTitle } from "@mui/material";
-import "./modal.css";
+import styles from "./modal.css";
 
 // this modal component is for when users are trying to create a new post (database writing)
 const ModalCreate = () => {
