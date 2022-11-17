@@ -1,16 +1,86 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogTitle } from "@mui/material";
+import {
+    Button,
+    Dialog,
+    TextField,
+    FormControl,
+    Checkbox,
+    Grid,
+    FormControlLabel,
+} from "@mui/material";
 import "./modal.css";
+import { createPost } from "../../firebase/helpers";
+import { currentUserEmail } from "../../firebase/auth";
 
 // this modal component is for when users are trying to create a new post (database writing)
 const ModalCreate = () => {
+    const [gname, setGname] = useState("");
+    const [location, setLocation] = useState("");
+    const [description, setDescription] = useState("");
+    const [number, setNumber] = useState(0);
+    const [tags, setTags] = useState([]);
+
     const [open, setOpen] = useState(false);
+
     const handleOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
+        setGname(""); //clear the state
+        setLocation("");
+        setDescription("");
+        setNumber(0);
+        setTags([]);
     };
+
+    const handleSubmit = () => {
+        if (
+            gname === "" ||
+            location === "" ||
+            description === "" ||
+            number === 0
+        ) {
+            alert("you have to give inputs or have more than 0 players");
+        } else {
+            setOpen(false);
+            console.log("finalTags:", tags);
+            createPost(
+                currentUserEmail(),
+                gname,
+                description,
+                tags,
+                location,
+                number
+            );
+            alert("You have successfully created a post!");
+            setGname("");
+            setLocation("");
+            setDescription("");
+            setNumber(0);
+            setTags([]);
+        }
+    };
+
+    const handleTag = (theTag) => {
+        //find if the tag exists
+        const testing = tags.filter((word) => word === theTag);
+        console.log("testing", testing);
+        if (testing[0] === theTag) {
+            //if you found it
+            removeTag(theTag);
+        } else {
+            //if you did not find it
+            setTags(tags.concat(theTag));
+        }
+    };
+
+    const removeTag = (theTag) => {
+        const newArray = tags.filter((word) => word !== theTag);
+        setTags(newArray);
+    };
+
     return (
         <>
             <Button
@@ -20,58 +90,168 @@ const ModalCreate = () => {
             >
                 Create
             </Button>
-            <Dialog open={open} onClose={handleClose}>
+
+            <Dialog open={open} sx={{ Width: 700 }}>
                 <div className="modal-content">
-                    <h2>New Post</h2>
-                    <label>Game Name: </label>
-                    <input type="text" name="gname" required />
-                    <label>Number of Players: </label>
-                    <input type="number" name="numOfPlayers" required />
-                    <label>Location: </label>
-                    <input type="text" name="location" required />
-                    <label>Description: </label>
-                    <textarea rows="5" cols="60" name="description"></textarea>
-                    <label>Tags: </label>
-                    <input
-                        type="checkbox"
-                        name="tag"
-                        value="fantasy"
-                        required
-                    />
-                    fantasy
-                    <input
-                        type="checkbox"
-                        name="tag"
-                        value="dragons"
-                        required
-                    />
-                    dragons
-                    <input
-                        type="checkbox"
-                        name="tag"
-                        value="roleplay"
-                        required
-                    />
-                    roleplay
-                    <input
-                        type="checkbox"
-                        name="tag"
-                        value="pathfinder"
-                        required
-                    />
-                    pathfinder
-                    <input type="checkbox" name="tag" value="eggs" required />
-                    eggs
-                    <input type="checkbox" name="tag" value="eggs" required />
-                    other
+                    <FormControl>
+                        <h2>Create A New Game Post</h2>
+                        <br></br>
+                        <br></br>
+                        <Grid container spacing={2}>
+                            <TextField
+                                required
+                                id="gname"
+                                label="Name the Game"
+                                variant="outlined"
+                                onChange={(e) => {
+                                    setGname(e.target.value);
+                                    console.log(gname);
+                                }}
+                            />
+                            <TextField
+                                required
+                                id="location"
+                                label="location"
+                                variant="outlined"
+                                onChange={(e) => {
+                                    setLocation(e.target.value);
+                                    console.log(location);
+                                }}
+                            />
+                            <TextField
+                                required
+                                id="description"
+                                label="description"
+                                variant="outlined"
+                                onChange={(e) => {
+                                    setDescription(e.target.value);
+                                    console.log(description);
+                                }}
+                            />
+                            <TextField
+                                required
+                                id="number"
+                                label="number"
+                                variant="outlined"
+                                onChange={(e) => {
+                                    setNumber(e.target.value);
+                                    console.log(number);
+                                }}
+                            />
+                        </Grid>
+
+                        <Grid continer spacing={2}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="StrictRules"
+                                        onChange={(e) => {
+                                            handleTag("Strict Rules");
+                                        }}
+                                    />
+                                }
+                                label="Strict Rules"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="LooseRules"
+                                        onChange={(e) => {
+                                            handleTag("Loose Rules");
+                                        }}
+                                    />
+                                }
+                                label="Loose Rules"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="LowLevel"
+                                        onChange={(e) => {
+                                            handleTag("Low Level (1-4)");
+                                        }}
+                                    />
+                                }
+                                label="Low Level (1-4)"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="MidLevel"
+                                        onChange={(e) => {
+                                            handleTag("Mid Level (5-10)");
+                                        }}
+                                    />
+                                }
+                                label="Mid Level (5-10)"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="HighLevel"
+                                        onChange={(e) => {
+                                            handleTag("High Level(10-14)");
+                                        }}
+                                    />
+                                }
+                                label="High Level(10-14)"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="VeryHighLevel"
+                                        onChange={(e) => {
+                                            handleTag("Very High Level(14-20)");
+                                        }}
+                                    />
+                                }
+                                label="Very High Level(14-20)"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="Virtual"
+                                        onChange={(e) => {
+                                            handleTag("Virtual");
+                                        }}
+                                    />
+                                }
+                                label="Virtual"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="Homebrew"
+                                        onChange={(e) => {
+                                            handleTag("Homebrew");
+                                        }}
+                                    />
+                                }
+                                label="Homebrew"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="Pre-written"
+                                        onChange={(e) => {
+                                            handleTag("Pre-written");
+                                        }}
+                                    />
+                                }
+                                label="Pre-written"
+                            />
+                        </Grid>
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            onClick={handleSubmit}
+                        >
+                            Submit
+                        </Button>
+                    </FormControl>
                     <br></br>
                     <br></br>
-                    <input type="submit" value="submit" />
-                    <br></br>
-                    <br></br>
-                    <button className="close" onclick={handleClose}>
-                        CLOSE
-                    </button>
+                    <Button onClick={handleClose}>close</Button>
                 </div>
             </Dialog>
         </>
