@@ -87,7 +87,7 @@
 }
 
 .toggle-options button:hover,
-.toggle-options button.active {
+.toggle-options button:active {
     color: #9e0b0f;
     background-color: #e7e7db;
 }

@@ -15,9 +15,7 @@ export default function Header() {
 
     return (
         <nav className="nav">
-            <a href="/" className="welcome">
-                Unhinged: D&D Matchmaker
-            </a>
+            <a className="welcome">Unhinged: D&D Matchmaker</a>
             <ul>
                 <li>
                     <a className="posting" href="/Postings">

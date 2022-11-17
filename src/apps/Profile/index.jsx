@@ -107,7 +107,7 @@ export default function Profile() {
                                     <button
                                         onClick={() => setActive("postings")}
                                     >
-                                        My Postings
+                                        My Posts
                                     </button>
                                 </li>
                                 <li>
