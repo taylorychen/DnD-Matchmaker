@@ -6,8 +6,12 @@ import { auth } from "../firebase/config";
 import { currentUserEmail, login, logout } from "../firebase/auth";
 //TODO: if the user is not sign in then have the profile dropdown menu be a signin button instead
 
+import { useNavigate } from "react-router-dom";
+
 export default function Header() {
     const [login] = useAuthState(auth);
+
+    const navigate = useNavigate();
 
     return (
         <nav className="nav">
@@ -21,15 +25,43 @@ export default function Header() {
                     </a>
                 </li>
                 <li>
-                    <div className="dropdown">
-                        <button className="dropdown-button">Profile</button>
-                        <div className="dropdown-items">
-                            <a href="/Profile">Home</a>
-                            <a href="/Profile">Sign Out</a>
-                        </div>
-                    </div>
+                    <a className="profile" href="/Profile">
+                        Profile
+                    </a>
+                </li>
+                <li>
+                    <button
+                        className="dropdown-button"
+                        onClick={() => {
+                            navigate("/");
+                            logout();
+
+                            //navigateHome();
+
+                            //navigate("/Profile");
+                        }}
+                    >
+                        Sign Out
+                    </button>
+                    {/* {login ? (
+                        navigate("/")
+                    ) : (
+                        <h2>
+                            Not seeing anything? You might not be logged in.
+                        </h2>
+                    )} */}
+                    {/* <div className="dropdown-items">
+                        <a href="/Profile">Home</a>
+                        <a href="/Profile">Sign Out</a>
+                    </div> */}
                 </li>
             </ul>
+
+            {/* {user ? (
+                    <Profile />
+            ) : (
+                    <h2>Not seeing anything? You might not be logged in.</h2>
+            )} */}
         </nav>
     );
 }

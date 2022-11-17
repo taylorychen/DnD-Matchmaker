@@ -20,7 +20,7 @@ function Login() {
 
     return (
         <>
-            <Header />
+            {/* //<Header /> */}
             <body
                 style={{
                     display: "flex",
@@ -108,7 +108,7 @@ function Login() {
                             position: "absolute",
                             height: "15%",
                             width: "10%",
-                            bottom: "100px",
+                            bottom: "200px",
                             //right: "300px",
                         }}
                     />
@@ -121,8 +121,8 @@ function Login() {
                             transform: "scaleX(-1)",
                             height: "15%",
                             width: "10%",
-                            bottom: "100px",
-                            right: "430px",
+                            bottom: "200px",
+                            right: "460px",
                         }}
                     />
 
