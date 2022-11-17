@@ -3,15 +3,20 @@ import "./login.css";
 import titlePNG from "../../images/ddtitle.png";
 import background from "../../images/ddbackgroundtan.jpg";
 import dice from "../../images/DNDdiceRoll.gif";
+import dragon from "../../images/dragon.gif";
 
 import { currentUserEmail, login, logout } from "../../firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/config";
 import Header from "../../components/header";
 
+import { useNavigate } from "react-router-dom";
+
 function Login() {
     const [currUser] = useAuthState(auth);
     // can whoever is working on this remove the username/password boxes and just have the login/logout and maybe the current user?
+
+    const navigate = useNavigate();
 
     return (
         <>
@@ -51,59 +56,92 @@ function Login() {
                         style={{
                             position: "center",
                             alignSelf: "center",
-                            //borderStyle: 'solid',
-                            order: "1",
-                            height: "20vh",
-                            width: "25vw",
+                            //borderStyle: "solid",
+
+                            height: "22vh",
+                            width: "27vw",
+                            // margin: "-14px",
                             // margin: '1rem 0'
                         }}
                     />
 
                     <h1>Matchmaker</h1>
+                    <br></br>
+                    <h2>Form Your Dream Team</h2>
 
                     {/* username*/}
-                    <div className="input-container" style={{ order: "3" }}>
+                    {/* <div className="input-container" style={{ order: "3" }}>
                         <label>Username </label>
 
                         <input type="text" name="uname" required />
-                    </div>
+                    </div> */}
 
                     {/* password */}
-                    <div className="input-container" style={{ order: "4" }}>
+                    {/* <div className="input-container" style={{ order: "4" }}>
                         <label>Password </label>
 
                         <input type="password" name="pass" required />
-                    </div>
+                    </div> */}
 
                     {/* login button */}
                     <button
                         onClick={() => {
-                            login();
+                            if (login()) {
+                                navigate("/Profile");
+                            }
+                            //navigateHome();
+
+                            //navigate("/Profile");
                         }}
-                        style={{ order: "5", height: "4vh", width: "6vw" }}
+                        style={{
+                            height: "10vh",
+                            width: "15vw",
+                        }}
                     >
                         Login
                     </button>
 
-                    <div style={{ order: "6" }}> don't have an account? </div>
+                    <img
+                        src={dragon}
+                        alt="loading..."
+                        style={{
+                            position: "absolute",
+                            height: "15%",
+                            width: "10%",
+                            bottom: "100px",
+                            //right: "300px",
+                        }}
+                    />
+
+                    <img
+                        src={dragon}
+                        alt="loading..."
+                        style={{
+                            position: "absolute",
+                            transform: "scaleX(-1)",
+                            height: "15%",
+                            width: "10%",
+                            bottom: "100px",
+                            right: "430px",
+                        }}
+                    />
+
+                    {/* <div style={{ order: "6" }}> don't have an account? </div> */}
 
                     {/* create account */}
-                    <button onClick="sayHello()" style={{ order: "7" }}>
+                    {/* <button onClick="sayHello()" style={{ order: "7" }}>
                         create account
-                    </button>
+                    </button> */}
 
-                    <button
+                    {/* <button
                         onClick={() => {
                             logout();
                         }}
-                        style={{ order: "8" }}
                     >
                         log out
-                    </button>
+                    </button> */}
 
-                    <div style={{ order: "9" }}>
-                        {currUser ? currentUserEmail() : "not signed in"}
-                    </div>
+                    {/* <div>{currUser ? currentUserEmail() : "not signed in"}</div> */}
                 </div>
 
                 <img

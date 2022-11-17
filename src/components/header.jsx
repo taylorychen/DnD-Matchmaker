@@ -1,9 +1,14 @@
 import React from "react";
 import "./header.css";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/config";
+import { currentUserEmail, login, logout } from "../firebase/auth";
 //TODO: if the user is not sign in then have the profile dropdown menu be a signin button instead
 
 export default function Header() {
+    const [login] = useAuthState(auth);
+
     return (
         <nav className="nav">
             <a href="/" className="welcome">
