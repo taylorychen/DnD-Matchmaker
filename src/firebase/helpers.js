@@ -112,8 +112,8 @@ export async function createPost(
 
 /**
  * Delete post with specified postId
- * @param {string} postId
- * @param {string} owner
+ * @param {string} postId (post's email)
+ * @param {string} owner (user's email)
  */
 export async function deletePost(postId, owner) {
   if (!validPostOwner(postId, owner)) {
@@ -133,39 +133,28 @@ export async function deletePost(postId, owner) {
   return true;
 }
 
-//
-//
-//
-//
-
 /**
  * set post to active
  * @param {string} postId
  * @param {string} owner
  */
 export async function setActive(postId, owner) {
-  if (!validPostOwner(postId, owner)) {
-    console.log("invalid post owner");
-    return false;
-  }
+    if (!validPostOwner(postId, owner)) {
+        console.log("invalid post owner");
+        return false;
+    }
 
-  // get refs to documents
-  const ownerRef = doc(db, "Users", owner);
-  const postRef = doc(db, "Posts", postId);
+    const ownerRef = doc(db, "/Users/" + owner);
+    const postRef = doc(db, "/Posts/" + postId);
 
-  updateDoc(postRef, {
-    active: true,
-  })
-    // add to active postings
+    updateDoc(postRef, {
+        isActive: true,
+    })
+    // add to active postings and delete inactive ones
     .then(() => {
       updateDoc(ownerRef, {
         activePostings: arrayUnion(postId),
-      });
-    })
-    // remove from inactive postings
-    .then(() => {
-      updateDoc(ownerRef, {
-        inactivePostings: arrayRemove(postId),
+        inactivePostings: arrayRemove(postId)
       });
     });
   console.log(`set post ${postId} to ACTIVE`);
@@ -178,27 +167,22 @@ export async function setActive(postId, owner) {
  * @param {string} owner
  */
 export async function setInactive(postId, owner) {
-  if (!validPostOwner(postId, owner)) {
-    console.log("invalid post owner");
-    return false;
-  }
+    if (!validPostOwner(postId, owner)) {
+        console.log("invalid post owner");
+        return false;
+    }
 
-  // get refs to documents
-  const ownerRef = doc(db, "Users", owner);
-  const postRef = doc(db, "Posts", postId);
-  updateDoc(postRef, {
-    active: false,
-  })
-    // add to inactive postings
-    .then(() => {
-      updateDoc(ownerRef, {
-        inactivePostings: arrayUnion(postId),
-      });
+    // get refs to documents
+    const ownerRef = doc(db, "/Users/" + owner);
+    const postRef = doc(db, "/Posts/" + postId);
+    updateDoc(postRef, {
+        isActive: false,
     })
-    // remove from active postings
+    // remove from active postings and add to inactive postings
     .then(() => {
       updateDoc(ownerRef, {
         activePostings: arrayRemove(postId),
+        inactivePostings: arrayUnion(postId)
       });
     });
   console.log(`set post ${postId} to INACTIVE`);
@@ -216,12 +200,6 @@ export async function isCurrentUserPostOwner(postID) {
     : false;
 }
 
-//
-//
-//
-//
-//
-
 /**
  * returns T/F if the current user is part of the post's approvedUsers
  * returns null if no current user or nonexistant post
@@ -237,13 +215,13 @@ export async function isCurrentUserRequestApproved(postID) {
 
   // I think we can assume the user exists
 
-  // get the post's data
-  const postRef = doc(db, "/Posts" + postID);
-  const postSnap = await getDoc(postRef);
-  if (!postSnap.exists()) {
-    return null;
-  }
-  const approvedUsers = postSnap.data().approvedUsers;
+    // get the post's data
+    const postRef = doc(db, "/Posts/" + postID);
+    const postSnap = await getDoc(postRef);
+    if (!postSnap.exists()) {
+        return null;
+    }
+    const approvedUsers = postSnap.data().approvedUsers;
 
   // see if approvedUsers contains the current user
   return approvedUsers.includes(user);
@@ -255,6 +233,7 @@ export async function isCurrentUserRequestApproved(postID) {
  * @param {string} postID
  * @returns {boolean | null}
  */
+
 export async function isCurrentUserRequestPending(postID) {
   const user = currentUserEmail();
   if (!user) {
@@ -264,13 +243,13 @@ export async function isCurrentUserRequestPending(postID) {
 
   // I think we can assume the user exists
 
-  // get the post's data
-  const postRef = doc(db, "/Posts" + postID);
-  const postSnap = await getDoc(postRef);
-  if (!postSnap.exists()) {
-    return null;
-  }
-  const pendingUsers = postSnap.data().pendingUsers;
+    // get the post's data
+    const postRef = doc(db, "/Posts/" + postID);
+    const postSnap = await getDoc(postRef);
+    if (!postSnap.exists()) {
+        return null;
+    }
+    const pendingUsers = postSnap.data().pendingUsers;
 
   // see if pendingUsers contains the current user
   return pendingUsers.includes(user);
@@ -282,23 +261,29 @@ export async function isCurrentUserRequestPending(postID) {
  * @returns
  */
 export async function requestToJoinGroup(postID) {
-  // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
-  if (currentUserEmail() == null) {
-    console.log("requestToJoinGroup: not signed in");
-    return;
-  }
-  const userRef = doc(db, "/Users/" + currentUserEmail());
+    // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
+    if (currentUserEmail() == null) {
+        console.log("requestToJoinGroup: not signed in");
+        // return false;
+    }
+    console.log("1");
+    console.log("2");
+    const userRef = doc(db, "/Users/" + currentUserEmail());
 
-  // add user to post's pendingUsers
-  const postRef = doc(db, "/Posts" + postID);
-  updateDoc(postRef, {
-    pendingUsers: arrayUnion(currentUserEmail()),
-  });
+    // add user to post's pendingUsers
+    const postRef = doc(db, "/Posts/" + postID);
 
-  // add post to user's pendingRequests
-  updateDoc(userRef, {
-    pendingRequests: arrayUnion(postID),
-  });
+    console.log("3");
+    updateDoc(postRef, {
+        pendingUsers: arrayUnion(currentUserEmail()),
+    });
+
+    // add post to user's pendingRequests
+    updateDoc(userRef, {
+        pendingRequests: arrayUnion(postID),
+    });
+    console.log("4");
+    // return true;
 }
 
 /**
@@ -307,25 +292,25 @@ export async function requestToJoinGroup(postID) {
  * @param {string} postID
  */
 export async function leaveGroup(postID) {
-  const postRef = doc(db, "/Posts" + postID);
-  const postSnap = await getDoc(postRef);
-  if (!postSnap.exists() || currentUserEmail() == null) {
-    console.log("leaveGroup: invalid post or not signed in");
-    return;
-  }
+    const postRef = doc(db, "/Posts/" + postID);
+    const postSnap = await getDoc(postRef);
+    if (!postSnap.exists() || currentUserEmail() == null) {
+        console.log("leaveGroup: invalid post or not signed in");
+        return;
+    }
 
-  const userRef = doc(db, "/Users/" + currentUserEmail());
+    const userRef = doc(db, "/Users/" + currentUserEmail());
 
-  // remove user from post's pendingUsers
-  updateDoc(postRef, {
-    pendingUsers: arrayRemove(currentUserEmail()),
-    approvedUsers: arrayRemove(currentUserEmail()),
-  });
-  // remove post from user's pendingRequests
-  updateDoc(userRef, {
-    pendingRequests: arrayRemove(postID),
-    approvedRequests: arrayRemove(postID),
-  });
+    // remove user from post's pendingUsers
+    updateDoc(postRef, {
+        pendingUsers: arrayRemove(currentUserEmail()),
+        approvedUsers: arrayRemove(currentUserEmail()),
+    });
+    // remove post from user's pendingRequests
+    updateDoc(userRef, {
+        pendingRequests: arrayRemove(postID),
+        approvedRequests: arrayRemove(postID),
+    });
 }
 
 /**
@@ -349,36 +334,36 @@ export async function approveOrDenyRequestToJoinGroup(
   }
 
   // make sure user is on pending list
+    // get the post's data
+    const postRef = doc(db, "/Posts/" + postID);
+    const postSnap = await getDoc(postRef);
+    if (!postSnap.exists()) {
+        console.log("approveOrDenyRequestToJoinGroup: invalid post");
+        return null;
+    }
+    const pendingUsers = postSnap.data().pendingUsers;
 
-  // get the post's data
-  const postRef = doc(db, "/Posts" + postID);
-  const postSnap = await getDoc(postRef);
-  if (!postSnap.exists()) {
-    console.log("approveOrDenyRequestToJoinGroup: invalid post");
-    return null;
-  }
-  const pendingUsers = postSnap.data().pendingUsers;
-
-  // see if pendingUsers contains the current user
-  if (pendingUsers.includes(userID)) {
-    const userRef = doc(db, "/Users/" + userID);
-    // remove user from post's pendingUsers
-    updateDoc(postRef, {
-      pendingUsers: arrayRemove(userID),
-    });
-    // remove post from user's pendingRequests
-    updateDoc(userRef, {
-      pendingRequests: arrayRemove(postID),
-    });
-    if (approveOrDeny) {
-      // add user to post's approvedUsers
-      updateDoc(postRef, {
-        approvedUsers: arrayUnion(userID),
-      });
-      // add post to user's pendingRequests
-      updateDoc(userRef, {
-        pendingRequests: arrayUnion(postID),
-      });
+    // see if pendingUsers contains the current user
+    if (pendingUsers.includes(userID)) {
+        const userRef = doc(db, "/Users/" + userID);
+        // remove user from post's pendingUsers
+        updateDoc(postRef, {
+            pendingUsers: arrayRemove(userID),
+        });
+        // remove post from user's pendingRequests
+        updateDoc(userRef, {
+            pendingRequests: arrayRemove(postID),
+        });
+        if (approveOrDeny) {
+            // add user to post's approvedUsers
+            updateDoc(postRef, {
+                approvedUsers: arrayUnion(userID),
+            });
+            // add post to user's pendingRequests
+            updateDoc(userRef, {
+                pendingRequests: arrayUnion(postID),
+            });
+        }
     }
   }
 }
@@ -449,10 +434,10 @@ export async function getCurrentUserPendingRequests() {
  * @param {string} name
  */
 export async function updateCurrentUserName(name) {
-  const userRef = doc(db, "/Users/" + currentUserEmail());
-  updateDoc(userRef, {
-    name: name,
-  });
+    const userRef = doc(db, "/Users/" + currentUserEmail());
+    updateDoc(userRef, {
+        name: name,
+    });
 }
 
 /**
@@ -460,10 +445,10 @@ export async function updateCurrentUserName(name) {
  * @param {string} discord
  */
 export async function updateCurrentUserDiscord(discord) {
-  const userRef = doc(db, "/Users/" + currentUserEmail());
-  updateDoc(userRef, {
-    discordTag: discord,
-  });
+    const userRef = doc(db, "/Users/" + currentUserEmail());
+    updateDoc(userRef, {
+        discordTag: discord,
+    });
 }
 
 /**

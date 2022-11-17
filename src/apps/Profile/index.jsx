@@ -10,20 +10,20 @@ import "./profile.css";
 import { currentUserEmail } from "../../firebase/auth";
 
 export default function Profile() {
-  const [name, setName] = useState("Your Name");
-  const [discord, setDiscord] = useState("Your discord");
-  const [active, setActive] = useState("edit");
+    const [name, setName] = useState("Your Name");
+    const [discord, setDiscord] = useState("Your discord");
+    const [active, setActive] = useState("edit");
 
-  getCurrentUserName().then((response) => {
-    setName(response);
-  });
-  getCurrentUserDiscord().then((response) => {
-    if (response === null) {
-      setDiscord("Your discord");
-    } else {
-      setDiscord(response);
-    }
-  });
+    getCurrentUserName().then((response) => {
+        setName(response);
+    });
+    getCurrentUserDiscord().then((response) => {
+        if (response === null) {
+            setDiscord("Your discord");
+        } else {
+            setDiscord(response);
+        }
+    });
 
   //Edit section
   function Edit() {
