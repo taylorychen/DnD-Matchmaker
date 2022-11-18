@@ -17,9 +17,10 @@ function PagePostings() {
       <div className="page-container">
         <Header />
         <div class="page">
-          <Typography variant="h2" sx={{ my: 2 }}>
+          {/* <Typography variant="h2" sx={{ my: 2 }}>
             Posts
-          </Typography>
+          </Typography> */}
+          <h1>Posts</h1>
           <Posts />
         </div>
         <Footer />

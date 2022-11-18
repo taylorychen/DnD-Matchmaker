@@ -76,7 +76,12 @@ export async function createPost(
     email,
     title,
     description,
-    tags,
+    strictRules,
+    looseRules,
+    oneShot,
+    campaign,
+    homebrew,
+    preWritten,
     location,
     maxPlayers
 ) {
@@ -92,7 +97,12 @@ export async function createPost(
         owner: email,
         title: title,
         description: description,
-        tags: tags,
+        t_strictRules: strictRules,
+        t_looseRules: looseRules,
+        t_oneShot: oneShot,
+        t_campaign: campaign,
+        t_homebrew: homebrew,
+        t_preWritten: preWritten,
         date: now,
         location: location,
         maxPlayers: maxPlayers,
@@ -330,7 +340,7 @@ export async function approveOrDenyRequestToJoinGroup(
         console.log(
             "approveOrDenyRequestToJoinGroup: Current user is not post owner (or some edge case came up)"
         );
-        return false;
+        return;
     }
 
     // make sure user is on pending list
@@ -339,7 +349,7 @@ export async function approveOrDenyRequestToJoinGroup(
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
         console.log("approveOrDenyRequestToJoinGroup: invalid post");
-        return null;
+        return;
     }
     const pendingUsers = postSnap.data().pendingUsers;
 
@@ -350,18 +360,20 @@ export async function approveOrDenyRequestToJoinGroup(
         updateDoc(postRef, {
             pendingUsers: arrayRemove(userID),
         });
+        console.log("!!!");
         // remove post from user's pendingRequests
         updateDoc(userRef, {
             pendingRequests: arrayRemove(postID),
         });
         if (approveOrDeny) {
+            console.log("AHH");
             // add user to post's approvedUsers
             updateDoc(postRef, {
                 approvedUsers: arrayUnion(userID),
             });
             // add post to user's pendingRequests
             updateDoc(userRef, {
-                pendingRequests: arrayUnion(postID),
+                approvedRequests: arrayUnion(postID),
             });
         }
     }
