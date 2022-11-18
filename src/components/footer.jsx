@@ -17,7 +17,7 @@ function Footer() {
         </p>
         <ul>
           <li>
-            <a href="/Profile">Home</a>
+            <a href="/Profile">Profile</a>
           </li>
           <li>
             <a href="/Postings">Postings</a>
