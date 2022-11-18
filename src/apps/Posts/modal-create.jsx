@@ -108,134 +108,133 @@ const ModalCreate = () => {
             </Button>
 
             <Dialog open={open} sx={{ Width: 700 }}>
-                <div className="modal-content">
-                    <FormControl>
-                        <h2>Create A New Game Post</h2>
-                        <br></br>
-                        <br></br>
-                        <Grid container spacing={2}>
-                            <TextField
-                                required
-                                id="gname"
-                                label="Name the Game"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setGname(e.target.value);
-                                    console.log(gname);
-                                }}
-                            />
-                            <TextField
-                                required
-                                id="location"
-                                label="location"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setLocation(e.target.value);
-                                    console.log(location);
-                                }}
-                            />
-                            <TextField
-                                required
-                                id="description"
-                                label="description"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setDescription(e.target.value);
-                                    console.log(description);
-                                }}
-                            />
-                            <TextField
-                                required
-                                id="number"
-                                label="number"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setNumber(e.target.value);
-                                    console.log(number);
-                                }}
-                            />
-                        </Grid>
-
-                        <Grid continer spacing={2}>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="StrictRules"
-                                        onChange={(e) => {
-                                            handleTag("sRules");
-                                        }}
-                                    />
-                                }
-                                label="Strict Rules"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="LooseRules"
-                                        onChange={(e) => {
-                                            handleTag("lRules");
-                                        }}
-                                    />
-                                }
-                                label="Loose Rules"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="Homebrew"
-                                        onChange={(e) => {
-                                            handleTag("homebrew");
-                                        }}
-                                    />
-                                }
-                                label="Homebrew"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="Pre-written"
-                                        onChange={(e) => {
-                                            handleTag("prewritten");
-                                        }}
-                                    />
-                                }
-                                label="Pre-written"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="Campaign"
-                                        onChange={(e) => {
-                                            handleTag("campaign");
-                                        }}
-                                    />
-                                }
-                                label="Campaign"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="OneShot"
-                                        onChange={(e) => {
-                                            handleTag("oneShot");
-                                        }}
-                                    />
-                                }
-                                label="One Shot"
-                            />
-                        </Grid>
-                        <Button
-                            type="submit"
+                <div className="modal-content"></div>
+                <FormControl>
+                    <h2>Create A New Game Post</h2>
+                    <br></br>
+                    <br></br>
+                    <Grid container spacing={2}>
+                        <TextField
+                            required
+                            id="gname"
+                            label="Name the Game"
                             variant="outlined"
-                            onClick={handleSubmit}
-                        >
-                            Submit
-                        </Button>
-                    </FormControl>
-                    <br></br>
-                    <br></br>
-                    <Button onClick={handleClose}>close</Button>
-                </div>
+                            onChange={(e) => {
+                                setGname(e.target.value);
+                                console.log(gname);
+                            }}
+                        />
+                        <TextField
+                            required
+                            id="location"
+                            label="location"
+                            variant="outlined"
+                            onChange={(e) => {
+                                setLocation(e.target.value);
+                                console.log(location);
+                            }}
+                        />
+                        <TextField
+                            required
+                            id="description"
+                            label="description"
+                            variant="outlined"
+                            onChange={(e) => {
+                                setDescription(e.target.value);
+                                console.log(description);
+                            }}
+                        />
+                        <TextField
+                            required
+                            id="number"
+                            label="number"
+                            variant="outlined"
+                            onChange={(e) => {
+                                setNumber(e.target.value);
+                                console.log(number);
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid continer spacing={2}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    label="StrictRules"
+                                    onChange={(e) => {
+                                        handleTag("sRules");
+                                    }}
+                                />
+                            }
+                            label="Strict Rules"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    label="LooseRules"
+                                    onChange={(e) => {
+                                        handleTag("lRules");
+                                    }}
+                                />
+                            }
+                            label="Loose Rules"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    label="Homebrew"
+                                    onChange={(e) => {
+                                        handleTag("homebrew");
+                                    }}
+                                />
+                            }
+                            label="Homebrew"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    label="Pre-written"
+                                    onChange={(e) => {
+                                        handleTag("prewritten");
+                                    }}
+                                />
+                            }
+                            label="Pre-written"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    label="Campaign"
+                                    onChange={(e) => {
+                                        handleTag("campaign");
+                                    }}
+                                />
+                            }
+                            label="Campaign"
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    label="OneShot"
+                                    onChange={(e) => {
+                                        handleTag("oneShot");
+                                    }}
+                                />
+                            }
+                            label="One Shot"
+                        />
+                    </Grid>
+                    <Button
+                        type="submit"
+                        variant="outlined"
+                        onClick={handleSubmit}
+                    >
+                        Submit
+                    </Button>
+                </FormControl>
+                <br></br>
+                <br></br>
+                <Button onClick={handleClose}>close</Button>
             </Dialog>
         </>
     );

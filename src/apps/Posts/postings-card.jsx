@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "./posting-card.css";
 import ModalRequests from "../Profile/modal-requests";
+import ModalApproved from "../Profile/modal-approved";
 import {
     deletePost,
     setActive,
@@ -129,6 +130,7 @@ const PostingCards = ({ post }) => {
                         Deactivate
                     </Button>
                     <ModalRequests thePost={post}></ModalRequests>
+                    <ModalApproved thePost={post}></ModalApproved>
                 </>
             );
         } else if (
@@ -158,6 +160,7 @@ const PostingCards = ({ post }) => {
                         Activate
                     </Button>
                     <ModalRequests></ModalRequests>
+                    {/* <ModalApproved></ModalApproved> */}
                 </>
             );
         } else {
@@ -169,6 +172,7 @@ const PostingCards = ({ post }) => {
                     <Button
                         size="small"
                         variant="outlined"
+                        color="error"
                         onClick={() => {
                             handleRequest(postID);
                         }}
@@ -188,6 +192,7 @@ const PostingCards = ({ post }) => {
                     <Button
                         size="small"
                         variant="outlined"
+                        color="error"
                         onClick={() => {
                             handleRequest(postID);
                         }}
@@ -200,7 +205,7 @@ const PostingCards = ({ post }) => {
     };
 
     return (
-        <Card variant="outlined" sx={{ width: 345, height: 200, boxShadow: 5}}>
+        <Card variant="outlined" sx={{ width: 345, height: 200, boxShadow: 5 }}>
             <CardContent>
                 <Typography
                     gutterBottom
