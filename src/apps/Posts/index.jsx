@@ -7,6 +7,19 @@ import PostingCards from "./postings-card";
 import { db } from "../../firebase/config";
 import { createRandomPosts } from "../../firebase/populate";
 import "../../styles/index.css";
+import { Switch } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+const light = {
+    palette: {
+        mode: "light",
+    },
+};
+
+const dark = {
+    palette: {
+        mode: "dark",
+    },
+};
 
 function Posts() {
     const postsRef = collection(db, "Posts");
@@ -22,30 +35,50 @@ function Posts() {
         setOpenCreate(false);
     };
 
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    // This function is triggered when the Switch component is toggled
+
+    const changeTheme = () => {
+        if (isDarkMode) {
+            setIsDarkMode(false);
+        } else {
+            setIsDarkMode(true);
+        }
+    };
+
     return (
         <>
-            <ModalCreate />
-            <Grid container spacing={2}>
-                {postsSnapshot && (
-                    <>
-                        {postsSnapshot.docs.map((doc) => {
-                            return (
-                                <Grid item key={doc.data().date}>
-                                    <PostingCards post={doc.data()} />
-                                </Grid>
-                            );
-                        })}
-                    </>
-                )}
-            </Grid>
-
-            <button
-                onClick={() => {
-                    createRandomPosts(1);
-                }}
+            <ThemeProvider
+                theme={isDarkMode ? createTheme(dark) : createTheme(light)}
             >
-                add post
-            </button>
+                <Switch checked={isDarkMode} onChange={changeTheme}>
+                    Dark Mode
+                </Switch>
+                <br></br>
+                <ModalCreate />
+
+                <Grid container spacing={2}>
+                    {postsSnapshot && (
+                        <>
+                            {postsSnapshot.docs.map((doc) => {
+                                return (
+                                    <Grid item key={doc.data().date}>
+                                        <PostingCards post={doc.data()} />
+                                    </Grid>
+                                );
+                            })}
+                        </>
+                    )}
+                </Grid>
+
+                <button
+                    onClick={() => {
+                        createRandomPosts(1);
+                    }}
+                >
+                    add post
+                </button>
+            </ThemeProvider>
         </>
     );
 }

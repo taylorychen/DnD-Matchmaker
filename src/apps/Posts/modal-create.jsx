@@ -50,7 +50,12 @@ const ModalCreate = () => {
                 currentUserEmail(),
                 gname,
                 description,
-                tags,
+                sRules,
+                lRules,
+                oneShot,
+                campaign,
+                homebrew,
+                prewritten,
                 location,
                 number
             );
@@ -63,22 +68,33 @@ const ModalCreate = () => {
         }
     };
 
-    const handleTag = (theTag) => {
-        //find if the tag exists
-        const testing = tags.filter((word) => word === theTag);
-        console.log("testing", testing);
-        if (testing[0] === theTag) {
-            //if you found it
-            removeTag(theTag);
-        } else {
-            //if you did not find it
-            setTags(tags.concat(theTag));
-        }
-    };
+    const [sRules, setSRules] = useState(false);
+    const [lRules, setLRules] = useState(false);
+    const [oneShot, setOneShot] = useState(false);
+    const [campaign, setCampaign] = useState(false);
+    const [homebrew, setHomebrew] = useState(false);
+    const [prewritten, setPrewritten] = useState(false);
 
-    const removeTag = (theTag) => {
-        const newArray = tags.filter((word) => word !== theTag);
-        setTags(newArray);
+    const handleTag = (theTag) => {
+        if (theTag == "sRules") {
+            setSRules(!sRules);
+            console.log("sRules:", sRules);
+        } else if (theTag == "lRules") {
+            setLRules(!lRules);
+            console.log("lRules:", lRules);
+        } else if (theTag == "oneShot") {
+            setOneShot(!oneShot);
+            console.log("oneshot:", oneShot);
+        } else if (theTag == "campaign") {
+            setCampaign(!campaign);
+            console.log("campaign:", campaign);
+        } else if (theTag == "homebrew") {
+            setHomebrew(!homebrew);
+            console.log("hombrew:", homebrew);
+        } else {
+            setPrewritten(!prewritten);
+            console.log("prewritten:", prewritten);
+        }
     };
 
     return (
@@ -146,7 +162,7 @@ const ModalCreate = () => {
                                     <Checkbox
                                         label="StrictRules"
                                         onChange={(e) => {
-                                            handleTag("Strict Rules");
+                                            handleTag("sRules");
                                         }}
                                     />
                                 }
@@ -157,7 +173,7 @@ const ModalCreate = () => {
                                     <Checkbox
                                         label="LooseRules"
                                         onChange={(e) => {
-                                            handleTag("Loose Rules");
+                                            handleTag("lRules");
                                         }}
                                     />
                                 }
@@ -166,64 +182,9 @@ const ModalCreate = () => {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        label="LowLevel"
-                                        onChange={(e) => {
-                                            handleTag("Low Level (1-4)");
-                                        }}
-                                    />
-                                }
-                                label="Low Level (1-4)"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="MidLevel"
-                                        onChange={(e) => {
-                                            handleTag("Mid Level (5-10)");
-                                        }}
-                                    />
-                                }
-                                label="Mid Level (5-10)"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="HighLevel"
-                                        onChange={(e) => {
-                                            handleTag("High Level(10-14)");
-                                        }}
-                                    />
-                                }
-                                label="High Level(10-14)"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="VeryHighLevel"
-                                        onChange={(e) => {
-                                            handleTag("Very High Level(14-20)");
-                                        }}
-                                    />
-                                }
-                                label="Very High Level(14-20)"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        label="Virtual"
-                                        onChange={(e) => {
-                                            handleTag("Virtual");
-                                        }}
-                                    />
-                                }
-                                label="Virtual"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
                                         label="Homebrew"
                                         onChange={(e) => {
-                                            handleTag("Homebrew");
+                                            handleTag("homebrew");
                                         }}
                                     />
                                 }
@@ -234,11 +195,33 @@ const ModalCreate = () => {
                                     <Checkbox
                                         label="Pre-written"
                                         onChange={(e) => {
-                                            handleTag("Pre-written");
+                                            handleTag("prewritten");
                                         }}
                                     />
                                 }
                                 label="Pre-written"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="Campaign"
+                                        onChange={(e) => {
+                                            handleTag("campaign");
+                                        }}
+                                    />
+                                }
+                                label="Campaign"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        label="OneShot"
+                                        onChange={(e) => {
+                                            handleTag("oneShot");
+                                        }}
+                                    />
+                                }
+                                label="One Shot"
                             />
                         </Grid>
                         <Button
