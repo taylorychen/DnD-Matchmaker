@@ -335,12 +335,16 @@ export async function approveOrDenyRequestToJoinGroup(
     userID,
     approveOrDeny
 ) {
+    console.log("1");
+    console.log("postID", postID);
+    console.log("userID", userID);
+    
     // make sure current user is post owner
     if (!isCurrentUserPostOwner(postID)) {
         console.log(
             "approveOrDenyRequestToJoinGroup: Current user is not post owner (or some edge case came up)"
         );
-        return false;
+        return;
     }
 
     // make sure user is on pending list
@@ -349,7 +353,7 @@ export async function approveOrDenyRequestToJoinGroup(
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
         console.log("approveOrDenyRequestToJoinGroup: invalid post");
-        return null;
+        return;
     }
     const pendingUsers = postSnap.data().pendingUsers;
 
@@ -360,21 +364,24 @@ export async function approveOrDenyRequestToJoinGroup(
         updateDoc(postRef, {
             pendingUsers: arrayRemove(userID),
         });
+        console.log("!!!");
         // remove post from user's pendingRequests
         updateDoc(userRef, {
             pendingRequests: arrayRemove(postID),
         });
         if (approveOrDeny) {
+            console.log("AHH");
             // add user to post's approvedUsers
             updateDoc(postRef, {
                 approvedUsers: arrayUnion(userID),
             });
             // add post to user's pendingRequests
             updateDoc(userRef, {
-                pendingRequests: arrayUnion(postID),
+                approvedRequests: arrayUnion(postID),
             });
         }
     }
+    console.log("2");
 }
 
 //

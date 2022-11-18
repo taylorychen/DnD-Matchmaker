@@ -1,13 +1,12 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "./posting-card.css";
-import ModalInfo from "./modal-info";
+import ModalRequests from "../Profile/modal-requests";
 import {
     deletePost,
     setActive,
@@ -15,6 +14,7 @@ import {
     requestToJoinGroup,
     isCurrentUserRequestPending,
     isCurrentUserRequestApproved,
+    leaveGroup,
 } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
 
@@ -29,10 +29,15 @@ const PostingCards = ({ post }) => {
     const handleRequest = (idkanymorebruh) => {
         if (post.owner == currentUserEmail()) {
             alert("can not join your own group");
-        } else {
+        } else if (!isRequested) {
+            //if you have not requested yet
             requestToJoinGroup(postID);
             alert("request succesfully sent");
             setisRequested(true);
+        } else if (isRequested) {
+            leaveGroup(postID);
+            alert("your request has been removed");
+            setisRequested(false);
         }
     };
 
@@ -123,9 +128,11 @@ const PostingCards = ({ post }) => {
                     >
                         Deactivate
                     </Button>
+                    <ModalRequests thePost={post}></ModalRequests>
                 </>
             );
         } else if (post.owner == currentUserEmail() && post.isActive == false) {
+            //if the post is still your own
             return (
                 <>
                     <Button
@@ -148,6 +155,7 @@ const PostingCards = ({ post }) => {
                     >
                         Activate
                     </Button>
+                    <ModalRequests></ModalRequests>
                 </>
             );
         } else {
@@ -156,7 +164,15 @@ const PostingCards = ({ post }) => {
             //if it is indeed someone else's post
             if (isRequested == true) {
                 return (
-                    <Button>already requested</Button>
+                    <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => {
+                            handleRequest(postID);
+                        }}
+                    >
+                        Unrequest
+                    </Button>
                     // console.log("you have already requested this group LOL")
                 );
             } else if (isApproved == true) {
@@ -182,7 +198,7 @@ const PostingCards = ({ post }) => {
     };
 
     return (
-        <Card variant="outlined" sx={{ maxWidth: 345 }}>
+        <Card variant="outlined" sx={{ width: 345, height: 200, boxShadow: 5}}>
             <CardContent>
                 <Typography
                     gutterBottom
@@ -198,9 +214,9 @@ const PostingCards = ({ post }) => {
                 <Typography variant="body1">
                     Players: {post.currPlayers}/{post.maxPlayers}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                {/* <Typography variant="body2" color="text.secondary">
                     {post.description}
-                </Typography>
+                </Typography> */}
             </CardContent>
             <CardActions>{displayCorrectButtons()}</CardActions>
         </Card>

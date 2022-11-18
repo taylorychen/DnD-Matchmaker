@@ -11,10 +11,10 @@
 }
 
 .filler {
-  height: 12%;
-  max-height: 90px;
-  border-radius: 15px 15px 0px 0px;
-  background-color: #9e0b0f;
+    height: 12%;
+    max-height: 90px;
+    border-radius: 15px 15px 0px 0px;
+    background-color: #9e0b0f;
 }
 
 .container {
@@ -53,9 +53,9 @@
 }
 
 .section-toggle {
-  width: 100%;
-  height: 20%;
-  max-height: 90px;
+    width: 100%;
+    height: 20%;
+    max-height: 90px;
 }
 
 .toggle-options {
@@ -95,12 +95,12 @@
 }
 
 .section {
-  border: 2px solid black;
-  border-radius: 0px 0px 15px 15px;
-  box-shadow: 0px 1px 5px 0.2px #9e0b0f;
-  width: 100%;
-  height: 450px;
-  overflow: scroll;
+    border: 2px solid black;
+    border-radius: 0px 0px 15px 15px;
+    box-shadow: 0px 1px 5px 0.2px #9e0b0f;
+    width: 100%;
+    height: 450px;
+    overflow: scroll;
 }
 
 /* edit profile section */
@@ -157,11 +157,29 @@ body {
 
 /* My Postings section */
 .post-grid {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 .test {
-  border: 1px solid black;
-  width: 33%;
-  height: 30vh;
+    border: 1px solid black;
+    width: 33%;
+    height: 30vh;
+}
+
+.ew {
+    display: block;
+    font-family: arial;
+    font-size: 0.5rem;
+    width: 80%;
+    height: 20%;
+}
+
+.theContainer {
+    padding: 15px;
+}
+
+.theSection {
+    width: 50%;
+    padding: 15px;
+    float: left;
 }
