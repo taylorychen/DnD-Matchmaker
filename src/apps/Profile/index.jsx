@@ -110,7 +110,6 @@ export default function Profile() {
                         postsSnapshot.docs.map((post) => {
                             console.log(post);
                             return (
-                                // TODO: we should have our own version of PostingCards
                                 <PostingCards
                                     key={post.data().date}
                                     post={post.data()}
@@ -140,7 +139,6 @@ export default function Profile() {
                         postsSnapshot.docs.map((post) => {
                             console.log(post);
                             return (
-                                // TODO: we should have our own version of PostingCards
                                 <PostingCards
                                     key={post.data().date}
                                     post={post.data()}
@@ -170,7 +168,6 @@ export default function Profile() {
                         postsSnapshot.docs.map((post) => {
                             console.log(post);
                             return (
-                                // TODO: we should have our own version of PostingCards
                                 <PostingCards
                                     key={post.data().date}
                                     post={post.data()}
