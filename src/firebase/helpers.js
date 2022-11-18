@@ -30,7 +30,7 @@ export async function getUser(email) {
  * @returns user's data
  */
 export async function getPost(postID) {
-    const post = await getDoc(doc(db, "/Users/" + postID));
+    const post = await getDoc(doc(db, "/Posts/" + postID));
     if (post.exists()) {
         return post.data();
     }
@@ -335,10 +335,6 @@ export async function approveOrDenyRequestToJoinGroup(
     userID,
     approveOrDeny
 ) {
-    console.log("1");
-    console.log("postID", postID);
-    console.log("userID", userID);
-    
     // make sure current user is post owner
     if (!isCurrentUserPostOwner(postID)) {
         console.log(
@@ -381,7 +377,6 @@ export async function approveOrDenyRequestToJoinGroup(
             });
         }
     }
-    console.log("2");
 }
 
 //
@@ -415,7 +410,7 @@ export async function getCurrentUserDiscord() {
  */
 export async function getCurrentUserActivePostings() {
     const userData = await getUser(currentUserEmail());
-    return userData ? userData.activePostings : [];
+    return userData ? userData.activePostings : null;
 }
 
 /**
@@ -450,6 +445,10 @@ export async function getCurrentUserPendingRequests() {
  * @param {string} name
  */
 export async function updateCurrentUserName(name) {
+    if (!name) {
+        return;
+    }
+
     const userRef = doc(db, "/Users/" + currentUserEmail());
     updateDoc(userRef, {
         name: name,
@@ -461,6 +460,10 @@ export async function updateCurrentUserName(name) {
  * @param {string} discord
  */
 export async function updateCurrentUserDiscord(discord) {
+    if (!discord) {
+        return;
+    }
+
     const userRef = doc(db, "/Users/" + currentUserEmail());
     updateDoc(userRef, {
         discordTag: discord,

@@ -27,7 +27,7 @@ const PostingCards = ({ post }) => {
     const [isActive, setisActive] = useState(post.isActive);
 
     const handleRequest = (idkanymorebruh) => {
-        if (post.owner == currentUserEmail()) {
+        if (post.owner === currentUserEmail()) {
             alert("can not join your own group");
         } else if (!isRequested) {
             //if you have not requested yet
@@ -46,7 +46,7 @@ const PostingCards = ({ post }) => {
         var status = await isCurrentUserRequestPending(
             `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`
         );
-        console.log(status);
+        //console.log(status);
         if (status) {
             setisRequested(true);
         } else {
@@ -59,7 +59,7 @@ const PostingCards = ({ post }) => {
         var status = await isCurrentUserRequestApproved(
             `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`
         );
-        console.log(status);
+        //console.log(status);
         if (status) {
             setisApproved(true);
         } else {
@@ -104,7 +104,7 @@ const PostingCards = ({ post }) => {
     };
 
     const displayCorrectButtons = () => {
-        if (post.owner == currentUserEmail() && post.isActive == true) {
+        if (post.owner === currentUserEmail() && post.isActive === true) {
             //if it is your own post
             return (
                 <>
@@ -131,8 +131,10 @@ const PostingCards = ({ post }) => {
                     <ModalRequests thePost={post}></ModalRequests>
                 </>
             );
-        } else if (post.owner == currentUserEmail() && post.isActive == false) {
-            //if the post is still your own
+        } else if (
+            post.owner === currentUserEmail() &&
+            post.isActive === false
+        ) {
             return (
                 <>
                     <Button
@@ -162,7 +164,7 @@ const PostingCards = ({ post }) => {
             checkifRequested();
             checkifApproved();
             //if it is indeed someone else's post
-            if (isRequested == true) {
+            if (isRequested === true) {
                 return (
                     <Button
                         size="small"
@@ -175,7 +177,7 @@ const PostingCards = ({ post }) => {
                     </Button>
                     // console.log("you have already requested this group LOL")
                 );
-            } else if (isApproved == true) {
+            } else if (isApproved === true) {
                 return (
                     <Button>you are already part of this group!!</Button>
                     // console.log("you have already requested this group LOL")
