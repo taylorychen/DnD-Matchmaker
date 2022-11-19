@@ -16,6 +16,7 @@ const ModalApproved = ({ thePost }) => {
     const [name, setName] = useState("Click on someone to see more info");
     const [discord, setDiscord] = useState("");
     const [email, setEmail] = useState("");
+    const [description, setDescription] = useState(""); 
 
     const handleOpen = () => {
         setOpen(true);
@@ -39,6 +40,7 @@ const ModalApproved = ({ thePost }) => {
         setName(person.name);
         setDiscord(person.discordTag);
         setEmail(thing);
+        setDescription(person.description);
         console.log("discord", person.discordTag);
         console.log("discord", person); //this is a promise
     }
@@ -53,10 +55,14 @@ const ModalApproved = ({ thePost }) => {
         } else {
             return (
                 <>
+                <div className="pad">
                     <h2>Player Info</h2>
                     <h3>Name: {name}</h3>
                     <h3>Discord: {discord}</h3>
                     <h3>Email: {email}</h3>
+                    <br></br>
+                    <h3>About: {description}</h3>
+                </div>
                 </>
             );
         }
@@ -87,6 +93,7 @@ const ModalApproved = ({ thePost }) => {
                                         className="ew"
                                         onClick={() => handleClick(item)}
                                         color="error"
+                                        sx ={{display: "block"}}
                                     >
                                         {item}
                                     </Button>

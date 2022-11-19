@@ -17,6 +17,7 @@ const ModalRequests = ({ thePost }) => {
         `${thePost.owner}_${thePost.date.seconds}.${thePost.date.nanoseconds}`
     );
     const [name, setName] = useState("Click on someone to see more info");
+    const [description, setDescription] = useState("");
 
     const handleOpen = () => {
         setOpen(true);
@@ -32,15 +33,17 @@ const ModalRequests = ({ thePost }) => {
         setOpen(false);
     };
 
-    const handleClick = (thing) => {
+    async function handleClick(thing) {
+        var person = await getUser(thing);
         console.log("------------------");
         console.log("the name of the button:", thing);
         console.log("the name BEFORE:", current);
         setCurrent(thing);
         setName(thing);
+        setDescription(person.description);
         console.log("the name NOW:", current);
         console.log("------------------");
-    };
+    }
 
     const handleAppOrD = (thePostID, theBool) => {
         if (theBool) {
@@ -68,7 +71,11 @@ const ModalRequests = ({ thePost }) => {
         } else {
             return (
                 <>
-                    <h3>{name}</h3>
+                    <h2>Player Info:</h2>
+                    <div className="pad">
+                        <h3>Email: {name}</h3>
+                        <h3>About: {description}</h3>
+                    </div>
                     <br></br>
                     <br></br>
                     <Button
@@ -113,6 +120,7 @@ const ModalRequests = ({ thePost }) => {
                                         className="ew"
                                         onClick={() => handleClick(item)}
                                         color="error"
+                                        sx={{ display: "block" }}
                                     >
                                         {item}
                                     </Button>
