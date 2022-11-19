@@ -6,7 +6,6 @@ import {
     approveOrDenyRequestToJoinGroup,
 } from "../../firebase/helpers";
 
-// this modal component is for when users are trying to create a new post (database writing)
 const ModalRequests = ({ thePost }) => {
     //import the posts
     const [open, setOpen] = useState(false);
