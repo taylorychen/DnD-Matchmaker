@@ -3,7 +3,6 @@ import { Button, Dialog, Grid } from "@mui/material";
 import "./profile.css";
 import { getUser } from "../../firebase/helpers";
 
-// this modal component is for when users are trying to create a new post (database writing)
 const ModalApproved = ({ thePost }) => {
     //import the posts
     const [open, setOpen] = useState(false);
@@ -16,7 +15,7 @@ const ModalApproved = ({ thePost }) => {
     const [name, setName] = useState("Click on someone to see more info");
     const [discord, setDiscord] = useState("");
     const [email, setEmail] = useState("");
-    const [description, setDescription] = useState(""); 
+    const [description, setDescription] = useState("");
 
     const handleOpen = () => {
         setOpen(true);
@@ -27,9 +26,9 @@ const ModalApproved = ({ thePost }) => {
     };
 
     const handleClose = () => {
+        setOpen(false);
         setCurrent("");
         setName("Click on someone to see more info");
-        setOpen(false);
         setApproved(thePost.approvedUsers);
         setEmail("");
     };
@@ -55,14 +54,14 @@ const ModalApproved = ({ thePost }) => {
         } else {
             return (
                 <>
-                <div className="pad">
-                    <h2>Player Info</h2>
-                    <h3>Name: {name}</h3>
-                    <h3>Discord: {discord}</h3>
-                    <h3>Email: {email}</h3>
-                    <br></br>
-                    <h3>About: {description}</h3>
-                </div>
+                    <div className="pad">
+                        <h2>Player Info</h2>
+                        <h3>Name: {name}</h3>
+                        <h3>Discord: {discord}</h3>
+                        <h3>Email: {email}</h3>
+                        <br></br>
+                        <h3>About: {description}</h3>
+                    </div>
                 </>
             );
         }
@@ -93,7 +92,7 @@ const ModalApproved = ({ thePost }) => {
                                         className="ew"
                                         onClick={() => handleClick(item)}
                                         color="error"
-                                        sx ={{display: "block"}}
+                                        sx={{ display: "block" }}
                                     >
                                         {item}
                                     </Button>
