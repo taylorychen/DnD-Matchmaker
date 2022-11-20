@@ -25,18 +25,26 @@ import "../../styles/index.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const light = {
+    typography: {
+        fontFamily: "serif",
+        fontSize: 16,
+    },
     palette: {
         mode: "light",
     },
 };
 
 const dark = {
+    typography: {
+        fontFamily: "serif",
+        fontSize: 16,
+    },
     palette: {
         mode: "dark",
     },
 };
 
-export const tags = {
+export const TAGS = {
     "loose rules": "t_looseRules",
     "one shot": "t_oneShot",
     campaign: "t_campaign",
@@ -76,7 +84,7 @@ function Posts() {
         // add tags to queries
         if (searchTags !== [])
             searchTags.forEach((tag) => {
-                wheres.push(where(tags[tag], "==", true));
+                wheres.push(where(TAGS[tag], "==", true));
             });
 
         const firestoreQuery = query(postsRef, ...wheres);
@@ -168,7 +176,7 @@ function Posts() {
                                     setSearchTags(e.target.value);
                                 }}
                             >
-                                {Object.entries(tags).map((tag) => {
+                                {Object.entries(TAGS).map((tag) => {
                                     return (
                                         <MenuItem key={tag[0]} value={tag[0]}>
                                             {tag[0]}

@@ -7,10 +7,12 @@ import {
     Checkbox,
     Grid,
     FormControlLabel,
+    DialogContent,
 } from "@mui/material";
 import "./modal.css";
 import { createPost } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
+import { TAGS } from "./index";
 
 // this modal component is for when users are trying to create a new post (database writing)
 const ModalCreate = () => {
@@ -50,8 +52,7 @@ const ModalCreate = () => {
                 currentUserEmail(),
                 gname,
                 description,
-                sRules,
-                lRules,
+                looseRules,
                 oneShot,
                 campaign,
                 homebrew,
@@ -68,32 +69,28 @@ const ModalCreate = () => {
         }
     };
 
-    const [sRules, setSRules] = useState(false);
-    const [lRules, setLRules] = useState(false);
+    const [looseRules, setLRules] = useState(false);
     const [oneShot, setOneShot] = useState(false);
     const [campaign, setCampaign] = useState(false);
     const [homebrew, setHomebrew] = useState(false);
     const [prewritten, setPrewritten] = useState(false);
 
     const handleTag = (theTag) => {
-        if (theTag == "sRules") {
-            setSRules(!sRules);
-            console.log("sRules:", sRules);
-        } else if (theTag == "lRules") {
-            setLRules(!lRules);
-            console.log("lRules:", lRules);
-        } else if (theTag == "oneShot") {
+        if (theTag === "t_looseRules") {
+            setLRules(!looseRules);
+            console.log("looseRules:", !looseRules);
+        } else if (theTag === "t_oneShot") {
             setOneShot(!oneShot);
-            console.log("oneshot:", oneShot);
-        } else if (theTag == "campaign") {
+            console.log("oneshot:", !oneShot);
+        } else if (theTag === "t_campaign") {
             setCampaign(!campaign);
-            console.log("campaign:", campaign);
-        } else if (theTag == "homebrew") {
+            console.log("campaign:", !campaign);
+        } else if (theTag === "t_homebrew") {
             setHomebrew(!homebrew);
-            console.log("hombrew:", homebrew);
+            console.log("hombrew:", !homebrew);
         } else {
             setPrewritten(!prewritten);
-            console.log("prewritten:", prewritten);
+            console.log("prewritten:", !prewritten);
         }
     };
 
@@ -102,43 +99,52 @@ const ModalCreate = () => {
             <Button
                 onClick={handleOpen}
                 variant="contained"
-                sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
+                color="error"
+                sx={{ minWidth: 0.1, backgroundColor: "darkred" }}
             >
                 Create
             </Button>
 
             <Dialog open={open} sx={{ Width: 700 }}>
-                <div className="modal-content"></div>
-                <FormControl>
-                    <h2>Create A New Game Post</h2>
-                    <br></br>
-                    <br></br>
-                    <Grid container spacing={2}>
+                <DialogContent>
+                    <Grid container sx={{ mb: 5 }}>
+                        <Grid item xs={10}></Grid>
+                        <Grid item xs={2}>
+                            <Button
+                                onClick={handleClose}
+                                color="error"
+                                variant="contained"
+                                sx={{ backgroundColor: "darkred" }}
+                            >
+                                close
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <FormControl>
+                        <h1>Create A New Post</h1>
+                        <br></br>
+                        <br></br>
                         <TextField
                             required
                             id="gname"
-                            label="Name the Game"
+                            fullWidth
+                            label="title"
                             variant="outlined"
+                            sx={{ mb: 2 }}
                             onChange={(e) => {
                                 setGname(e.target.value);
                                 console.log(gname);
                             }}
                         />
+
                         <TextField
                             required
-                            id="location"
-                            label="location"
-                            variant="outlined"
-                            onChange={(e) => {
-                                setLocation(e.target.value);
-                                console.log(location);
-                            }}
-                        />
-                        <TextField
-                            required
+                            fullWidth
                             id="description"
                             label="description"
                             variant="outlined"
+                            sx={{ mb: 2 }}
                             onChange={(e) => {
                                 setDescription(e.target.value);
                                 console.log(description);
@@ -146,95 +152,57 @@ const ModalCreate = () => {
                         />
                         <TextField
                             required
-                            id="number"
-                            label="number"
+                            id="location"
+                            label="location"
                             variant="outlined"
+                            sx={{ mb: 2 }}
+                            onChange={(e) => {
+                                setLocation(e.target.value);
+                                console.log(location);
+                            }}
+                        />
+                        <TextField
+                            required
+                            id="number"
+                            label="number of players"
+                            variant="outlined"
+                            sx={{ mb: 2 }}
                             onChange={(e) => {
                                 setNumber(e.target.value);
                                 console.log(number);
                             }}
                         />
-                    </Grid>
 
-                    <Grid continer spacing={2}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    label="StrictRules"
-                                    onChange={(e) => {
-                                        handleTag("sRules");
-                                    }}
-                                />
-                            }
-                            label="Strict Rules"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    label="LooseRules"
-                                    onChange={(e) => {
-                                        handleTag("lRules");
-                                    }}
-                                />
-                            }
-                            label="Loose Rules"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    label="Homebrew"
-                                    onChange={(e) => {
-                                        handleTag("homebrew");
-                                    }}
-                                />
-                            }
-                            label="Homebrew"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    label="Pre-written"
-                                    onChange={(e) => {
-                                        handleTag("prewritten");
-                                    }}
-                                />
-                            }
-                            label="Pre-written"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    label="Campaign"
-                                    onChange={(e) => {
-                                        handleTag("campaign");
-                                    }}
-                                />
-                            }
-                            label="Campaign"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    label="OneShot"
-                                    onChange={(e) => {
-                                        handleTag("oneShot");
-                                    }}
-                                />
-                            }
-                            label="One Shot"
-                        />
-                    </Grid>
-                    <Button
-                        type="submit"
-                        variant="outlined"
-                        onClick={handleSubmit}
-                    >
-                        Submit
-                    </Button>
-                </FormControl>
-                <br></br>
-                <br></br>
-                <Button onClick={handleClose}>close</Button>
+                        <Grid spacing={2}>
+                            {Object.entries(TAGS).map((tag) => {
+                                return (
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                color="error"
+                                                label={tag[0]}
+                                                onChange={() => {
+                                                    handleTag(tag[1]);
+                                                }}
+                                            />
+                                        }
+                                        label={tag[0]}
+                                    />
+                                );
+                            })}
+                        </Grid>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="error"
+                            sx={{ mt: 3, backgroundColor: "darkred" }}
+                            onClick={handleSubmit}
+                        >
+                            Submit
+                        </Button>
+                    </FormControl>
+                </DialogContent>
+                <div className="modal-content"></div>
             </Dialog>
         </>
     );
