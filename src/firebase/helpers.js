@@ -79,7 +79,6 @@ export async function createPost(
     email,
     title,
     description,
-    strictRules,
     looseRules,
     oneShot,
     campaign,
@@ -100,7 +99,6 @@ export async function createPost(
         owner: email,
         title: title,
         description: description,
-        t_strictRules: strictRules,
         t_looseRules: looseRules,
         t_oneShot: oneShot,
         t_campaign: campaign,
@@ -200,6 +198,10 @@ export async function setInactive(postId, owner) {
         });
     console.log(`set post ${postId} to INACTIVE`);
     return true;
+}
+
+export function convertToPostId(email, date) {
+    return `${email}_${date.seconds}.${date.nanoseconds}`;
 }
 
 /**

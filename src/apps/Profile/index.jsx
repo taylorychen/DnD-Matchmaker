@@ -8,11 +8,23 @@ import {
     updateCurrentUserDescription,
 } from "../../firebase/helpers";
 import "./profile.css";
-import PostingCards from "../Posts/postings-card";
+import PostingCards from "../Posts/posting-card";
 import { currentUserEmail } from "../../firebase/auth";
 import { db } from "../../firebase/config";
 import { collection, query, where } from "firebase/firestore";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const theme = {
+    typography: {
+        fontFamily: "serif",
+        // fontSize: 12.5,
+        button: {
+            fontSize: 12.5,
+            hover: { color: "red" },
+        },
+    },
+};
 
 export default function Profile() {
     const [name, setName] = useState("Your Name");
@@ -165,10 +177,12 @@ export default function Profile() {
                         active_postsSnapshot.docs.map((post) => {
                             return (
                                 <div className="post-card">
-                                    <PostingCards
-                                        key={post.data().date}
-                                        post={post.data()}
-                                    ></PostingCards>
+                                    <ThemeProvider theme={createTheme(theme)}>
+                                        <PostingCards
+                                            key={post.data().date}
+                                            post={post.data()}
+                                        ></PostingCards>
+                                    </ThemeProvider>
                                 </div>
                             );
                         })
@@ -183,10 +197,12 @@ export default function Profile() {
                         inactive_postsSnapshot.docs.map((post) => {
                             return (
                                 <div className="post-card">
-                                    <PostingCards
-                                        key={post.data().date}
-                                        post={post.data()}
-                                    ></PostingCards>
+                                    <ThemeProvider theme={createTheme(theme)}>
+                                        <PostingCards
+                                            key={post.data().date}
+                                            post={post.data()}
+                                        />
+                                    </ThemeProvider>
                                 </div>
                             );
                         })
@@ -214,10 +230,12 @@ export default function Profile() {
                         postsSnapshot.docs.map((post) => {
                             return (
                                 <div className="post-card">
-                                    <PostingCards
-                                        key={post.data().date}
-                                        post={post.data()}
-                                    ></PostingCards>
+                                    <ThemeProvider theme={createTheme(theme)}>
+                                        <PostingCards
+                                            key={post.data().date}
+                                            post={post.data()}
+                                        />
+                                    </ThemeProvider>
                                 </div>
                             );
                         })}
@@ -244,10 +262,12 @@ export default function Profile() {
                         postsSnapshot.docs.map((post) => {
                             return (
                                 <div className="post-card">
-                                    <PostingCards
-                                        key={post.data().date}
-                                        post={post.data()}
-                                    ></PostingCards>
+                                    <ThemeProvider theme={createTheme(theme)}>
+                                        <PostingCards
+                                            key={post.data().date}
+                                            post={post.data()}
+                                        />
+                                    </ThemeProvider>
                                 </div>
                             );
                         })}

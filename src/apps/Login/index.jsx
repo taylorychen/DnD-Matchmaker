@@ -1,5 +1,5 @@
 import React from "react";
-import "./login.css";
+import styles from "./login.css";
 import titlePNG from "../../images/ddtitle.png";
 import background from "../../images/ddbackgroundtan.jpg";
 import dice from "../../images/DNDdiceRoll.gif";
@@ -31,8 +31,6 @@ function Login() {
                     backgroundRepeat: "no-repeat",
                 }}
             >
-                {/* <h1>Welcome to UNHINGED: A Dungeons and Dragon's Matchmaker</h1> */}
-
                 {/* the box container */}
                 <div
                     style={{
