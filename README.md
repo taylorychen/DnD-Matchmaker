@@ -1,3 +1,55 @@
+# Getting Started with Unhinged: A Dungeons & Dragons Matchmaker
+
+This README was last updated 11/19/22 at around 1:00 PM PST. \
+Some pages may have been updated and features may have been added since then.
+
+## Home page
+
+The front page will show a login screen. Users must be logged in to interact with posts, as well as access the Profile page. \
+Users will be logged and authenticated with Google Authentication. This will automatically create an account.
+
+## Postings
+
+This page displays all of the availible posts. \
+The posts show information about the Dungeon Master's game, including number of players, tags, location, and description. \
+Logged in users can interact with these posts by requesting to join them. \
+The `CREATE` button for users to create their own posts. \
+A toggle allows users to switch between dark and light mode.
+
+### Post interactions
+
+Buttons appear under each post depending on the user's status in relation to them. \
+If the user own the post, users will see options to `delete`, `deactivate`, view `requests`, and view `approved` users. \
+Other posts will show with an option to `request to join`. \
+If the user has already requested, a button to `unrequest` will appear instead. \
+If the user is already approved, buttons will show to `leave group` and view `approved` users.
+
+## Profile
+
+If the user is logged in, the Profile page will show a side tab showing the user's name, email, and discord tag. \
+The main window has three options: Edit Profile, My Postings, and My Requests.
+
+### Edit Profile
+
+Users can update their name, discord tag, and description if they wish. Pressing the `Update` button confirms these changes. \
+Note: Discord tags and description are not set to anything by default.
+
+### My Postings
+
+Users can view the posts they've created. \
+Posts will be split into `ACTIVE` and `INACTIVE`. \
+Similar to the Postings page, users will see options to `delete`, `deactivate`, view `requests`, and view `approved` users. \
+For inactive posts, users will see options to `delete` or `activate`.
+
+### Pending
+
+Users can view the posts they've requested to join and `unrequest` if they wish.
+
+### Approved
+
+Users can view the posts they've been approved to join. and `leave` if they wish. \
+Users can also view other `approved` users.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

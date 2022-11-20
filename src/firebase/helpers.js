@@ -8,6 +8,7 @@ import {
     Timestamp,
     arrayUnion,
     arrayRemove,
+    increment,
 } from "firebase/firestore";
 import { currentUserEmail } from "./auth";
 
@@ -30,7 +31,7 @@ export async function getUser(email) {
  * @returns user's data
  */
 export async function getPost(postID) {
-    const post = await getDoc(doc(db, "/Users/" + postID));
+    const post = await getDoc(doc(db, "/Posts/" + postID));
     if (post.exists()) {
         return post.data();
     }
@@ -42,6 +43,7 @@ export async function getPost(postID) {
  * @param {string} email
  * @param {string} fullname
  * @param {string} discordTag
+ * @param {string} description
  */
 export async function createUser(email, fullname) {
     const userRef = doc(db, "/Users/" + email);
@@ -54,6 +56,7 @@ export async function createUser(email, fullname) {
         email: email,
         name: fullname,
         discordTag: null,
+        description: null,
         activePostings: [],
         inactivePostings: [],
         approvedRequests: [],
@@ -76,7 +79,12 @@ export async function createPost(
     email,
     title,
     description,
-    tags,
+    strictRules,
+    looseRules,
+    oneShot,
+    campaign,
+    homebrew,
+    preWritten,
     location,
     maxPlayers
 ) {
@@ -92,7 +100,12 @@ export async function createPost(
         owner: email,
         title: title,
         description: description,
-        tags: tags,
+        t_strictRules: strictRules,
+        t_looseRules: looseRules,
+        t_oneShot: oneShot,
+        t_campaign: campaign,
+        t_homebrew: homebrew,
+        t_preWritten: preWritten,
         date: now,
         location: location,
         maxPlayers: maxPlayers,
@@ -112,8 +125,8 @@ export async function createPost(
 
 /**
  * Delete post with specified postId
- * @param {string} postId
- * @param {string} owner
+ * @param {string} postId (post's email)
+ * @param {string} owner (user's email)
  */
 export async function deletePost(postId, owner) {
     if (!validPostOwner(postId, owner)) {
@@ -133,11 +146,6 @@ export async function deletePost(postId, owner) {
     return true;
 }
 
-//
-//
-//
-//
-
 /**
  * set post to active
  * @param {string} postId
@@ -149,22 +157,16 @@ export async function setActive(postId, owner) {
         return false;
     }
 
-    // get refs to documents
-    const ownerRef = doc(db, "Users", owner);
-    const postRef = doc(db, "Posts", postId);
+    const ownerRef = doc(db, "/Users/" + owner);
+    const postRef = doc(db, "/Posts/" + postId);
 
     updateDoc(postRef, {
-        active: true,
+        isActive: true,
     })
-        // add to active postings
+        // add to active postings and delete inactive ones
         .then(() => {
             updateDoc(ownerRef, {
                 activePostings: arrayUnion(postId),
-            });
-        })
-        // remove from inactive postings
-        .then(() => {
-            updateDoc(ownerRef, {
                 inactivePostings: arrayRemove(postId),
             });
         });
@@ -184,21 +186,16 @@ export async function setInactive(postId, owner) {
     }
 
     // get refs to documents
-    const ownerRef = doc(db, "Users", owner);
-    const postRef = doc(db, "Posts", postId);
+    const ownerRef = doc(db, "/Users/" + owner);
+    const postRef = doc(db, "/Posts/" + postId);
     updateDoc(postRef, {
-        active: false,
+        isActive: false,
     })
-        // add to inactive postings
-        .then(() => {
-            updateDoc(ownerRef, {
-                inactivePostings: arrayUnion(postId),
-            });
-        })
-        // remove from active postings
+        // remove from active postings and add to inactive postings
         .then(() => {
             updateDoc(ownerRef, {
                 activePostings: arrayRemove(postId),
+                inactivePostings: arrayUnion(postId),
             });
         });
     console.log(`set post ${postId} to INACTIVE`);
@@ -220,12 +217,6 @@ export async function isCurrentUserPostOwner(postID) {
         : false;
 }
 
-//
-//
-//
-//
-//
-
 /**
  * returns T/F if the current user is part of the post's approvedUsers
  * returns null if no current user or nonexistant post
@@ -242,7 +233,7 @@ export async function isCurrentUserRequestApproved(postID) {
     // I think we can assume the user exists
 
     // get the post's data
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
         return null;
@@ -259,6 +250,7 @@ export async function isCurrentUserRequestApproved(postID) {
  * @param {string} postID
  * @returns {boolean | null}
  */
+
 export async function isCurrentUserRequestPending(postID) {
     const user = currentUserEmail();
     if (!user) {
@@ -269,7 +261,7 @@ export async function isCurrentUserRequestPending(postID) {
     // I think we can assume the user exists
 
     // get the post's data
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
         return null;
@@ -287,14 +279,20 @@ export async function isCurrentUserRequestPending(postID) {
  */
 export async function requestToJoinGroup(postID) {
     // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
+    const waiting = await isCurrentUserPostOwner(postID);
     if (currentUserEmail() == null) {
         console.log("requestToJoinGroup: not signed in");
         return;
+    } else if (waiting === true) {
+        console.log("requestToJoinGroup: current user is post owner");
+        return;
     }
+
     const userRef = doc(db, "/Users/" + currentUserEmail());
 
     // add user to post's pendingUsers
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
+
     updateDoc(postRef, {
         pendingUsers: arrayUnion(currentUserEmail()),
     });
@@ -303,6 +301,7 @@ export async function requestToJoinGroup(postID) {
     updateDoc(userRef, {
         pendingRequests: arrayUnion(postID),
     });
+    // return true;
 }
 
 /**
@@ -311,7 +310,7 @@ export async function requestToJoinGroup(postID) {
  * @param {string} postID
  */
 export async function leaveGroup(postID) {
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists() || currentUserEmail() == null) {
         console.log("leaveGroup: invalid post or not signed in");
@@ -319,6 +318,13 @@ export async function leaveGroup(postID) {
     }
 
     const userRef = doc(db, "/Users/" + currentUserEmail());
+
+    // if we are approved in the group, decrease the player count
+    if (postSnap.data().approvedUsers.includes(currentUserEmail())) {
+        updateDoc(postRef, {
+            currPlayers: increment(-1),
+        });
+    }
 
     // remove user from post's pendingUsers
     updateDoc(postRef, {
@@ -349,17 +355,16 @@ export async function approveOrDenyRequestToJoinGroup(
         console.log(
             "approveOrDenyRequestToJoinGroup: Current user is not post owner (or some edge case came up)"
         );
-        return false;
+        return;
     }
 
     // make sure user is on pending list
-
     // get the post's data
-    const postRef = doc(db, "/Posts" + postID);
+    const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
     if (!postSnap.exists()) {
         console.log("approveOrDenyRequestToJoinGroup: invalid post");
-        return null;
+        return;
     }
     const pendingUsers = postSnap.data().pendingUsers;
 
@@ -370,22 +375,32 @@ export async function approveOrDenyRequestToJoinGroup(
         updateDoc(postRef, {
             pendingUsers: arrayRemove(userID),
         });
+        console.log("!!!");
         // remove post from user's pendingRequests
         updateDoc(userRef, {
             pendingRequests: arrayRemove(postID),
         });
         if (approveOrDeny) {
+            console.log("AHH");
             // add user to post's approvedUsers
             updateDoc(postRef, {
                 approvedUsers: arrayUnion(userID),
+                currPlayers: increment(1),
             });
             // add post to user's pendingRequests
             updateDoc(userRef, {
-                pendingRequests: arrayUnion(postID),
+                approvedRequests: arrayUnion(postID),
             });
         }
     }
 }
+
+//
+//
+//
+//
+
+export async function getGroupUserInfo(postID) {}
 
 //
 //
@@ -412,13 +427,23 @@ export async function getCurrentUserDiscord() {
     return userData ? userData.discordTag : "No User Data";
 }
 
+/** CHANGES
+ * Returns the current user's description tag
+ * if the data doesn't exist, returns "No User Data"
+ * @returns {string}
+ */
+export async function getCurrentUserDescription() {
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.description : "No User Data";
+}
+
 /**
  * Returns array of the user's active post's IDs, or an empty array if something unexpected happens
  * @returns {Array<string>}
  */
 export async function getCurrentUserActivePostings() {
     const userData = await getUser(currentUserEmail());
-    return userData ? userData.activePostings : [];
+    return userData ? userData.activePostings : null;
 }
 
 /**
@@ -453,7 +478,11 @@ export async function getCurrentUserPendingRequests() {
  * @param {string} name
  */
 export async function updateCurrentUserName(name) {
-    const userRef = doc(db, "/Users" + currentUserEmail());
+    if (!name) {
+        return;
+    }
+
+    const userRef = doc(db, "/Users/" + currentUserEmail());
     updateDoc(userRef, {
         name: name,
     });
@@ -464,9 +493,28 @@ export async function updateCurrentUserName(name) {
  * @param {string} discord
  */
 export async function updateCurrentUserDiscord(discord) {
-    const userRef = doc(db, "/Users" + currentUserEmail());
+    if (!discord) {
+        return;
+    }
+
+    const userRef = doc(db, "/Users/" + currentUserEmail());
     updateDoc(userRef, {
         discordTag: discord,
+    });
+}
+
+/**
+ * updates the current user's description
+ * @param {string} description
+ */
+export async function updateCurrentUserDescription(description) {
+    if (!description) {
+        return;
+    }
+
+    const userRef = doc(db, "/Users/" + currentUserEmail());
+    updateDoc(userRef, {
+        description: description,
     });
 }
 
@@ -475,7 +523,7 @@ export async function updateCurrentUserDiscord(discord) {
  * @param {string} postId
  * @param {string} owner
  */
-const validPostOwner = (postId, owner) => {
-    if (owner.length >= postId.length) return false;
-    return postId.substring(0, owner.length) === owner;
+const validPostOwner = (postID, owner) => {
+    if (owner.length >= postID.length) return false;
+    return postID.substring(0, owner.length) === owner;
 };

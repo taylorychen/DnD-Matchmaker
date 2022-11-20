@@ -9,6 +9,7 @@ import {
     MenuItem,
     Box,
     Chip,
+    Switch,
 } from "@mui/material";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import {
@@ -21,6 +22,20 @@ import { db } from "../../firebase/config";
 import { createRandomPosts } from "../../firebase/populate";
 import { convertToPostId } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
+import "../../styles/index.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const light = {
+    palette: {
+        mode: "light",
+    },
+};
+
+const dark = {
+    palette: {
+        mode: "dark",
+    },
+};
 
 export const tags = {
     strictRules: "strict rules",
@@ -45,6 +60,16 @@ function Posts() {
     // const [postsValues, postsLoading, postsError, postsSnapshot] =
     //     useCollectionDataOnce(query(postsRef, where("isActive", "==", true)));
     const [allPosts, setAllPosts] = useState([]);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    // This function is triggered when the Switch component is toggled
+    const changeTheme = () => {
+        if (isDarkMode) {
+            setIsDarkMode(false);
+        } else {
+            setIsDarkMode(true);
+        }
+    };
 
     const getAllPosts = async () => {
         const userEmail = currentUserEmail();
@@ -78,100 +103,109 @@ function Posts() {
 
     return (
         <>
-            <Grid container spacing={2} alignItems="center" sx={{ mb: 3 }}>
-                <Grid item xs={5}>
-                    <TextField
-                        label="Search"
-                        variant="standard"
-                        fullWidth
-                        InputProps={{
-                            inputProps: { style: { textAlign: "left" } },
-                        }}
-                        onKeyDown={(e) => {
-                            if (e.key == "Enter") setSearch(e.target.value);
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={2}>
-                    <FormControl fullWidth>
-                        <InputLabel>Search By</InputLabel>
-                        <Select
-                            variant="standard"
-                            value={searchBy}
-                            label="Search By"
-                            onChange={(e) => {
-                                setSearchBy(e.target.value);
-                            }}
-                        >
-                            <MenuItem value="title">Title</MenuItem>
-                            <MenuItem value="location">Location</MenuItem>
-                            {/* <MenuItem value="tags">Tags</MenuItem> */}
-                            <MenuItem value="description">Description</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={4}>
-                    <FormControl fullWidth>
-                        <InputLabel>Tags</InputLabel>
-                        <Select
-                            variant="standard"
-                            multiple
-                            value={searchTags}
-                            label="Tags"
-                            renderValue={(selected) => (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: 0.5,
-                                    }}
-                                >
-                                    {selected.map((value) => (
-                                        <Chip key={value} label={value} />
-                                    ))}
-                                </Box>
-                            )}
-                            onChange={(e) => {
-                                setSearchTags(e.target.value);
-                            }}
-                        >
-                            {Object.values(tags).map((tag) => {
-                                return (
-                                    <MenuItem key={tag} value={tag}>
-                                        {tag}
-                                    </MenuItem>
-                                );
-                            })}
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={1} size="large">
-                    <ModalCreate />
-                </Grid>
-            </Grid>
-
-            <Grid container spacing={4} justifyContent="center">
-                {allPosts && (
-                    <>
-                        {allPosts.map((doc) => {
-                            if (searchMatch(doc, search, searchBy))
-                                return (
-                                    <Grid item key={doc.date}>
-                                        <PostingCard post={doc} />
-                                    </Grid>
-                                );
-                        })}
-                    </>
-                )}
-            </Grid>
-
-            <button
-                onClick={() => {
-                    createRandomPosts(1);
-                }}
+            <ThemeProvider
+                theme={isDarkMode ? createTheme(dark) : createTheme(light)}
             >
-                add post
-            </button>
+                <Switch checked={isDarkMode} onChange={changeTheme}>
+                    Dark Mode
+                </Switch>
+                <Grid container spacing={2} alignItems="center" sx={{ mb: 3 }}>
+                    <Grid item xs={5}>
+                        <TextField
+                            label="Search"
+                            variant="standard"
+                            fullWidth
+                            InputProps={{
+                                inputProps: { style: { textAlign: "left" } },
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key == "Enter") setSearch(e.target.value);
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={2}>
+                        <FormControl fullWidth>
+                            <InputLabel>Search By</InputLabel>
+                            <Select
+                                variant="standard"
+                                value={searchBy}
+                                label="Search By"
+                                onChange={(e) => {
+                                    setSearchBy(e.target.value);
+                                }}
+                            >
+                                <MenuItem value="title">Title</MenuItem>
+                                <MenuItem value="location">Location</MenuItem>
+                                {/* <MenuItem value="tags">Tags</MenuItem> */}
+                                <MenuItem value="description">
+                                    Description
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <FormControl fullWidth>
+                            <InputLabel>Tags</InputLabel>
+                            <Select
+                                variant="standard"
+                                multiple
+                                value={searchTags}
+                                label="Tags"
+                                renderValue={(selected) => (
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexWrap: "wrap",
+                                            gap: 0.5,
+                                        }}
+                                    >
+                                        {selected.map((value) => (
+                                            <Chip key={value} label={value} />
+                                        ))}
+                                    </Box>
+                                )}
+                                onChange={(e) => {
+                                    setSearchTags(e.target.value);
+                                }}
+                            >
+                                {Object.values(tags).map((tag) => {
+                                    return (
+                                        <MenuItem key={tag} value={tag}>
+                                            {tag}
+                                        </MenuItem>
+                                    );
+                                })}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={1} size="large">
+                        <ModalCreate />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={4} justifyContent="center">
+                    {allPosts && (
+                        <>
+                            {allPosts.map((doc) => {
+                                if (searchMatch(doc, search, searchBy))
+                                    return (
+                                        <Grid item key={doc.date}>
+                                            <PostingCard post={doc} />
+                                        </Grid>
+                                    );
+                            })}
+                        </>
+                    )}
+                </Grid>
+
+                <button
+                    onClick={() => {
+                        createRandomPosts(1);
+                    }}
+                >
+                    Add
+                </button>
+            </ThemeProvider>
         </>
     );
 }

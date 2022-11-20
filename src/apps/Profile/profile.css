@@ -1,62 +1,77 @@
-h1{
+.profile-container h1 {
     text-align: center;
     font-size: 4rem;
+    padding-top: 100px;
 }
-p{
+.profile-container p {
     margin: 0;
 }
-h3{
+.profile-container h3 {
     margin: 1.5rem;
 }
 
-.filler{
+.filler {
     height: 12%;
+    height: 90px;
     border-radius: 15px 15px 0px 0px;
     background-color: #9e0b0f;
+    border: 2px solid black;
 }
 
-.container{
+.container {
     display: flex;
     margin: 3rem;
 }
 
-.sub-container{
+.sub-container {
     margin: 10px;
 }
 
 /* info */
-.sub-container:first-child{
+.sub-container:first-child {
     width: 30%;
-    min-height: 475px;
+    height: 540px;
     box-shadow: 0px 1px 5px 0.2px #9e0b0f;
     border: 2px solid black;
     border-radius: 15px;
     text-align: center;
     font-size: 3rem;
+    overflow: scroll;
 }
 
-
-.info-tag{
-    padding-top: 5px;
+.info-tag {
+    padding-top: 10px;
     font-size: 1.5rem;
+    color: #9e0b0f;
 }
 
-.info{
+.info {
     font-size: 2rem;
 }
 
+.description-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.info-description {
+    font-size: 1.5rem;
+    width: 80%;
+}
+
 /* profile sections */
-.sub-container:nth-child(2){
+.sub-container:nth-child(2) {
     display: block;
     width: 70%;
 }
 
-.section-toggle{
+.section-toggle {
     width: 100%;
     height: 20%;
+    max-height: 90px;
 }
 
-.toggle-options{
+.toggle-options {
     display: flex;
     align-items: center;
     width: 100%;
@@ -65,7 +80,7 @@ h3{
     padding: 0;
 }
 
-.toggle-options li{
+.toggle-options li {
     list-style: none;
     height: 100%;
     width: 100%;
@@ -75,62 +90,82 @@ h3{
     text-align: center;
 }
 
-.toggle-options li button{
+.toggle-options li button {
     width: 100%;
     height: 100%;
     border-radius: 15px 15px 0px 0px;
     text-decoration: none;
     font-size: 2rem;
     color: black;
+    margin-top: 0;
     background-color: white;
     border: none;
 }
 
 .toggle-options button:hover,
-.toggle-options button.active{
-    color:#9e0b0f;
+.toggle-options button:active {
+    color: #9e0b0f;
     background-color: #e7e7db;
 }
 
-.section{
+.section {
     border: 2px solid black;
     border-radius: 0px 0px 15px 15px;
     box-shadow: 0px 1px 5px 0.2px #9e0b0f;
     width: 100%;
-    min-height: 380px;
+    height: 450px;
+    overflow: scroll;
 }
 
 /* edit profile section */
-h3{
+.postings h3,
+.edit h3,
+.pendingRequests h3,
+.approvedRequests h3 {
     text-align: center;
+    font-size: 2rem;
+    margin-top: 1em;
 }
 
-.edit-parent{
+.edit-parent {
     display: flex;
     flex-wrap: wrap;
 }
 
-.edit-item{
+.edit-item {
     flex-basis: 50%;
     width: 100%;
     text-align: center;
-    padding: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
-label{
+.edit-description {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.edit-description input {
+    width: 80%;
+    height: 85px;
+    resize: none;
+    padding: 2em;
+    text-overflow: clip;
+}
+
+label {
     display: block;
     margin-bottom: 10px;
 }
 
-input{
+input {
     text-align: center;
     width: 100%;
     height: 80%;
     border-radius: 15px;
 }
 
-.edit button{
+.edit button {
     width: 8rem;
     height: 3rem;
     margin-bottom: 2rem;
@@ -139,4 +174,48 @@ input{
     color: white;
 }
 
-/* My Postings section */
+body {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #e7e7db;
+    background-position: center;
+    height: "100vh";
+    width: "100vw";
+    background-size: "cover";
+    background-repeat: "no-repeat";
+    font-family: Imported;
+}
+
+/* Posting/Pending/Approved Section */
+.post-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.post-card {
+    margin: 1rem;
+}
+
+/* Modal for Requests*/
+.test {
+    border: 1px solid black;
+    width: 33%;
+    height: 30vh;
+}
+
+.theSection {
+    padding: 15px;
+    width: 50%;
+    float: left;
+}
+
+.theContainer {
+    padding: 15px;
+}
+
+.pad h3 {
+    padding: 5px;
+}
