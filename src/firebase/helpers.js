@@ -205,6 +205,10 @@ export async function setInactive(postId, owner) {
     return true;
 }
 
+export function convertToPostId(email, date) {
+    return `${email}_${date.seconds}.${date.nanoseconds}`;
+}
+
 /**
  * returns if the current user owns the post with ID postID
  * @param {string} postID
