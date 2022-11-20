@@ -20,7 +20,6 @@ import ModalCreate from "./modal-create";
 import PostingCard from "./posting-card";
 import { db } from "../../firebase/config";
 import { createRandomPosts } from "../../firebase/populate";
-import { convertToPostId } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
 import "../../styles/index.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -38,12 +37,11 @@ const dark = {
 };
 
 export const tags = {
-    strictRules: "strict rules",
-    looseRules: "loose rules",
-    oneShot: "one-shot",
-    campaign: "campaign",
-    homebrew: "homebrew",
-    preWritten: "pre-written",
+    "loose rules": "t_looseRules",
+    "one shot": "t_oneShot",
+    campaign: "t_campaign",
+    homebrew: "t_homebrew",
+    "pre-written": "t_preWritten",
 };
 
 const searchMatch = (item, search, property) => {
@@ -55,10 +53,8 @@ const searchMatch = (item, search, property) => {
 function Posts() {
     const postsRef = collection(db, "Posts");
     const [search, setSearch] = useState("");
-    const [searchBy, setSearchBy] = useState("title");
+    const [searchBy, setSearchBy] = useState("location");
     const [searchTags, setSearchTags] = useState([]);
-    // const [postsValues, postsLoading, postsError, postsSnapshot] =
-    //     useCollectionDataOnce(query(postsRef, where("isActive", "==", true)));
     const [allPosts, setAllPosts] = useState([]);
     const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -72,27 +68,26 @@ function Posts() {
     };
 
     const getAllPosts = async () => {
-        const userEmail = currentUserEmail();
-
         const wheres = []; // list of queries
 
-        // only get active queries and non-user queries
+        // only get active queries
         wheres.push(where("isActive", "==", true));
-        // console.log(userEmail);
-        wheres.push(where("owner", "!=", userEmail));
 
         // add tags to queries
         if (searchTags !== [])
             searchTags.forEach((tag) => {
-                wheres.push(where(tag, "==", true));
+                wheres.push(where(tags[tag], "==", true));
             });
 
         const firestoreQuery = query(postsRef, ...wheres);
         const querySnapshot = await getDocs(firestoreQuery);
+
         const posts = [];
         querySnapshot.forEach((doc) => {
-            posts.push(doc.data());
+            // filter out user's posts
+            if (doc.data().owner !== currentUserEmail()) posts.push(doc.data());
         });
+
         // console.log(posts);
         setAllPosts(posts);
     };
@@ -120,6 +115,12 @@ function Posts() {
                             }}
                             onKeyDown={(e) => {
                                 if (e.key == "Enter") setSearch(e.target.value);
+                                // check if search bar is empty
+                                else if (
+                                    e.key == "Backspace" &&
+                                    e.target.value.length === 1
+                                )
+                                    setSearch("");
                             }}
                         />
                     </Grid>
@@ -134,12 +135,11 @@ function Posts() {
                                     setSearchBy(e.target.value);
                                 }}
                             >
-                                <MenuItem value="title">Title</MenuItem>
                                 <MenuItem value="location">Location</MenuItem>
-                                {/* <MenuItem value="tags">Tags</MenuItem> */}
-                                <MenuItem value="description">
+                                <MenuItem value="title">Title</MenuItem>
+                                {/* <MenuItem value="description">
                                     Description
-                                </MenuItem>
+                                </MenuItem> */}
                             </Select>
                         </FormControl>
                     </Grid>
@@ -168,10 +168,10 @@ function Posts() {
                                     setSearchTags(e.target.value);
                                 }}
                             >
-                                {Object.values(tags).map((tag) => {
+                                {Object.entries(tags).map((tag) => {
                                     return (
-                                        <MenuItem key={tag} value={tag}>
-                                            {tag}
+                                        <MenuItem key={tag[0]} value={tag[0]}>
+                                            {tag[0]}
                                         </MenuItem>
                                     );
                                 })}
