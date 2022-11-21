@@ -21,7 +21,8 @@ function Login() {
     return (
         <>
             {/* //<Header /> */}
-            <body
+            <div
+                className="login_page"
                 style={{
                     display: "flex",
                     height: "100vh",
@@ -35,6 +36,7 @@ function Login() {
 
                 {/* the box container */}
                 <div
+                    className="box_container"
                     style={{
                         display: "flex",
                         height: "60vh",
@@ -85,6 +87,7 @@ function Login() {
 
                     {/* login button */}
                     <button
+                        className="button_login"
                         onClick={() => {
                             if (login()) {
                                 navigate("/Profile");
@@ -166,7 +169,7 @@ function Login() {
 
                         </div>
                     </div> */}
-            </body>
+            </div>
         </>
     );
 }

@@ -32,6 +32,10 @@ input[type="password"] {
 }
 
 button {
+    align-self: center;
+}
+
+.button_login {
     font-family: Imported;
     height: 3vh;
     width: 5vw;
@@ -82,16 +86,26 @@ h2 {
 }
 
 body {
-    text-align: center;
+    background-color: "#e7e7db";
+}
+
+.login_page {
     justify-content: center;
     align-items: center;
-    background-color: "#e7e7db";
-    background-position: center;
-    height: "100vh";
-    width: "100vw";
-    background-size: "cover";
-    background-repeat: "no-repeat";
-    font-family: Imported;
+}
+
+.box_container {
+    display: flex;
+    height: 60vh;
+    width: 40vw;
+    background-color: "#FFFFFF";
+    color: "black";
+    border-style: "solid";
+    border-color: "#9e0b0f";
+    border-radius: "15px";
+    border-width: "10px";
+    justify-content: "center";
+    flex-direction: "column";
 }
 
 /* .input-container {

@@ -1,13 +1,13 @@
 import { db } from "./config";
 import {
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  deleteDoc,
-  Timestamp,
-  arrayUnion,
-  arrayRemove,
+    doc,
+    setDoc,
+    getDoc,
+    updateDoc,
+    deleteDoc,
+    Timestamp,
+    arrayUnion,
+    arrayRemove,
 } from "firebase/firestore";
 import { currentUserEmail } from "./auth";
 
@@ -17,11 +17,11 @@ import { currentUserEmail } from "./auth";
  * @returns user's data
  */
 export async function getUser(email) {
-  const user = await getDoc(doc(db, "/Users/" + email));
-  if (user.exists()) {
-    return user.data();
-  }
-  return null;
+    const user = await getDoc(doc(db, "/Users/" + email));
+    if (user.exists()) {
+        return user.data();
+    }
+    return null;
 }
 
 /**
@@ -30,11 +30,11 @@ export async function getUser(email) {
  * @returns user's data
  */
 export async function getPost(postID) {
-  const post = await getDoc(doc(db, "/Users/" + postID));
-  if (post.exists()) {
-    return post.data();
-  }
-  return null;
+    const post = await getDoc(doc(db, "/Users/" + postID));
+    if (post.exists()) {
+        return post.data();
+    }
+    return null;
 }
 
 /**
@@ -44,23 +44,23 @@ export async function getPost(postID) {
  * @param {string} discordTag
  */
 export async function createUser(email, fullname) {
-  const userRef = doc(db, "/Users/" + email);
-  const userSnap = await getDoc(userRef);
-  if (userSnap.exists()) {
-    console.log(`user ${email} already exists`);
-    return true;
-  }
-  setDoc(userRef, {
-    email: email,
-    name: fullname,
-    discordTag: null,
-    activePostings: [],
-    inactivePostings: [],
-    approvedRequests: [],
-    pendingRequests: [],
-  });
-  console.log(`CREATED user ${email}`);
-  return false;
+    const userRef = doc(db, "/Users/" + email);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists()) {
+        console.log(`user ${email} already exists`);
+        return true;
+    }
+    setDoc(userRef, {
+        email: email,
+        name: fullname,
+        discordTag: null,
+        activePostings: [],
+        inactivePostings: [],
+        approvedRequests: [],
+        pendingRequests: [],
+    });
+    console.log(`CREATED user ${email}`);
+    return false;
 }
 
 /**
@@ -73,41 +73,41 @@ export async function createUser(email, fullname) {
  * @param {number} maxPlayers
  */
 export async function createPost(
-  email,
-  title,
-  description,
-  tags,
-  location,
-  maxPlayers
+    email,
+    title,
+    description,
+    tags,
+    location,
+    maxPlayers
 ) {
-  const ownerRef = doc(db, "Users", email);
-  const userSnap = await getDoc(ownerRef);
-  if (!userSnap.exists()) {
-    console.log(`user ${email} not found`);
-    return false;
-  }
-  const now = Timestamp.now();
-  const postId = `${email}_${now.seconds}.${now.nanoseconds}`;
-  setDoc(doc(db, "Posts", postId), {
-    owner: email,
-    title: title,
-    description: description,
-    tags: tags,
-    date: now,
-    location: location,
-    maxPlayers: maxPlayers,
-    currPlayers: 0,
-    isActive: true,
-    approvedUsers: [],
-    pendingUsers: [],
-  }).then(() => {
-    updateDoc(ownerRef, {
-      activePostings: arrayUnion(postId),
+    const ownerRef = doc(db, "Users", email);
+    const userSnap = await getDoc(ownerRef);
+    if (!userSnap.exists()) {
+        console.log(`user ${email} not found`);
+        return false;
+    }
+    const now = Timestamp.now();
+    const postId = `${email}_${now.seconds}.${now.nanoseconds}`;
+    setDoc(doc(db, "Posts", postId), {
+        owner: email,
+        title: title,
+        description: description,
+        tags: tags,
+        date: now,
+        location: location,
+        maxPlayers: maxPlayers,
+        currPlayers: 0,
+        isActive: true,
+        approvedUsers: [],
+        pendingUsers: [],
+    }).then(() => {
+        updateDoc(ownerRef, {
+            activePostings: arrayUnion(postId),
+        });
     });
-  });
 
-  console.log(`CREATED post for ${email}`);
-  return true;
+    console.log(`CREATED post for ${email}`);
+    return true;
 }
 
 /**
@@ -116,21 +116,21 @@ export async function createPost(
  * @param {string} owner (user's email)
  */
 export async function deletePost(postId, owner) {
-  if (!validPostOwner(postId, owner)) {
-    console.log("invalid post owner");
-    return false;
-  }
+    if (!validPostOwner(postId, owner)) {
+        console.log("invalid post owner");
+        return false;
+    }
 
-  // get refs to documents
-  const ownerRef = doc(db, "Users", owner);
-  const postRef = doc(db, "Posts", postId);
-  deleteDoc(postRef).then(() => {
-    updateDoc(ownerRef, {
-      activePostings: arrayRemove(postId),
+    // get refs to documents
+    const ownerRef = doc(db, "Users", owner);
+    const postRef = doc(db, "Posts", postId);
+    deleteDoc(postRef).then(() => {
+        updateDoc(ownerRef, {
+            activePostings: arrayRemove(postId),
+        });
     });
-  });
-  console.log(`DELETED post ${postId}`);
-  return true;
+    console.log(`DELETED post ${postId}`);
+    return true;
 }
 
 /**
@@ -150,15 +150,15 @@ export async function setActive(postId, owner) {
     updateDoc(postRef, {
         isActive: true,
     })
-    // add to active postings and delete inactive ones
-    .then(() => {
-      updateDoc(ownerRef, {
-        activePostings: arrayUnion(postId),
-        inactivePostings: arrayRemove(postId)
-      });
-    });
-  console.log(`set post ${postId} to ACTIVE`);
-  return true;
+        // add to active postings and delete inactive ones
+        .then(() => {
+            updateDoc(ownerRef, {
+                activePostings: arrayUnion(postId),
+                inactivePostings: arrayRemove(postId),
+            });
+        });
+    console.log(`set post ${postId} to ACTIVE`);
+    return true;
 }
 
 /**
@@ -178,15 +178,15 @@ export async function setInactive(postId, owner) {
     updateDoc(postRef, {
         isActive: false,
     })
-    // remove from active postings and add to inactive postings
-    .then(() => {
-      updateDoc(ownerRef, {
-        activePostings: arrayRemove(postId),
-        inactivePostings: arrayUnion(postId)
-      });
-    });
-  console.log(`set post ${postId} to INACTIVE`);
-  return true;
+        // remove from active postings and add to inactive postings
+        .then(() => {
+            updateDoc(ownerRef, {
+                activePostings: arrayRemove(postId),
+                inactivePostings: arrayUnion(postId),
+            });
+        });
+    console.log(`set post ${postId} to INACTIVE`);
+    return true;
 }
 
 /**
@@ -195,9 +195,9 @@ export async function setInactive(postId, owner) {
  * @returns {boolean}
  */
 export async function isCurrentUserPostOwner(postID) {
-  return currentUserEmail()
-    ? validPostOwner(postID, currentUserEmail())
-    : false;
+    return currentUserEmail()
+        ? validPostOwner(postID, currentUserEmail())
+        : false;
 }
 
 /**
@@ -207,13 +207,13 @@ export async function isCurrentUserPostOwner(postID) {
  * @returns {boolean | null}
  */
 export async function isCurrentUserRequestApproved(postID) {
-  const user = currentUserEmail();
-  if (!user) {
-    console.log("isCurrentUserRequestApproved: Not signed in");
-    return null;
-  }
+    const user = currentUserEmail();
+    if (!user) {
+        console.log("isCurrentUserRequestApproved: Not signed in");
+        return null;
+    }
 
-  // I think we can assume the user exists
+    // I think we can assume the user exists
 
     // get the post's data
     const postRef = doc(db, "/Posts/" + postID);
@@ -223,8 +223,8 @@ export async function isCurrentUserRequestApproved(postID) {
     }
     const approvedUsers = postSnap.data().approvedUsers;
 
-  // see if approvedUsers contains the current user
-  return approvedUsers.includes(user);
+    // see if approvedUsers contains the current user
+    return approvedUsers.includes(user);
 }
 
 /**
@@ -235,13 +235,13 @@ export async function isCurrentUserRequestApproved(postID) {
  */
 
 export async function isCurrentUserRequestPending(postID) {
-  const user = currentUserEmail();
-  if (!user) {
-    console.log("isCurrentUserRequestPending: Not signed in");
-    return null;
-  }
+    const user = currentUserEmail();
+    if (!user) {
+        console.log("isCurrentUserRequestPending: Not signed in");
+        return null;
+    }
 
-  // I think we can assume the user exists
+    // I think we can assume the user exists
 
     // get the post's data
     const postRef = doc(db, "/Posts/" + postID);
@@ -251,8 +251,8 @@ export async function isCurrentUserRequestPending(postID) {
     }
     const pendingUsers = postSnap.data().pendingUsers;
 
-  // see if pendingUsers contains the current user
-  return pendingUsers.includes(user);
+    // see if pendingUsers contains the current user
+    return pendingUsers.includes(user);
 }
 
 /**
@@ -321,19 +321,19 @@ export async function leaveGroup(postID) {
  * @param {boolean} approveOrDeny
  */
 export async function approveOrDenyRequestToJoinGroup(
-  postID,
-  userID,
-  approveOrDeny
+    postID,
+    userID,
+    approveOrDeny
 ) {
-  // make sure current user is post owner
-  if (!isCurrentUserPostOwner(postID)) {
-    console.log(
-      "approveOrDenyRequestToJoinGroup: Current user is not post owner (or some edge case came up)"
-    );
-    return false;
-  }
+    // make sure current user is post owner
+    if (!isCurrentUserPostOwner(postID)) {
+        console.log(
+            "approveOrDenyRequestToJoinGroup: Current user is not post owner (or some edge case came up)"
+        );
+        return false;
+    }
 
-  // make sure user is on pending list
+    // make sure user is on pending list
     // get the post's data
     const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
@@ -365,7 +365,6 @@ export async function approveOrDenyRequestToJoinGroup(
             });
         }
     }
-  }
 }
 
 //
@@ -379,8 +378,8 @@ export async function approveOrDenyRequestToJoinGroup(
  * @returns {string}
  */
 export async function getCurrentUserName() {
-  const userData = await getUser(currentUserEmail());
-  return userData ? userData.name : "No User Data";
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.name : "No User Data";
 }
 
 /**
@@ -389,8 +388,8 @@ export async function getCurrentUserName() {
  * @returns {string}
  */
 export async function getCurrentUserDiscord() {
-  const userData = await getUser(currentUserEmail());
-  return userData ? userData.discordTag : "No User Data";
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.discordTag : "No User Data";
 }
 
 /**
@@ -398,8 +397,8 @@ export async function getCurrentUserDiscord() {
  * @returns {Array<string>}
  */
 export async function getCurrentUserActivePostings() {
-  const userData = await getUser(currentUserEmail());
-  return userData ? userData.activePostings : [];
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.activePostings : [];
 }
 
 /**
@@ -407,8 +406,8 @@ export async function getCurrentUserActivePostings() {
  * @returns {Array<string>}
  */
 export async function getCurrentUserInactivePostings() {
-  const userData = await getUser(currentUserEmail());
-  return userData ? userData.inactivePostings : [];
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.inactivePostings : [];
 }
 
 /**
@@ -416,8 +415,8 @@ export async function getCurrentUserInactivePostings() {
  * @returns {Array<string>}
  */
 export async function getCurrentUserApprovedRequests() {
-  const userData = await getUser(currentUserEmail());
-  return userData ? userData.approvedRequests : [];
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.approvedRequests : [];
 }
 
 /**
@@ -425,8 +424,8 @@ export async function getCurrentUserApprovedRequests() {
  * @returns {Array<string>}
  */
 export async function getCurrentUserPendingRequests() {
-  const userData = await getUser(currentUserEmail());
-  return userData ? userData.pendingRequests : [];
+    const userData = await getUser(currentUserEmail());
+    return userData ? userData.pendingRequests : [];
 }
 
 /**
@@ -457,6 +456,6 @@ export async function updateCurrentUserDiscord(discord) {
  * @param {string} owner
  */
 const validPostOwner = (postId, owner) => {
-  if (owner.length >= postId.length) return false;
-  return postId.substring(0, owner.length) === owner;
+    if (owner.length >= postId.length) return false;
+    return postId.substring(0, owner.length) === owner;
 };
