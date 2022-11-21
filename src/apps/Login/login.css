@@ -13,6 +13,31 @@ div {
     font-family: "Times New Roman", sans-serif;
 }
 
+.login_page {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-image: url(../../images/ddbackgroundtan.jpg);
+    background-repeat: no-repeat;
+}
+
+.box_container {
+    display: flex;
+    height: 60vh;
+    width: 40vw;
+    background-color: #ffffff;
+    color: black;
+    border-style: solid;
+    border-color: #9e0b0f;
+    border-radius: 15px;
+    border-width: 10px;
+    justify-content: center;
+    flex-direction: column;
+}
+
 input[type="text"],
 input[type="password"] {
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -37,8 +62,8 @@ button {
 
 .button_login {
     font-family: Imported;
-    height: 3vh;
-    width: 5vw;
+    height: 10vh;
+    width: 15vw;
     margin: 5px;
     text-align: center;
     font-size: 35px;
@@ -49,12 +74,10 @@ button {
     color: #e7e7db;
 }
 
-br {
+break {
     /* padding: 50%; */
     height: 15px;
     width: 5vw;
-    gap: 8px;
-    margin: 25px;
 }
 
 label {
@@ -64,18 +87,21 @@ label {
     color: #9e0b0f;
     font-weight: bold;
 }
-
 h1 {
+    text-align: center;
+    color: black;
+}
+.title_txt {
     font-family: Imported;
     font-size: 50px;
     /* border-style: solid; */
-
+    color: black;
     gap: 5px;
     margin-top: -20px;
     margin-bottom: 10px;
 }
 
-h2 {
+.description {
     font-family: "Times New Roman", sans-serif;
     font-size: 25px;
     /* border-style: solid; */
@@ -86,26 +112,32 @@ h2 {
 }
 
 body {
-    background-color: "#e7e7db";
+    background-color: #e7e7db;
 }
 
-.login_page {
-    justify-content: center;
-    align-items: center;
+img {
+    gap: 1px;
 }
 
-.box_container {
-    display: flex;
-    height: 60vh;
-    width: 40vw;
-    background-color: "#FFFFFF";
-    color: "black";
-    border-style: "solid";
-    border-color: "#9e0b0f";
-    border-radius: "15px";
-    border-width: "10px";
-    justify-content: "center";
-    flex-direction: "column";
+.title_image {
+    position: center;
+    align-self: center;
+    height: 22vh;
+    width: 27vw;
+}
+
+.dragon {
+    position: absolute;
+    height: 15%;
+    width: 10%;
+    bottom: 200px;
+}
+
+.dice {
+    position: absolute;
+    height: 25%;
+    bottom: 0px;
+    right: 0px;
 }
 
 /* .input-container {

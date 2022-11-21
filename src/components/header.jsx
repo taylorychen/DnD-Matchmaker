@@ -29,7 +29,7 @@ export default function Header() {
                 </li>
                 <li>
                     <button
-                        className="dropdown-button"
+                        className="sign_out_button"
                         onClick={() => {
                             navigate("/");
                             logout();
