@@ -99,7 +99,8 @@ const ModalRequests = ({ thePost }) => {
             <Button
                 onClick={handleOpen}
                 variant="contained"
-                sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
+                color="error"
+                sx={{ minWidth: 0.1, backgroundColor: "darkred" }}
             >
                 Requests
             </Button>
@@ -134,6 +135,7 @@ const ModalRequests = ({ thePost }) => {
                 <Button
                     onClick={handleClose}
                     variant="contained"
+                    color="error"
                     sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
                 >
                     close

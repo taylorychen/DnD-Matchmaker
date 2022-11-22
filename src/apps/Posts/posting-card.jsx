@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import {
+    Card,
+    CardActions,
+    CardContent,
+    Button,
+    Typography,
+} from "@mui/material";
 import "./posting-card.css";
 import ModalRequests from "../Profile/modal-requests";
 import ModalApproved from "../Profile/modal-approved";
@@ -199,7 +201,7 @@ const PostingCards = ({ post }) => {
                             handleRequest(postID);
                         }}
                     >
-                        Request to Join
+                        Request
                     </Button>
                 );
             }
