@@ -182,7 +182,10 @@ const PostingCards = ({ post }) => {
     };
 
     return (
-        <Card variant="outlined" sx={{ maxWidth: 345 }}>
+        <Card
+            variant="outlined"
+            sx={{ maxWidth: 385, height: 320, width: 500 }}
+        >
             <CardContent>
                 <Typography
                     gutterBottom

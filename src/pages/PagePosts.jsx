@@ -12,20 +12,20 @@ import Posts from "../apps/Posts/index";
 import "../styles/index.css";
 
 function PagePostings() {
-  return (
-    <>
-      <div className="page-container">
-        <Header />
-        <div class="page">
-          <Typography variant="h2" sx={{ my: 2 }}>
+    return (
+        <>
+            <div className="page-container">
+                <Header />
+                <div class="page">
+                    {/* <Typography variant="h2" sx={{ my: 2 }}>
             Posts
-          </Typography>
-          <Posts />
-        </div>
-        <Footer />
-      </div>
-    </>
-  );
+          </Typography> */}
+                    <Posts />
+                </div>
+                <Footer />
+            </div>
+        </>
+    );
 }
 
 export default PagePostings;

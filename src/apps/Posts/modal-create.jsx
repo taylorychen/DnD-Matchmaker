@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../Login/login.css";
 import {
     Button,
     Dialog,
@@ -83,7 +84,9 @@ const ModalCreate = () => {
 
     return (
         <>
+            <h1 className="title_posts">Posts</h1>
             <Button
+                style={{ marginBottom: "30px" }}
                 onClick={handleOpen}
                 variant="contained"
                 sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}

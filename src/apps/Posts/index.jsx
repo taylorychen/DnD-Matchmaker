@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../Login/login.css";
 import { Grid, Button, Dialog } from "@mui/material";
 import { collection, query, where } from "firebase/firestore";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
@@ -39,13 +40,14 @@ function Posts() {
                 )}
             </Grid>
 
-            <button
+            {/* <button
+                className="button_login"
                 onClick={() => {
                     createRandomPosts(1);
                 }}
             >
                 add post
-            </button>
+            </button> */}
         </>
     );
 }

@@ -73,7 +73,9 @@ export default function Profile() {
                             />
                         </div>
 
-                        <button type="submit">Update</button>
+                        <button className="button_update" type="submit">
+                            Update
+                        </button>
                     </div>
                 </form>
             </div>
@@ -136,17 +138,24 @@ export default function Profile() {
                     <div className="section-toggle">
                         <ul className="toggle-options">
                             <li>
-                                <button onClick={() => setActive("edit")}>
+                                <button
+                                    className="tabs_profile"
+                                    onClick={() => setActive("edit")}
+                                >
                                     Edit Profile
                                 </button>
                             </li>
                             <li>
-                                <button onClick={() => setActive("postings")}>
+                                <button
+                                    className="tabs_profile"
+                                    onClick={() => setActive("postings")}
+                                >
                                     My Postings
                                 </button>
                             </li>
                             <li>
                                 <button
+                                    className="tabs_profile"
                                     onClick={() => setActive("pendingRequests")}
                                 >
                                     Pending
@@ -154,6 +163,7 @@ export default function Profile() {
                             </li>
                             <li>
                                 <button
+                                    className="tabs_profile"
                                     onClick={() =>
                                         setActive("approvedRequests")
                                     }

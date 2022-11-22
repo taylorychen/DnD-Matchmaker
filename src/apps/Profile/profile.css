@@ -11,10 +11,10 @@
 }
 
 .filler {
-  height: 12%;
-  max-height: 90px;
-  border-radius: 15px 15px 0px 0px;
-  background-color: #9e0b0f;
+    height: 12%;
+    max-height: 90px;
+    border-radius: 15px 15px 0px 0px;
+    background-color: #9e0b0f;
 }
 
 .container {
@@ -53,9 +53,9 @@
 }
 
 .section-toggle {
-  width: 100%;
-  height: 20%;
-  max-height: 90px;
+    width: 100%;
+    height: 20%;
+    max-height: 90px;
 }
 
 .toggle-options {
@@ -95,12 +95,12 @@
 }
 
 .section {
-  border: 2px solid black;
-  border-radius: 0px 0px 15px 15px;
-  box-shadow: 0px 1px 5px 0.2px #9e0b0f;
-  width: 100%;
-  height: 450px;
-  overflow: scroll;
+    border: 2px solid black;
+    border-radius: 0px 0px 15px 15px;
+    box-shadow: 0px 1px 5px 0.2px #9e0b0f;
+    width: 100%;
+    height: 450px;
+    overflow: scroll;
 }
 
 /* edit profile section */
@@ -142,6 +142,35 @@ input {
     color: white;
 }
 
+.button_update {
+    border: none;
+    font-family: "Times New Roman", Times, serif;
+    width: 8rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    background-color: #9e0b0f;
+    color: white;
+    border-radius: 8px;
+    border-color: white;
+}
+
+.button_update:hover {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.tabs_profile {
+    font-family: Imported;
+    text-align: center;
+    font-size: 35px;
+    align-self: center;
+    border-radius: 5px;
+    /*border-color: #e7e7db;*/
+    background-color: #9e0b0f;
+    color: #e7e7db;
+}
+
 body {
     text-align: center;
     justify-content: center;
@@ -157,11 +186,11 @@ body {
 
 /* My Postings section */
 .post-grid {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 .test {
-  border: 1px solid black;
-  width: 33%;
-  height: 30vh;
+    border: 1px solid black;
+    width: 33%;
+    height: 30vh;
 }

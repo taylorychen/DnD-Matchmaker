@@ -8,6 +8,16 @@
     border-color: darkred;
 }
 
+.title_posts {
+    font-family: Imported;
+    font-size: 70px;
+    /* border-style: solid; */
+    color: black;
+    gap: 5px;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+
 .modal-content {
     line-height: 1.4;
     background-color: #e7e7db;
