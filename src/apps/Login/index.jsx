@@ -88,7 +88,6 @@ function Login() {
                                 navigate("/Profile");
                             } else {
                                 login().then((result) => {
-                                    console.log(`hell ${result}`);
                                     if (result) {
                                         navigate("/Profile");
                                     }
