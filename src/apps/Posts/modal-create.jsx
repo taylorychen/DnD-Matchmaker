@@ -12,6 +12,9 @@ import {
 import "./modal.css";
 import { createPost } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
+import cards3 from "../../images/3cards.gif";
+
+import dragon_red from "../../images/dragon_red.webp";
 
 // this modal component is for when users are trying to create a new post (database writing)
 const ModalCreate = () => {
@@ -97,51 +100,78 @@ const ModalCreate = () => {
             <Dialog open={open} sx={{ Width: 700 }}>
                 <div className="modal-content">
                     <FormControl>
-                        <h2>Create A New Game Post</h2>
-                        <br></br>
-                        <br></br>
-                        <Grid container spacing={2}>
+                        <h1 className="create_post">Create A New Game Post</h1>
+                        <button className="x" onClick={handleClose}>
+                            X
+                        </button>
+                        <h1 className="create_post2">Start An Adventure</h1>
+                        {/* <br></br>
+                        <br></br> */}
+                        <Grid>
+                            <img
+                                className="image_side"
+                                src={dragon_red}
+                                alt="loading..."
+                            />
+
+                            <h1 className="create_post2">Describe Your Game</h1>
+
+                            <TextField
+                                required
+                                id="number"
+                                label="# of players"
+                                type="number"
+                                variant="outlined"
+                                margin="normal"
+                                onChange={(e) => {
+                                    setNumber(e.target.value);
+                                    console.log(number);
+                                }}
+                            />
+
                             <TextField
                                 required
                                 id="gname"
-                                label="Name the Game"
+                                size="small"
+                                label="game name"
+                                margin="normal"
                                 variant="outlined"
                                 onChange={(e) => {
                                     setGname(e.target.value);
                                     console.log(gname);
                                 }}
                             />
+
                             <TextField
                                 required
                                 id="location"
                                 label="location"
+                                size="small"
                                 variant="outlined"
+                                margin="normal"
                                 onChange={(e) => {
                                     setLocation(e.target.value);
                                     console.log(location);
                                 }}
                             />
+
                             <TextField
                                 required
                                 id="description"
                                 label="description"
+                                size="normal"
+                                multiline
+                                fullWidth
                                 variant="outlined"
+                                margin="normal"
                                 onChange={(e) => {
                                     setDescription(e.target.value);
                                     console.log(description);
                                 }}
                             />
-                            <TextField
-                                required
-                                id="number"
-                                label="number"
-                                variant="outlined"
-                                onChange={(e) => {
-                                    setNumber(e.target.value);
-                                    console.log(number);
-                                }}
-                            />
                         </Grid>
+
+                        <h1 className="create_post2">Select Your Gameplay</h1>
 
                         <Grid continer spacing={2}>
                             <FormControlLabel
@@ -244,17 +274,20 @@ const ModalCreate = () => {
                                 label="Pre-written"
                             />
                         </Grid>
-                        <Button
+                        <button
+                            className="button_submit"
                             type="submit"
                             variant="outlined"
                             onClick={handleSubmit}
                         >
                             Submit
-                        </Button>
+                        </button>
                     </FormControl>
                     <br></br>
                     <br></br>
-                    <Button onClick={handleClose}>close</Button>
+                    <button className="close_button" onClick={handleClose}>
+                        close
+                    </button>
                 </div>
             </Dialog>
         </>

@@ -44,8 +44,8 @@ const ModalInfo = () => {
                 <div className="stuff">
                     <div onClick={toggleModal} className="stuff"></div>
                     <div className="modal-content">
-                        <h1>{groupName}</h1>
-                        <p className="info_t"> Location: {location}</p>
+                        <h1 className="lol">{groupName.addClass("lol")}</h1>
+                        <p className="info"> Location: {location}</p>
                         <p className="info">
                             {" "}
                             Number of Players: {NumberOfPlayers}
