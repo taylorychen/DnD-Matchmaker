@@ -1,7 +1,15 @@
-# Getting Started with Unhinged: A Dungeons & Dragons Matchmaker
+# Installation
 
-This README was last updated 11/19/22 at around 1:00 PM PST. \
-Some pages may have been updated and features may have been added since then.
+`git clone https://github.com/taylorychen/35L-project.git` \
+To clone the repo to your local system \
+`npm install` \
+To install the important npm modules \
+`npm start` \
+To start the app locally
+
+# Using Unhinged: A Dungeons & Dragons Matchmaker
+
+This README was last updated 11/19/22 at around 1:00 PM PST.
 
 ## Home page
 
