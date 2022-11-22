@@ -3,8 +3,7 @@
     margin: 100px;
     text-align: center;
     box-shadow: 0 9px 15px 0 rgba(193, 51, 51, 0.2);
-    height: 50px;
-    width: 50px;
+    border: 10px;
 }
 
 .span {
@@ -30,8 +29,10 @@ button {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    font-family: "Times New Roman", sans-serif;
 }
 
 .title {
     color: #9e0b0f;
+    font-family: "Times New Roman", sans-serif;
 }

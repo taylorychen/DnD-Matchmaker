@@ -8,6 +8,14 @@
     border-color: darkred;
 }
 
+p {
+    align-self: center;
+}
+
+.info_t {
+    font-family: "Times New Roman", sans-serif;
+}
+
 .title_posts {
     font-family: Imported;
     font-size: 70px;
