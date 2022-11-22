@@ -111,6 +111,7 @@ const ModalApproved = ({ thePost }) => {
                 <Button
                     onClick={handleClose}
                     variant="contained"
+                    color="error"
                     sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
                 >
                     close

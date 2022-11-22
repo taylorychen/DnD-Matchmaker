@@ -27,7 +27,7 @@ const PostingCards = ({ post }) => {
     const [isApproved, setisApproved] = useState(false);
     const [isActive, setisActive] = useState(post.isActive);
 
-    const handleRequest = (idkanymorebruh) => {
+    const handleRequest = () => {
         if (post.owner === currentUserEmail()) {
             alert("can not join your own group");
         } else if (isApproved) {
