@@ -1,13 +1,15 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import {
+    Card,
+    CardActions,
+    CardContent,
+    Button,
+    Typography,
+} from "@mui/material";
 import "./posting-card.css";
-import ModalInfo from "./modal-info";
+import ModalRequests from "../Profile/modal-requests";
+import ModalApproved from "../Profile/modal-approved";
 import {
     deletePost,
     setActive,
@@ -15,33 +17,40 @@ import {
     requestToJoinGroup,
     isCurrentUserRequestPending,
     isCurrentUserRequestApproved,
+    leaveGroup,
 } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
 
 const PostingCards = ({ post }) => {
-    const [postID, setPostID] = useState(
-        `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`
-    );
+    const [postID, setPostID] = useState(postToID(post));
     const [isRequested, setisRequested] = useState(false);
     const [isApproved, setisApproved] = useState(false);
     const [isActive, setisActive] = useState(post.isActive);
 
     const handleRequest = (idkanymorebruh) => {
-        if (post.owner == currentUserEmail()) {
+        if (post.owner === currentUserEmail()) {
             alert("can not join your own group");
-        } else {
+        } else if (isApproved) {
+            //if already joined, you probably are trying to leave
+            leaveGroup(postID);
+            alert("you have been removed from the group");
+            setisApproved(false);
+        } else if (!isRequested) {
+            //if you have not requested yet
             requestToJoinGroup(postID);
             alert("request succesfully sent");
             setisRequested(true);
+        } else if (isRequested) {
+            leaveGroup(postID);
+            alert("your request has been removed");
+            setisRequested(false);
         }
     };
 
     //checking for previous request
     async function checkifRequested() {
-        var status = await isCurrentUserRequestPending(
-            `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`
-        );
-        console.log(status);
+        var status = await isCurrentUserRequestPending(postToID(post));
+        //console.log(status);
         if (status) {
             setisRequested(true);
         } else {
@@ -51,10 +60,8 @@ const PostingCards = ({ post }) => {
 
     //checking if you are already part of this group
     async function checkifApproved() {
-        var status = await isCurrentUserRequestApproved(
-            `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`
-        );
-        console.log(status);
+        var status = await isCurrentUserRequestApproved(postToID(post));
+        //console.log(status);
         if (status) {
             setisApproved(true);
         } else {
@@ -63,14 +70,11 @@ const PostingCards = ({ post }) => {
     }
 
     const handleDelete = () => {
-        deletePost(
-            `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`,
-            post.owner
-        );
+        deletePost(postToID(post), post.owner);
         alert(
             "Your game " +
                 post.title +
-                " has been officially deleted, please refresh the page"
+                " has been deleted, please refresh the page"
         );
     };
 
@@ -79,27 +83,21 @@ const PostingCards = ({ post }) => {
             //if it is true meaning IT IS active, deactivate it
             console.log("1", post.isActive, "state:", isActive);
             setisActive(false);
-            setInactive(
-                `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`,
-                post.owner
-            );
+            setInactive(postToID(post), post.owner);
             console.log("after function:", post.isActive);
             alert("your post has been deactivated");
         } else {
             //if it is FALSE meaning it is NOT active, activate it
             console.log("2x", post.isActive, "state", isActive);
             setisActive(true);
-            setActive(
-                `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`,
-                post.owner
-            );
+            setActive(postToID(post), post.owner);
             console.log("after function:", post.isActive);
             alert("your post has been activated!");
         }
     };
 
     const displayCorrectButtons = () => {
-        if (post.owner == currentUserEmail() && post.isActive == true) {
+        if (post.owner === currentUserEmail() && post.isActive === true) {
             //if it is your own post
             return (
                 <>
@@ -123,9 +121,14 @@ const PostingCards = ({ post }) => {
                     >
                         Deactivate
                     </Button>
+                    <ModalRequests thePost={post}></ModalRequests>
+                    <ModalApproved thePost={post}></ModalApproved>
                 </>
             );
-        } else if (post.owner == currentUserEmail() && post.isActive == false) {
+        } else if (
+            post.owner === currentUserEmail() &&
+            post.isActive === false
+        ) {
             return (
                 <>
                     <Button
@@ -148,20 +151,43 @@ const PostingCards = ({ post }) => {
                     >
                         Activate
                     </Button>
+                    {/*<ModalRequests></ModalRequests>
+                     <ModalApproved></ModalApproved> */}
                 </>
             );
         } else {
             checkifRequested();
             checkifApproved();
             //if it is indeed someone else's post
-            if (isRequested == true) {
+            if (isRequested === true) {
                 return (
-                    <Button>already requested</Button>
+                    <Button
+                        size="small"
+                        variant="outlined"
+                        color="error"
+                        onClick={() => {
+                            handleRequest(postID);
+                        }}
+                    >
+                        Unrequest
+                    </Button>
                     // console.log("you have already requested this group LOL")
                 );
-            } else if (isApproved == true) {
+            } else if (isApproved === true) {
                 return (
-                    <Button>you are already part of this group!!</Button>
+                    <>
+                        <Button
+                            size="small"
+                            variant="outlined"
+                            color="error"
+                            onClick={() => {
+                                handleRequest(postID);
+                            }}
+                        >
+                            Leave Group
+                        </Button>
+                        <ModalApproved thePost={post}></ModalApproved>
+                    </>
                     // console.log("you have already requested this group LOL")
                 );
             } else {
@@ -170,11 +196,12 @@ const PostingCards = ({ post }) => {
                     <Button
                         size="small"
                         variant="outlined"
+                        color="error"
                         onClick={() => {
                             handleRequest(postID);
                         }}
                     >
-                        Request to Join
+                        Request
                     </Button>
                 );
             }
@@ -182,7 +209,7 @@ const PostingCards = ({ post }) => {
     };
 
     return (
-        <Card variant="outlined" sx={{ maxWidth: 345 }}>
+        <Card variant="outlined" sx={{ width: 345, height: 200, boxShadow: 5 }}>
             <CardContent>
                 <Typography
                     gutterBottom
@@ -198,13 +225,17 @@ const PostingCards = ({ post }) => {
                 <Typography variant="body1">
                     Players: {post.currPlayers}/{post.maxPlayers}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                {/* <Typography variant="body2" color="text.secondary">
                     {post.description}
-                </Typography>
+                </Typography> */}
             </CardContent>
             <CardActions>{displayCorrectButtons()}</CardActions>
         </Card>
     );
 };
+
+function postToID(post) {
+    return `${post.owner}_${post.date.seconds}.${post.date.nanoseconds}`;
+}
 
 export default PostingCards;

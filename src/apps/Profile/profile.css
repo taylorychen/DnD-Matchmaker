@@ -12,8 +12,10 @@
 
 .filler {
     height: 12%;
+    height: 90px;
     border-radius: 15px 15px 0px 0px;
     background-color: #9e0b0f;
+    border: 2px solid black;
 }
 
 .container {
@@ -28,21 +30,33 @@
 /* info */
 .sub-container:first-child {
     width: 30%;
-    min-height: 475px;
+    height: 540px;
     box-shadow: 0px 1px 5px 0.2px #9e0b0f;
     border: 2px solid black;
     border-radius: 15px;
     text-align: center;
     font-size: 3rem;
+    overflow: scroll;
 }
 
 .info-tag {
-    padding-top: 5px;
+    padding-top: 10px;
     font-size: 1.5rem;
+    color: #9e0b0f;
 }
 
 .info {
     font-size: 2rem;
+}
+
+.description-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.info-description {
+    font-size: 1.5rem;
+    width: 80%;
 }
 
 /* profile sections */
@@ -54,6 +68,7 @@
 .section-toggle {
     width: 100%;
     height: 20%;
+    max-height: 90px;
 }
 
 .toggle-options {
@@ -82,6 +97,7 @@
     text-decoration: none;
     font-size: 2rem;
     color: black;
+    margin-top: 0;
     background-color: white;
     border: none;
 }
@@ -97,12 +113,18 @@
     border-radius: 0px 0px 15px 15px;
     box-shadow: 0px 1px 5px 0.2px #9e0b0f;
     width: 100%;
-    min-height: 380px;
+    height: 450px;
+    overflow: scroll;
 }
 
 /* edit profile section */
-h3 {
+.postings h3,
+.edit h3,
+.pendingRequests h3,
+.approvedRequests h3 {
     text-align: center;
+    font-size: 2rem;
+    margin-top: 1em;
 }
 
 .edit-parent {
@@ -114,8 +136,21 @@ h3 {
     flex-basis: 50%;
     width: 100%;
     text-align: center;
-    padding: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+}
+
+.edit-description {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.edit-description input {
+    width: 80%;
+    height: 85px;
+    resize: none;
+    padding: 2em;
+    text-overflow: clip;
 }
 
 label {
@@ -152,4 +187,35 @@ body {
     font-family: Imported;
 }
 
-/* My Postings section */
+/* Posting/Pending/Approved Section */
+.post-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.post-card {
+    margin: 1rem;
+}
+
+/* Modal for Requests*/
+.test {
+    border: 1px solid black;
+    width: 33%;
+    height: 30vh;
+}
+
+.theSection {
+    padding: 15px;
+    width: 50%;
+    float: left;
+}
+
+.theContainer {
+    padding: 15px;
+}
+
+.pad h3 {
+    padding: 5px;
+}

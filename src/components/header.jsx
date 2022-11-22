@@ -1,5 +1,5 @@
 import React from "react";
-import "./header.css";
+import styles from "./header.css";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/config";
