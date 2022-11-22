@@ -33,16 +33,13 @@ const PostingCards = ({ post }) => {
         } else if (isApproved) {
             //if already joined, you probably are trying to leave
             leaveGroup(postID);
-            alert("you have been removed from the group");
             setisApproved(false);
         } else if (!isRequested) {
             //if you have not requested yet
             requestToJoinGroup(postID);
-            alert("request succesfully sent");
             setisRequested(true);
         } else if (isRequested) {
             leaveGroup(postID);
-            alert("your request has been removed");
             setisRequested(false);
         }
     };
@@ -71,11 +68,6 @@ const PostingCards = ({ post }) => {
 
     const handleDelete = () => {
         deletePost(postToID(post), post.owner);
-        alert(
-            "Your game " +
-                post.title +
-                " has been deleted, please refresh the page"
-        );
     };
 
     const handleActivation = (theBool) => {
@@ -85,14 +77,12 @@ const PostingCards = ({ post }) => {
             setisActive(false);
             setInactive(postToID(post), post.owner);
             console.log("after function:", post.isActive);
-            alert("your post has been deactivated");
         } else {
             //if it is FALSE meaning it is NOT active, activate it
             console.log("2x", post.isActive, "state", isActive);
             setisActive(true);
             setActive(postToID(post), post.owner);
             console.log("after function:", post.isActive);
-            alert("your post has been activated!");
         }
     };
 
@@ -119,7 +109,7 @@ const PostingCards = ({ post }) => {
                         variant="outlined"
                         color="error"
                     >
-                        Deactivate
+                        Archive
                     </Button>
                     <ModalRequests thePost={post}></ModalRequests>
                     <ModalApproved thePost={post}></ModalApproved>
@@ -171,7 +161,6 @@ const PostingCards = ({ post }) => {
                     >
                         Unrequest
                     </Button>
-                    // console.log("you have already requested this group LOL")
                 );
             } else if (isApproved === true) {
                 return (
@@ -184,11 +173,10 @@ const PostingCards = ({ post }) => {
                                 handleRequest(postID);
                             }}
                         >
-                            Leave Group
+                            Leave
                         </Button>
                         <ModalApproved thePost={post}></ModalApproved>
                     </>
-                    // console.log("you have already requested this group LOL")
                 );
             } else {
                 //if you have not requested/joined yet
