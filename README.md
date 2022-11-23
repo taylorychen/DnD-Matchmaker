@@ -2,6 +2,8 @@
 
 `git clone https://github.com/taylorychen/35L-project.git` \
 To clone the repo to your local system \
+`cd 35L-Project` \
+To install the important npm modules \
 `npm install` \
 To install the important npm modules \
 `npm start` \
