@@ -9,7 +9,7 @@ To start the app locally
 
 # Using Unhinged: A Dungeons & Dragons Matchmaker
 
-This README was last updated 11/19/22 at around 1:00 PM PST.
+This README was last updated 11/22/22 at around 7:00 PM PST.
 
 ## Home page
 
@@ -18,11 +18,17 @@ Users will be logged and authenticated with Google Authentication. This will aut
 
 ## Postings
 
-This page displays all of the availible posts. \
+This page displays all of the active posts (excuding full games and the user's own posts). \
 The posts show information about the Dungeon Master's game, including number of players, tags, location, and description. \
 Logged in users can interact with these posts by requesting to join them. \
 The `CREATE` button for users to create their own posts. \
 A toggle allows users to switch between dark and light mode.
+
+### Searching
+
+The top of the page displays a search bar. \
+Users can search by a string that may appear in post's `Location` or `Title` \
+Users can also filter by tags.
 
 ### Post interactions
 

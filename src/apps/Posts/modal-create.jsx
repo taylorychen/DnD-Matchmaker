@@ -42,9 +42,10 @@ const ModalCreate = () => {
             gname === "" ||
             location === "" ||
             description === "" ||
-            number === 0
+            isNaN(parseInt(number)) ||
+            parseInt(number) <= 0
         ) {
-            alert("you have to give inputs or have more than 0 players");
+            alert("Your inputs are missing or invalid!");
         } else {
             setOpen(false);
             console.log("finalTags:", tags);
@@ -58,7 +59,7 @@ const ModalCreate = () => {
                 homebrew,
                 prewritten,
                 location,
-                number
+                parseInt(number)
             );
             alert("You have successfully created a post!");
             setGname("");
