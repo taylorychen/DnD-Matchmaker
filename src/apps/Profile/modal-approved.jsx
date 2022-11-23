@@ -88,6 +88,20 @@ const ModalApproved = ({ thePost }) => {
                     <div className="theSection">
                         <h1>{thePost.title}</h1>
                         <br></br>
+                        <h2>Owner</h2>
+                        <ul>
+                            {
+                                <Button
+                                    className="ew"
+                                    onClick={() => handleClick(owner)}
+                                    color="error"
+                                    sx={{ display: "block" }}
+                                >
+                                    {owner}
+                                </Button>
+                            }
+                        </ul>
+                        <br></br>
                         <h2>Approved Members:</h2>
                         <ul>
                             {approved.map((item) => {

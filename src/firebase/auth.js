@@ -21,19 +21,21 @@ export function currentUserEmail() {
 
 export async function login() {
     // creates a pop up to sign in with Google
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            // adds the newly signed in user to the user database
-            const user = result.user;
-            const fullname = user.displayName;
-            createUser(user.email, fullname);
-            return true;
-            //useNavigate("/Profile");
-        })
-        .catch((error) => {
-            console.log("Error " + error.code + " " + error.message);
-            return false;
-        });
+    return new Promise((resolve, reject) => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // adds the newly signed in user to the user database
+                const user = result.user;
+                const fullname = user.displayName;
+                createUser(user.email, fullname);
+                resolve(true);
+                //useNavigate("/Profile");
+            })
+            .catch((error) => {
+                console.log("Error " + error.code + " " + error.message);
+                resolve(false);
+            });
+    });
 }
 
 export async function logout() {

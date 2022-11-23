@@ -84,9 +84,16 @@ function Login() {
                     {/* login button */}
                     <button
                         onClick={() => {
-                            if (login()) {
+                            if (currentUserEmail() != null) {
                                 navigate("/Profile");
+                            } else {
+                                login().then((result) => {
+                                    if (result) {
+                                        navigate("/Profile");
+                                    }
+                                });
                             }
+
                             //navigateHome();
 
                             //navigate("/Profile");
