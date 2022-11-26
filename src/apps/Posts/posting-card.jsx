@@ -20,6 +20,7 @@ import {
     leaveGroup,
 } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
+import ModalInfo from "./modal-info";
 
 const PostingCards = ({ post }) => {
     const [postID, setPostID] = useState(postToID(post));
@@ -123,6 +124,7 @@ const PostingCards = ({ post }) => {
                     </Button>
                     <ModalRequests thePost={post}></ModalRequests>
                     <ModalApproved thePost={post}></ModalApproved>
+                    <ModalInfo thePost={post}></ModalInfo>
                 </>
             );
         } else if (
@@ -151,8 +153,9 @@ const PostingCards = ({ post }) => {
                     >
                         Activate
                     </Button>
-                    {/*<ModalRequests></ModalRequests>
-                     <ModalApproved></ModalApproved> */}
+                    <ModalInfo thePost={post}></ModalInfo>
+                    <ModalRequests thePost={post}></ModalRequests>
+                    <ModalApproved thePost={post}></ModalApproved>
                 </>
             );
         } else {
@@ -161,6 +164,7 @@ const PostingCards = ({ post }) => {
             //if it is indeed someone else's post
             if (isRequested === true) {
                 return (
+                    <>
                     <Button
                         size="small"
                         variant="outlined"
@@ -171,7 +175,8 @@ const PostingCards = ({ post }) => {
                     >
                         Unrequest
                     </Button>
-                    // console.log("you have already requested this group LOL")
+                    <ModalInfo thePost={post}></ModalInfo>
+                    </>
                 );
             } else if (isApproved === true) {
                 return (
@@ -187,12 +192,13 @@ const PostingCards = ({ post }) => {
                             Leave Group
                         </Button>
                         <ModalApproved thePost={post}></ModalApproved>
+                        <ModalInfo thePost={post}></ModalInfo>
                     </>
-                    // console.log("you have already requested this group LOL")
                 );
             } else {
                 //if you have not requested/joined yet
                 return (
+                    <>
                     <Button
                         size="small"
                         variant="outlined"
@@ -203,6 +209,8 @@ const PostingCards = ({ post }) => {
                     >
                         Request
                     </Button>
+                    <ModalInfo thePost={post}></ModalInfo>
+                    </>
                 );
             }
         }
