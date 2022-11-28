@@ -13,6 +13,8 @@ import "./modal.css";
 import { createPost } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
 import { TAGS } from "./index";
+//import "../Login/login.css";
+import dragon_red from "../../images/dragon_red.webp";
 
 // this modal component is for when users are trying to create a new post (database writing)
 const ModalCreate = () => {
@@ -108,9 +110,12 @@ const ModalCreate = () => {
 
             <Dialog open={open} sx={{ Width: 700 }}>
                 <DialogContent>
-                    <Grid container sx={{ mb: 5 }}>
+                    {/* <Grid container sx={{ mb: 5 }}>
                         <Grid item xs={10}></Grid>
                         <Grid item xs={2}>
+                             <button className="x" onClick={handleClose}>
+                                X
+                            </button> 
                             <Button
                                 onClick={handleClose}
                                 color="error"
@@ -120,12 +125,23 @@ const ModalCreate = () => {
                                 close
                             </Button>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
 
                     <FormControl>
-                        <h1>Create A New Post</h1>
+                        <h1 className="create_post">Create A New Game Post</h1>
+                        <button className="x" onClick={handleClose}>
+                            X
+                        </button>
+                        <h1 className="create_post2">Start An Adventure</h1>
+                        <img
+                            className="image_side"
+                            src={dragon_red}
+                            alt="loading..."
+                        />
+
+                        <h1 className="create_post2">Describe Your Game</h1>
                         <br></br>
-                        <br></br>
+
                         <TextField
                             required
                             id="gname"
@@ -192,7 +208,15 @@ const ModalCreate = () => {
                                 );
                             })}
                         </Grid>
-                        <Button
+                        <button
+                            className="button_submit"
+                            type="submit"
+                            variant="outlined"
+                            onClick={handleSubmit}
+                        >
+                            Submit
+                        </button>
+                        {/* <Button
                             type="submit"
                             variant="contained"
                             color="error"
@@ -200,7 +224,7 @@ const ModalCreate = () => {
                             onClick={handleSubmit}
                         >
                             Submit
-                        </Button>
+                        </Button> */}
                     </FormControl>
                 </DialogContent>
                 <div className="modal-content"></div>
