@@ -398,13 +398,6 @@ export async function approveOrDenyRequestToJoinGroup(
 //
 //
 
-export async function getGroupUserInfo(postID) {}
-
-//
-//
-//
-//
-
 /**
  * Returns the current user's name
  * if the data doesn't exist, returns "No User Data"

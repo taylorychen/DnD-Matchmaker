@@ -8,8 +8,8 @@
 }
 
 .nav {
-    background-color: #e7e7db;
-    color: #9e0b0f;
+    background-color: black;
+    color: white;
     height: 100px;
     display: flex;
     justify-content: space-between;
@@ -39,9 +39,27 @@
     border-radius: 8px;
 } */
 
+.profile:hover,
 .posting:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(253, 252, 252, 0.091);
     padding: 16px;
+    border-radius: 8px;
+}
+
+.sign_out_button:hover {
+    background: #d30f16;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.sign_out_button {
+    border: none;
+    font-family: "Times New Roman", Times, serif;
+    width: 8rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    background-color: #9e0b0f;
+    color: white;
     border-radius: 8px;
 }
 

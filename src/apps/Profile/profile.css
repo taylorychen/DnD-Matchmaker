@@ -41,12 +41,26 @@
 
 .info-tag {
     padding-top: 10px;
+    padding-bottom: 5px;
     font-size: 1.5rem;
     color: #9e0b0f;
 }
 
-.info {
-    font-size: 2rem;
+@media screen and (min-width: 1000px) {
+    .info {
+        font-size: 1.5rem;
+    }
+}
+@media screen and (max-width: 999px) {
+    .info {
+        font-size: 1vw;
+    }
+}
+
+@media screen and (max-width: 999px) {
+    h3 {
+        font-size: 2vw;
+    }
 }
 
 .description-container {
@@ -54,9 +68,11 @@
     display: flex;
     justify-content: center;
 }
+
 .info-description {
     font-size: 1.5rem;
     width: 80%;
+    color: grey;
 }
 
 /* profile sections */
@@ -137,6 +153,7 @@
     width: 100%;
     text-align: center;
     margin-bottom: 1rem;
+    display: block;
 }
 
 .edit-description {
@@ -146,11 +163,15 @@
 }
 
 .edit-description input {
-    width: 80%;
+    width: 85%;
     height: 85px;
     resize: none;
     padding: 2em;
     text-overflow: clip;
+}
+
+.edit-description label {
+    margin-top: 3rem;
 }
 
 label {
@@ -160,15 +181,17 @@ label {
 
 input {
     text-align: center;
-    width: 100%;
-    height: 80%;
-    border-radius: 15px;
+    width: 70%;
+    height: 100%;
+    border-radius: 10px;
+    border: 2px #9e0b0f solid;
+    background-color: #e7e7db;
 }
 
 .edit button {
     width: 8rem;
     height: 3rem;
-    margin-bottom: 2rem;
+    margin-top: 1rem;
     font-size: 1.5rem;
     background-color: #9e0b0f;
     color: white;
@@ -212,10 +235,28 @@ body {
     float: left;
 }
 
+.theSection h2 {
+    margin: 1rem;
+}
+
 .theContainer {
     padding: 15px;
 }
 
-.pad h3 {
-    padding: 5px;
+/*Modal titles and buttons*/
+.modal-titles {
+    display: block;
+}
+
+.modal-buttons {
+    justify-content: center;
+}
+
+.player-info h3 {
+    padding-top: 10px;
+    color: #9e0b0f;
+}
+
+.player-info p {
+    color: black;
 }

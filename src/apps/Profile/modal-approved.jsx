@@ -54,13 +54,16 @@ const ModalApproved = ({ thePost }) => {
         } else {
             return (
                 <>
-                    <div className="pad">
+                    <div className="player-info">
                         <h2>Player Info</h2>
-                        <h3>Name: {name}</h3>
-                        <h3>Discord: {discord}</h3>
-                        <h3>Email: {email}</h3>
-                        <br></br>
-                        <h3>About: {description}</h3>
+                        <h3>Name: </h3>
+                        <p>{name}</p>
+                        <h3>Discord: </h3>
+                        <p>{discord}</p>
+                        <h3>Email: </h3>
+                        <p>{email}</p>
+                        <h3>About: </h3>
+                        <p>{description}</p>
                     </div>
                 </>
             );
@@ -88,20 +91,42 @@ const ModalApproved = ({ thePost }) => {
                     <div className="theSection">
                         <h1>{thePost.title}</h1>
                         <br></br>
+                        <h2>Owner</h2>
+                        <ul>
+                            <div className="modal-titles">
+                                {
+                                    <div className="modal-buttons">
+                                        <Button
+                                            className="ew"
+                                            onClick={() => handleClick(owner)}
+                                            color="error"
+                                        >
+                                            {owner}
+                                        </Button>
+                                    </div>
+                                }
+                            </div>
+                        </ul>
+                        <br></br>
                         <h2>Approved Members:</h2>
                         <ul>
-                            {approved.map((item) => {
-                                return (
-                                    <Button
-                                        className="ew"
-                                        onClick={() => handleClick(item)}
-                                        color="error"
-                                        sx={{ display: "block" }}
-                                    >
-                                        {item}
-                                    </Button>
-                                );
-                            })}
+                            <div className="modal-titles">
+                                {approved.map((item) => {
+                                    return (
+                                        <div className="modal-buttons">
+                                            <Button
+                                                className="ew"
+                                                onClick={() =>
+                                                    handleClick(item)
+                                                }
+                                                color="error"
+                                            >
+                                                {item}
+                                            </Button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </ul>
                     </div>
                     <div className="theSection">{<DisplayCurrent />}</div>
@@ -111,7 +136,6 @@ const ModalApproved = ({ thePost }) => {
                 <Button
                     onClick={handleClose}
                     variant="contained"
-                    color="error"
                     sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
                 >
                     close
