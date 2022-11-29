@@ -206,13 +206,15 @@ function Posts() {
                     )}
                 </Grid>
 
-                <button
+                {/* <button
                     onClick={() => {
                         createRandomPosts(1);
                     }}
                 >
                     Add
-                </button>
+                </button> */}
+                <br></br>
+                <br></br>
             </ThemeProvider>
         </>
     );
