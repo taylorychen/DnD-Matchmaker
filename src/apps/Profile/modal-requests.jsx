@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Dialog, Grid } from "@mui/material";
+import { Button, Dialog, DialogContent, Grid } from "@mui/material";
 import "./profile.css";
 import {
     getUser,
@@ -140,15 +140,17 @@ const ModalRequests = ({ thePost }) => {
                 </div>
                 <br></br>
                 <br></br>
-                <Button
-                    onClick={handleClose}
-                    variant="contained"
-                    color="error"
-                    sx={{ backgroundColor: "darkred", mb: 2 }}
-                >
-                    close
-                </Button>
-                <br></br>
+                <DialogContent>
+                    <Button
+                        onClick={handleClose}
+                        variant="contained"
+                        color="error"
+                        sx={{ backgroundColor: "darkred", mb: 2 }}
+                    >
+                        close
+                    </Button>
+                    <br></br>
+                </DialogContent>
             </Dialog>
         </>
     );

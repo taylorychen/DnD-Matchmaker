@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Dialog, Grid } from "@mui/material";
+import { Button, Dialog, DialogContent, Grid } from "@mui/material";
 import "./profile.css";
 import { getUser } from "../../firebase/helpers";
 
@@ -85,6 +85,7 @@ const ModalApproved = ({ thePost }) => {
 
             <Dialog open={open} fullWidth maxWidth="sm">
                 <div className="modal-content"></div>
+
                 <div className="theContainer">
                     <br></br>
                     <div className="theSection">
@@ -132,14 +133,16 @@ const ModalApproved = ({ thePost }) => {
                 </div>
                 <br></br>
                 <br></br>
-                <Button
-                    onClick={handleClose}
-                    variant="contained"
-                    color="error"
-                    sx={{ backgroundColor: "darkred", mb: 2 }}
-                >
-                    close
-                </Button>
+                <DialogContent>
+                    <Button
+                        onClick={handleClose}
+                        variant="contained"
+                        color="error"
+                        sx={{ backgroundColor: "darkred", mb: 2 }}
+                    >
+                        close
+                    </Button>
+                </DialogContent>
             </Dialog>
         </>
     );
