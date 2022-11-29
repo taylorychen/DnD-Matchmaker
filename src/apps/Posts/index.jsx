@@ -227,7 +227,6 @@ function Posts() {
                             count={maxPages}
                             page={page}
                             onChange={(e) => {
-                                console.log(e.target);
                                 setPage(parseInt(e.target.outerText));
                             }}
                         />

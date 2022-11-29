@@ -113,7 +113,10 @@ const ModalApproved = ({ thePost }) => {
                             <div className="modal-titles">
                                 {approved.map((item) => {
                                     return (
-                                        <div className="modal-buttons">
+                                        <div
+                                            className="modal-buttons"
+                                            key={item}
+                                        >
                                             <Button
                                                 className="ew"
                                                 onClick={() =>

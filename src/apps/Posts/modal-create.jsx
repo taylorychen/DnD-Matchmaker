@@ -198,10 +198,11 @@ const ModalCreate = () => {
                                     }}
                                 />
 
-                                <Grid spacing={2}>
+                                <Grid>
                                     {Object.entries(TAGS).map((tag) => {
                                         return (
                                             <FormControlLabel
+                                                key={tag[0]}
                                                 control={
                                                     <Checkbox
                                                         color="error"
