@@ -1,65 +1,98 @@
 import React, { useState } from "react";
-import styles from "./modal.css";
-import { useEffect } from "react";
+import { Button, Dialog } from "@mui/material";
+import "./posting-card.css";
 
 // this modal component is for when users are trying to find out more info about a post (database reading)
-const ModalInfo = () => {
-    const [groupName, setGroupName] = useState("");
-    const [location, setLocation] = useState("");
-    const [NumberOfPlayers, setNum] = useState("");
-    const [AvailibleSpots, setAvailible] = useState("");
-    const [Description, setDescription] = useState("");
+const ModalInfo = ({ thePost }) => {
+    const [open, setOpen] = useState(false);
+    const [owner, setOwner] = useState(thePost.owner);
+    const [description, setDescription] = useState(thePost.description);
+    const [location, setLocation] = useState(thePost.location);
+    const [title, setTitle] = useState(thePost.title);
+    const [lRules, setLRules] = useState(thePost.t_looseRules);
+    const [oneshot, setOneShot] = useState(thePost.t_oneShot);
+    const [campaign, setCampaign] = useState(thePost.t_campaign);
+    const [homebrew, setHomebrew] = useState(thePost.t_homebrew);
+    const [preWritten, setPrewritten] = useState(thePost.t_preWritten);
+    const [tags, setTags] = useState([]);
 
-    const displayCards = async () => {
-        try {
-            setLocation("The Dungeon De Neve");
-            setGroupName("DnD Fun Game");
-            setNum("6");
-            setAvailible("2");
-            setDescription(
-                "asldkfja;s aslkfjaslk;d jaj asfljaj sadlkfjas; jafsaldjfslfj sldkfja;s aslkfjaslk;d jaj asfljaj sadlkfjas; jafsaldjfslfjsldkfja;s aslkfjaslk;d jaj asfljaj sadlkfjas; jafsaldjfslfjsldkfja;s aslkfjaslk;d jaj asfljaj sadlkfjas; jafsaldjfslfj"
-            );
-        } catch (error) {
-            console.log(error);
-        }
+    const handleOpen = () => {
+        setOpen(true);
+        handleTags();
+        console.log(tags);
     };
 
-    useEffect(() => {
-        displayCards();
-    }, []);
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-    const [modal, setModal] = useState(false);
-
-    const toggleModal = () => {
-        setModal(!modal);
+    const handleTags = () => {
+        var temp = [];
+        if (lRules) {
+            temp.push("Loose Rules");
+        }
+        if (oneshot) {
+            temp.push("Oneshot");
+        }
+        if (campaign) {
+            temp.push("Campaign");
+        }
+        if (homebrew) {
+            temp.push("Homebrew");
+        }
+        if (preWritten) {
+            temp.push("Prewritten");
+        }
+        setTags(temp);
     };
 
     return (
         <>
-            <button className="prettyButton" onClick={toggleModal}>
+            <Button
+                onClick={handleOpen}
+                variant="contained"
+                color="error"
+                sx={{ minWidth: 0.1, backgroundColor: "darkred" }}
+            >
                 More Info
-            </button>
+            </Button>
 
-            {modal && (
-                <div className="stuff">
-                    <div onClick={toggleModal} className="stuff"></div>
-                    <div className="modal-content">
-                        <h1>{groupName}</h1>
-                        <p className="info"> Location: {location}</p>
-                        <p className="info">
-                            Number of Players: {NumberOfPlayers}
-                        </p>
-                        <p className="info"> Spots Left: {AvailibleSpots}</p>
-                        <p className="info"> Description: {Description}</p>
-                        <br></br>
-                        <button className="prettyButton">Join Request</button>
-
-                        <button className="close" onClick={toggleModal}>
-                            CLOSE
-                        </button>
-                    </div>
-                </div>
-            )}
+            <Dialog open={open} fullWidth maxWidth="sm">
+                <div className="modal-content"></div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <h1>Game Info</h1>
+                <h3>Title: </h3>
+                <p>{title}</p>
+                <br></br>
+                <h3>Location: </h3>
+                <p>{location}</p>
+                <br></br>
+                <h3>Dungeon Master: </h3>
+                <p>{owner}</p>
+                <br></br>
+                <h3>Description: </h3>
+                <p className="pad">{description}</p>
+                <br></br>
+                <h3>Tags: </h3>
+                <ul>
+                    {tags.map((item) => {
+                        return <li>{item}</li>;
+                    })}
+                </ul>
+                <br></br>
+                <br></br>
+                <Button
+                    onClick={handleClose}
+                    variant="contained"
+                    sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
+                >
+                    close
+                </Button>
+                <br></br>
+                <br></br>
+            </Dialog>
         </>
     );
 };
