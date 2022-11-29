@@ -103,7 +103,7 @@ const ModalCreate = () => {
                 onClick={handleOpen}
                 variant="contained"
                 color="error"
-                sx={{ minWidth: 0.1, backgroundColor: "darkred" }}
+                sx={{ backgroundColor: "darkred" }}
             >
                 Create
             </Button>

@@ -52,9 +52,9 @@ const ModalInfo = ({ thePost }) => {
                 onClick={handleOpen}
                 variant="contained"
                 color="error"
-                sx={{ minWidth: 0.1, backgroundColor: "darkred" }}
+                sx={{ backgroundColor: "darkred" }}
             >
-                More Info
+                Info
             </Button>
 
             <Dialog open={open} fullWidth maxWidth="sm">
@@ -86,7 +86,8 @@ const ModalInfo = ({ thePost }) => {
                 <Button
                     onClick={handleClose}
                     variant="contained"
-                    sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
+                    color="error"
+                    sx={{ backgroundColor: "darkred", mb: 2 }}
                 >
                     close
                 </Button>

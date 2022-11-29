@@ -134,7 +134,9 @@ export default function Profile() {
                                 }
                             />
                         </div>
-                        <button type="submit">Update</button>
+                        <button className="non-mui-button" type="submit">
+                            Update
+                        </button>
                     </div>
                 </form>
             </div>
@@ -298,17 +300,24 @@ export default function Profile() {
                     <div className="section-toggle">
                         <ul className="toggle-options">
                             <li>
-                                <button onClick={() => setActive("edit")}>
+                                <button
+                                    className="non-mui-button"
+                                    onClick={() => setActive("edit")}
+                                >
                                     Edit Profile
                                 </button>
                             </li>
                             <li>
-                                <button onClick={() => setActive("postings")}>
+                                <button
+                                    className="non-mui-button"
+                                    onClick={() => setActive("postings")}
+                                >
                                     My Postings
                                 </button>
                             </li>
                             <li>
                                 <button
+                                    className="non-mui-button"
                                     onClick={() => setActive("pendingRequests")}
                                 >
                                     Pending
@@ -316,6 +325,7 @@ export default function Profile() {
                             </li>
                             <li>
                                 <button
+                                    className="non-mui-button"
                                     onClick={() =>
                                         setActive("approvedRequests")
                                     }

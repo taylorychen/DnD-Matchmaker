@@ -77,7 +77,6 @@ const ModalApproved = ({ thePost }) => {
                 variant="contained"
                 color="error"
                 sx={{
-                    minWidth: 0.1,
                     backgroundColor: "darkred",
                 }}
             >
@@ -136,7 +135,8 @@ const ModalApproved = ({ thePost }) => {
                 <Button
                     onClick={handleClose}
                     variant="contained"
-                    sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
+                    color="error"
+                    sx={{ backgroundColor: "darkred", mb: 2 }}
                 >
                     close
                 </Button>
