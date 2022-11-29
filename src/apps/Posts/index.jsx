@@ -10,6 +10,8 @@ import {
     Box,
     Chip,
     Switch,
+    Pagination,
+    Stack,
 } from "@mui/material";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import {
@@ -66,6 +68,10 @@ function Posts() {
     const [allPosts, setAllPosts] = useState([]);
     const [isDarkMode, setIsDarkMode] = useState(false);
 
+    const pageSize = 24;
+    const [page, setPage] = useState(1);
+    const [maxPages, setMaxPages] = useState(1);
+
     // This function is triggered when the Switch component is toggled
     const changeTheme = () => {
         if (isDarkMode) {
@@ -92,11 +98,17 @@ function Posts() {
 
         const posts = [];
         querySnapshot.forEach((doc) => {
-            // filter out user's posts
-            if (doc.data().owner !== currentUserEmail()) posts.push(doc.data());
+            const post = doc.data();
+            // filter out user's posts and that are not full
+            if (
+                post.owner !== currentUserEmail() &&
+                post.currPlayers < post.maxPlayers
+            )
+                posts.push(post);
         });
 
         // console.log(posts);
+        setMaxPages(Math.ceil(posts.length / pageSize));
         setAllPosts(posts);
     };
 
@@ -145,9 +157,6 @@ function Posts() {
                             >
                                 <MenuItem value="location">Location</MenuItem>
                                 <MenuItem value="title">Title</MenuItem>
-                                {/* <MenuItem value="description">
-                                    Description
-                                </MenuItem> */}
                             </Select>
                         </FormControl>
                     </Grid>
@@ -194,17 +203,36 @@ function Posts() {
                 <Grid container spacing={4} justifyContent="center">
                     {allPosts && (
                         <>
-                            {allPosts.map((doc) => {
-                                if (searchMatch(doc, search, searchBy))
-                                    return (
-                                        <Grid item key={doc.date}>
-                                            <PostingCard post={doc} />
-                                        </Grid>
-                                    );
-                            })}
+                            {allPosts
+                                .slice((page - 1) * pageSize, page * pageSize)
+                                .map((doc) => {
+                                    if (searchMatch(doc, search, searchBy))
+                                        return (
+                                            <Grid item key={doc.date}>
+                                                <PostingCard post={doc} />
+                                            </Grid>
+                                        );
+                                })}
                         </>
                     )}
                 </Grid>
+                {maxPages !== 1 ? (
+                    <Stack alignItems="center" sx={{ my: 2 }}>
+                        <Pagination
+                            hideNextButton
+                            hidePrevButton
+                            variant="outlined"
+                            shape="rounded"
+                            siblingCount={1}
+                            count={maxPages}
+                            page={page}
+                            onChange={(e) => {
+                                console.log(e.target);
+                                setPage(parseInt(e.target.outerText));
+                            }}
+                        />
+                    </Stack>
+                ) : null}
 
                 <button
                     onClick={() => {

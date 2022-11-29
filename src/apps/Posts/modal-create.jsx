@@ -60,7 +60,7 @@ const ModalCreate = () => {
                 location,
                 number
             );
-            alert("You have successfully created a post!");
+            // alert("You have successfully created a post!");
             setGname("");
             setLocation("");
             setDescription("");
