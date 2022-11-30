@@ -36,19 +36,19 @@
 
 .x {
     font-family: Imported;
-    font-size: 40px;
+    font-size: 25px;
     position: absolute;
     /* border-style: solid; */
     color: black;
     gap: 5px;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 10px;
     background-color: #9e0b0f;
     color: #e7e7db;
     border-radius: 5px;
     right: 1px;
-    height: 6vh;
-    width: 4vw;
+    height: 4vh;
+    width: 2vw;
 }
 
 .create_post {
@@ -73,11 +73,11 @@
 
 .button_submit {
     font-family: Imported;
-    height: 7vh;
-    width: 15vw;
+    height: 4vh;
+    width: 7vw;
     margin: 5px;
     text-align: center;
-    font-size: 25px;
+    font-size: 22px;
     align-self: center;
     border-radius: 5px;
     /*border-color: #e7e7db;*/

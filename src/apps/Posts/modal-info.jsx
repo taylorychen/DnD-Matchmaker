@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Dialog } from "@mui/material";
+import { Button, Dialog, DialogContent, Typography } from "@mui/material";
 import "./posting-card.css";
 
 // this modal component is for when users are trying to find out more info about a post (database reading)
@@ -52,46 +52,52 @@ const ModalInfo = ({ thePost }) => {
                 onClick={handleOpen}
                 variant="contained"
                 color="error"
-                sx={{ minWidth: 0.1, backgroundColor: "darkred" }}
+                sx={{ backgroundColor: "darkred" }}
             >
-                More Info
+                Info
             </Button>
 
             <Dialog open={open} fullWidth maxWidth="sm">
                 <div className="modal-content"></div>
-                <br></br>
-                <br></br>
-                <br></br>
-                <h1>Game Info</h1>
-                <h3>Title: </h3>
-                <p>{title}</p>
-                <br></br>
-                <h3>Location: </h3>
-                <p>{location}</p>
-                <br></br>
-                <h3>Dungeon Master: </h3>
-                <p>{owner}</p>
-                <br></br>
-                <h3>Description: </h3>
-                <p className="pad">{description}</p>
-                <br></br>
-                <h3>Tags: </h3>
-                <ul>
+                <DialogContent>
+                    <br></br>
+                    <h1>{title}</h1>
+
+                    <Typography variant="h6">
+                        <strong>Location:</strong>
+                    </Typography>
+                    <Typography variant="body1">{location}</Typography>
+                    <br></br>
+
+                    <Typography variant="h6">
+                        <strong>Dungeon Master:</strong>
+                    </Typography>
+                    <Typography variant="body1">{owner}</Typography>
+                    <br></br>
+
+                    <Typography variant="h6">
+                        <strong>Description:</strong>
+                    </Typography>
+                    <Typography variant="body1">{description}</Typography>
+                    <br></br>
+
+                    <Typography variant="h6">
+                        <strong>Tags:</strong>
+                    </Typography>
                     {tags.map((item) => {
-                        return <li>{item}</li>;
+                        return <Typography variant="body1">{item}</Typography>;
                     })}
-                </ul>
-                <br></br>
-                <br></br>
-                <Button
-                    onClick={handleClose}
-                    variant="contained"
-                    sx={{ minWidth: 0.1, backgroundColor: "darkred", mb: 2 }}
-                >
-                    close
-                </Button>
-                <br></br>
-                <br></br>
+                    <br></br>
+                    <br></br>
+                    <Button
+                        onClick={handleClose}
+                        variant="contained"
+                        color="error"
+                        sx={{ backgroundColor: "darkred" }}
+                    >
+                        close
+                    </Button>
+                </DialogContent>
             </Dialog>
         </>
     );

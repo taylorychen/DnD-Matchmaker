@@ -6,6 +6,7 @@ import {
     CardContent,
     Button,
     Typography,
+    Grid,
 } from "@mui/material";
 import "./posting-card.css";
 import ModalRequests from "../Profile/modal-requests";
@@ -28,22 +29,19 @@ const PostingCards = ({ post }) => {
     const [isApproved, setisApproved] = useState(false);
     const [isActive, setisActive] = useState(post.isActive);
 
-    const handleRequest = (idkanymorebruh) => {
+    const handleRequest = () => {
         if (post.owner === currentUserEmail()) {
             alert("can not join your own group");
         } else if (isApproved) {
             //if already joined, you probably are trying to leave
             leaveGroup(postID);
-            alert("you have been removed from the group");
             setisApproved(false);
         } else if (!isRequested) {
             //if you have not requested yet
             requestToJoinGroup(postID);
-            alert("request succesfully sent");
             setisRequested(true);
         } else if (isRequested) {
             leaveGroup(postID);
-            alert("your request has been removed");
             setisRequested(false);
         }
     };
@@ -72,11 +70,6 @@ const PostingCards = ({ post }) => {
 
     const handleDelete = () => {
         deletePost(postToID(post), post.owner);
-        alert(
-            "Your game " +
-                post.title +
-                " has been deleted, please refresh the page"
-        );
     };
 
     const handleActivation = (theBool) => {
@@ -86,14 +79,12 @@ const PostingCards = ({ post }) => {
             setisActive(false);
             setInactive(postToID(post), post.owner);
             console.log("after function:", post.isActive);
-            alert("your post has been deactivated");
         } else {
             //if it is FALSE meaning it is NOT active, activate it
             console.log("2x", post.isActive, "state", isActive);
             setisActive(true);
             setActive(postToID(post), post.owner);
             console.log("after function:", post.isActive);
-            alert("your post has been activated!");
         }
     };
 
@@ -102,29 +93,54 @@ const PostingCards = ({ post }) => {
             //if it is your own post
             return (
                 <>
-                    <Button
-                        onClick={() => {
-                            handleDelete();
-                        }}
-                        size="small"
-                        variant="outlined"
-                        color="error"
+                    <Grid
+                        container
+                        columns={16}
+                        spacing={1}
+                        alignItems="center"
                     >
-                        Delete
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            handleActivation(isActive);
-                        }}
-                        size="small"
-                        variant="outlined"
-                        color="error"
-                    >
-                        Deactivate
-                    </Button>
-                    <ModalRequests thePost={post}></ModalRequests>
-                    <ModalApproved thePost={post}></ModalApproved>
-                    <ModalInfo thePost={post}></ModalInfo>
+                        <Grid item xs={1} />
+                        <Grid item xs={4} j>
+                            <ModalRequests thePost={post}></ModalRequests>
+                        </Grid>
+                        <Grid item xs={1} />
+
+                        <Grid item xs={4}>
+                            <ModalApproved thePost={post}></ModalApproved>
+                        </Grid>
+                        <Grid item xs={1} />
+
+                        <Grid item xs={4}>
+                            <ModalInfo thePost={post}></ModalInfo>
+                        </Grid>
+                        <Grid item xs={1} />
+
+                        <Grid item xs={1} />
+                        <Grid item xs={7}>
+                            <Button
+                                onClick={() => {
+                                    handleDelete();
+                                }}
+                                size="small"
+                                variant="outlined"
+                                color="error"
+                            >
+                                Delete
+                            </Button>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Button
+                                onClick={() => {
+                                    handleActivation(isActive);
+                                }}
+                                size="small"
+                                variant="outlined"
+                                color="error"
+                            >
+                                Archive
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </>
             );
         } else if (
@@ -133,29 +149,54 @@ const PostingCards = ({ post }) => {
         ) {
             return (
                 <>
-                    <Button
-                        onClick={() => {
-                            handleDelete();
-                        }}
-                        size="small"
-                        variant="outlined"
-                        color="error"
+                    <Grid
+                        container
+                        columns={16}
+                        spacing={1}
+                        alignItems="center"
                     >
-                        Delete
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            handleActivation(isActive);
-                        }}
-                        size="small"
-                        variant="outlined"
-                        color="success"
-                    >
-                        Activate
-                    </Button>
-                    <ModalInfo thePost={post}></ModalInfo>
-                    <ModalRequests thePost={post}></ModalRequests>
-                    <ModalApproved thePost={post}></ModalApproved>
+                        <Grid item xs={1} />
+                        <Grid item xs={4} j>
+                            <ModalRequests thePost={post}></ModalRequests>
+                        </Grid>
+                        <Grid item xs={1} />
+
+                        <Grid item xs={4}>
+                            <ModalApproved thePost={post}></ModalApproved>
+                        </Grid>
+                        <Grid item xs={1} />
+
+                        <Grid item xs={4}>
+                            <ModalInfo thePost={post}></ModalInfo>
+                        </Grid>
+                        <Grid item xs={1} />
+
+                        <Grid item xs={1} />
+                        <Grid item xs={7}>
+                            <Button
+                                onClick={() => {
+                                    handleDelete();
+                                }}
+                                size="small"
+                                variant="outlined"
+                                color="error"
+                            >
+                                Delete
+                            </Button>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Button
+                                onClick={() => {
+                                    handleActivation(isActive);
+                                }}
+                                size="small"
+                                variant="outlined"
+                                color="success"
+                            >
+                                Activate
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </>
             );
         } else {
@@ -165,51 +206,75 @@ const PostingCards = ({ post }) => {
             if (isRequested === true) {
                 return (
                     <>
-                    <Button
-                        size="small"
-                        variant="outlined"
-                        color="error"
-                        onClick={() => {
-                            handleRequest(postID);
-                        }}
-                    >
-                        Unrequest
-                    </Button>
-                    <ModalInfo thePost={post}></ModalInfo>
+                        <Grid container alignItems="center" spacing={2}>
+                            <Grid item xs={4}>
+                                <Button
+                                    size="small"
+                                    variant="outlined"
+                                    color="error"
+                                    onClick={() => {
+                                        handleRequest(postID);
+                                    }}
+                                >
+                                    Unrequest
+                                </Button>
+                            </Grid>
+                            <Grid item xs={5} />
+                            <Grid item xs={3}>
+                                <ModalInfo thePost={post}></ModalInfo>
+                            </Grid>
+                        </Grid>
                     </>
                 );
             } else if (isApproved === true) {
                 return (
                     <>
-                        <Button
-                            size="small"
-                            variant="outlined"
-                            color="error"
-                            onClick={() => {
-                                handleRequest(postID);
-                            }}
-                        >
-                            Leave Group
-                        </Button>
-                        <ModalApproved thePost={post}></ModalApproved>
-                        <ModalInfo thePost={post}></ModalInfo>
+                        <Grid container alignItems="center">
+                            <Grid item xs={3}>
+                                <Button
+                                    size="small"
+                                    variant="outlined"
+                                    color="error"
+                                    onClick={() => {
+                                        handleRequest(postID);
+                                    }}
+                                >
+                                    Leave
+                                </Button>
+                            </Grid>
+                            <Grid item xs={1} />
+                            <Grid item xs={4}>
+                                <ModalApproved thePost={post} />
+                            </Grid>
+                            <Grid item xs={1} />
+                            <Grid item xs={3}>
+                                <ModalInfo thePost={post} />
+                            </Grid>
+                        </Grid>
                     </>
                 );
             } else {
                 //if you have not requested/joined yet
                 return (
                     <>
-                    <Button
-                        size="small"
-                        variant="outlined"
-                        color="error"
-                        onClick={() => {
-                            handleRequest(postID);
-                        }}
-                    >
-                        Request
-                    </Button>
-                    <ModalInfo thePost={post}></ModalInfo>
+                        <Grid container alignItems="center" spacing={2}>
+                            <Grid item xs={4}>
+                                <Button
+                                    size="small"
+                                    variant="outlined"
+                                    color="error"
+                                    onClick={() => {
+                                        handleRequest(postID);
+                                    }}
+                                >
+                                    Request
+                                </Button>
+                            </Grid>
+                            <Grid item xs={5} />
+                            <Grid item xs={3}>
+                                <ModalInfo thePost={post}></ModalInfo>
+                            </Grid>
+                        </Grid>
                     </>
                 );
             }
@@ -217,7 +282,7 @@ const PostingCards = ({ post }) => {
     };
 
     return (
-        <Card variant="outlined" sx={{ width: 345, height: 200, boxShadow: 5 }}>
+        <Card variant="outlined" sx={{ width: 345, boxShadow: 5 }}>
             <CardContent>
                 <Typography
                     gutterBottom
@@ -233,9 +298,6 @@ const PostingCards = ({ post }) => {
                 <Typography variant="body1">
                     Players: {post.currPlayers}/{post.maxPlayers}
                 </Typography>
-                {/* <Typography variant="body2" color="text.secondary">
-                    {post.description}
-                </Typography> */}
             </CardContent>
             <CardActions>{displayCorrectButtons()}</CardActions>
         </Card>

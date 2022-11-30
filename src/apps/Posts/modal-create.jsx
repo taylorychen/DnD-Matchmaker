@@ -63,7 +63,7 @@ const ModalCreate = () => {
                 location,
                 parseInt(number)
             );
-            alert("You have successfully created a post!");
+            // alert("You have successfully created a post!");
             setGname("");
             setLocation("");
             setDescription("");
@@ -103,12 +103,12 @@ const ModalCreate = () => {
                 onClick={handleOpen}
                 variant="contained"
                 color="error"
-                sx={{ minWidth: 0.1, backgroundColor: "darkred" }}
+                sx={{ backgroundColor: "darkred" }}
             >
                 Create
             </Button>
 
-            <Dialog open={open} sx={{ Width: 700 }}>
+            <Dialog open={open} sx={{ Width: 700 }} maxWidth="lg">
                 <DialogContent>
                     {/* <Grid container sx={{ mb: 5 }}>
                         <Grid item xs={10}></Grid>
@@ -129,93 +129,108 @@ const ModalCreate = () => {
 
                     <FormControl>
                         <h1 className="create_post">Create A New Game Post</h1>
-                        <button className="x" onClick={handleClose}>
+                        <button
+                            className="x non-mui-button"
+                            onClick={handleClose}
+                        >
                             X
                         </button>
                         <h1 className="create_post2">Start An Adventure</h1>
-                        <img
-                            className="image_side"
-                            src={dragon_red}
-                            alt="loading..."
-                        />
+                        <Grid container>
+                            <Grid item xs={5}>
+                                <img
+                                    className="image_side"
+                                    src={dragon_red}
+                                    alt="loading..."
+                                />
+                            </Grid>
+                            <Grid item xs={7}>
+                                <h1 className="create_post2">
+                                    Describe Your Game
+                                </h1>
+                                <br></br>
 
-                        <h1 className="create_post2">Describe Your Game</h1>
-                        <br></br>
+                                <TextField
+                                    required
+                                    id="gname"
+                                    fullWidth
+                                    label="title"
+                                    variant="outlined"
+                                    sx={{ mb: 2 }}
+                                    onChange={(e) => {
+                                        setGname(e.target.value);
+                                        console.log(gname);
+                                    }}
+                                />
 
-                        <TextField
-                            required
-                            id="gname"
-                            fullWidth
-                            label="title"
-                            variant="outlined"
-                            sx={{ mb: 2 }}
-                            onChange={(e) => {
-                                setGname(e.target.value);
-                                console.log(gname);
-                            }}
-                        />
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="location"
+                                    label="location"
+                                    variant="outlined"
+                                    sx={{ mb: 2 }}
+                                    onChange={(e) => {
+                                        setLocation(e.target.value);
+                                        console.log(location);
+                                    }}
+                                />
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="number"
+                                    label="number of players"
+                                    variant="outlined"
+                                    sx={{ mb: 2 }}
+                                    onChange={(e) => {
+                                        setNumber(e.target.value);
+                                        console.log(number);
+                                    }}
+                                />
 
-                        <TextField
-                            required
-                            fullWidth
-                            id="description"
-                            label="description"
-                            variant="outlined"
-                            sx={{ mb: 2 }}
-                            onChange={(e) => {
-                                setDescription(e.target.value);
-                                console.log(description);
-                            }}
-                        />
-                        <TextField
-                            required
-                            id="location"
-                            label="location"
-                            variant="outlined"
-                            sx={{ mb: 2 }}
-                            onChange={(e) => {
-                                setLocation(e.target.value);
-                                console.log(location);
-                            }}
-                        />
-                        <TextField
-                            required
-                            id="number"
-                            label="number of players"
-                            variant="outlined"
-                            sx={{ mb: 2 }}
-                            onChange={(e) => {
-                                setNumber(e.target.value);
-                                console.log(number);
-                            }}
-                        />
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="description"
+                                    label="description"
+                                    variant="outlined"
+                                    sx={{ mb: 2 }}
+                                    onChange={(e) => {
+                                        setDescription(e.target.value);
+                                        console.log(description);
+                                    }}
+                                />
 
-                        <Grid spacing={2}>
-                            {Object.entries(TAGS).map((tag) => {
-                                return (
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                color="error"
+                                <Grid>
+                                    {Object.entries(TAGS).map((tag) => {
+                                        return (
+                                            <FormControlLabel
+                                                key={tag[0]}
+                                                control={
+                                                    <Checkbox
+                                                        color="error"
+                                                        label={tag[0]}
+                                                        onChange={() => {
+                                                            handleTag(tag[1]);
+                                                        }}
+                                                    />
+                                                }
                                                 label={tag[0]}
-                                                onChange={() => {
-                                                    handleTag(tag[1]);
-                                                }}
                                             />
-                                        }
-                                        label={tag[0]}
-                                    />
-                                );
-                            })}
+                                        );
+                                    })}
+                                </Grid>
+                                <button
+                                    className="button_submit non-mui-button"
+                                    type="submit"
+                                    variant="outlined"
+                                    onClick={handleSubmit}
+                                >
+                                    Submit
+                                </button>
+                            </Grid>
                         </Grid>
-                        <button
-                            className="button_submit"
-                            type="submit"
-                            variant="outlined"
-                            onClick={handleSubmit}
-                        >
-                            Submit
-                        </button>
+
                         {/* <Button
                             type="submit"
                             variant="contained"

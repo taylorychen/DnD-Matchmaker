@@ -6,18 +6,18 @@ import styles from "../styles/index.css";
 import { fontSize } from "@mui/system";
 
 function PagePosts() {
-  return (
-    <>
-      <div className="page-container">
-        <Header />
-        <div class="page">
-          <h1 style={{ marginTop: 40, fontSize: 70 }}>Posts</h1>
-          <Posts />
-        </div>
-        <Footer />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className="page-container">
+                <Header />
+                <div className="page">
+                    <h1 style={{ marginTop: 40, fontSize: 70 }}>Posts</h1>
+                    <Posts />
+                </div>
+                <Footer />
+            </div>
+        </>
+    );
 }
 
 export default PagePosts;

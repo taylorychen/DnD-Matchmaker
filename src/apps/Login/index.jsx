@@ -38,7 +38,7 @@ function Login() {
 
                     {/* login button */}
                     <button
-                        className="login-button"
+                        className="login-button non-mui-button"
                         onClick={() => {
                             if (currentUserEmail() != null) {
                                 navigate("/Profile");

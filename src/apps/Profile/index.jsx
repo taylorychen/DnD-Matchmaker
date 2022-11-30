@@ -12,7 +12,7 @@ import PostingCards from "../Posts/posting-card";
 import { currentUserEmail } from "../../firebase/auth";
 import { db } from "../../firebase/config";
 import { collection, query, where } from "firebase/firestore";
-import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = {
@@ -134,7 +134,9 @@ export default function Profile() {
                                 }
                             />
                         </div>
-                        <button type="submit">Update</button>
+                        <button className="non-mui-button" type="submit">
+                            Update
+                        </button>
                     </div>
                 </form>
             </div>
@@ -149,7 +151,7 @@ export default function Profile() {
         //      Note: I think this makes storing posts under the user redundant
 
         const [active_postsSnapshot, a_postsLoading, a_postsError] =
-            useCollectionOnce(
+            useCollection(
                 query(
                     postsRef,
                     where("isActive", "==", true),
@@ -157,7 +159,7 @@ export default function Profile() {
                 )
             );
         const [inactive_postsSnapshot, i_postsLoading, i_postsError] =
-            useCollectionOnce(
+            useCollection(
                 query(
                     postsRef,
                     where("isActive", "==", false),
@@ -214,7 +216,7 @@ export default function Profile() {
 
     //User's pending requests section
     function PendingRequests() {
-        const [postsSnapshot, postsLoading, postsError] = useCollectionOnce(
+        const [postsSnapshot, postsLoading, postsError] = useCollection(
             query(
                 postsRef,
                 where("isActive", "==", true),
@@ -246,7 +248,7 @@ export default function Profile() {
 
     //User's pending requests section
     function ApprovedRequests() {
-        const [postsSnapshot, postsLoading, postsError] = useCollectionOnce(
+        const [postsSnapshot, postsLoading, postsError] = useCollection(
             query(
                 postsRef,
                 where("isActive", "==", true),
@@ -298,17 +300,24 @@ export default function Profile() {
                     <div className="section-toggle">
                         <ul className="toggle-options">
                             <li>
-                                <button onClick={() => setActive("edit")}>
+                                <button
+                                    className="non-mui-button"
+                                    onClick={() => setActive("edit")}
+                                >
                                     Edit Profile
                                 </button>
                             </li>
                             <li>
-                                <button onClick={() => setActive("postings")}>
+                                <button
+                                    className="non-mui-button"
+                                    onClick={() => setActive("postings")}
+                                >
                                     My Postings
                                 </button>
                             </li>
                             <li>
                                 <button
+                                    className="non-mui-button"
                                     onClick={() => setActive("pendingRequests")}
                                 >
                                     Pending
@@ -316,6 +325,7 @@ export default function Profile() {
                             </li>
                             <li>
                                 <button
+                                    className="non-mui-button"
                                     onClick={() =>
                                         setActive("approvedRequests")
                                     }
