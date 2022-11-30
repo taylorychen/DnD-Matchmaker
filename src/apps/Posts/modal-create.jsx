@@ -129,7 +129,10 @@ const ModalCreate = () => {
 
                     <FormControl>
                         <h1 className="create_post">Create A New Game Post</h1>
-                        <button className="x" onClick={handleClose}>
+                        <button
+                            className="x non-mui-button"
+                            onClick={handleClose}
+                        >
                             X
                         </button>
                         <h1 className="create_post2">Start An Adventure</h1>
@@ -218,7 +221,7 @@ const ModalCreate = () => {
                                     })}
                                 </Grid>
                                 <button
-                                    className="button_submit"
+                                    className="button_submit non-mui-button"
                                     type="submit"
                                     variant="outlined"
                                     onClick={handleSubmit}
