@@ -1,13 +1,30 @@
 # Installation
 
-`git clone https://github.com/taylorychen/35L-project.git` \
-To clone the repo to your local system \
-`cd 35L-Project` \
-To install the important npm modules \
-`npm install` \
-To install the important npm modules \
-`npm start` \
-To start the app locally
+First, install `Node v16.18.0` if it is not already installed. Then, run
+
+```
+git clone https://github.com/taylorychen/35L-project.git
+```
+
+To clone the repo to your local system. Go into the repository
+
+```
+cd 35L-Project
+```
+
+and install the dependencies by running
+
+```
+npm install
+```
+
+After the installation completes, you can start the locally by running
+
+```
+npm start
+```
+
+You will then be able to use it in your browser.
 
 # Using Unhinged: A Dungeons & Dragons Matchmaker
 
