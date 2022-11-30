@@ -1,11 +1,9 @@
-
-
-  @font-face{
-    font-family:Imported ;
+@font-face {
+    font-family: Imported;
     src: url(../fonts/fancy_font.ttf);
-  }
+}
 
-  div {
+div {
     text-align: center;
     font-family: Imported;
-  }
+}

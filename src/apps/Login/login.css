@@ -29,6 +29,10 @@ div {
     margin-left: auto;
 }
 
+.non-mui-button:hover {
+    background-color: #d30f16;
+}
+
 br {
     /* padding: 50%; */
     height: 15px;
