@@ -14,10 +14,6 @@ import {
     Stack,
 } from "@mui/material";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import {
-    useCollectionData,
-    useCollectionDataOnce,
-} from "react-firebase-hooks/firestore";
 import ModalCreate from "./modal-create";
 import PostingCard from "./posting-card";
 import { db } from "../../firebase/config";
@@ -25,6 +21,13 @@ import { createRandomPosts } from "../../firebase/populate";
 import { currentUserEmail } from "../../firebase/auth";
 import "../../styles/index.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const textTheme = {
+    typography: {
+        fontFamily: "serif",
+        fontSize: 16,
+    },
+};
 
 const light = {
     typography: {
@@ -118,9 +121,7 @@ function Posts() {
 
     return (
         <>
-            <ThemeProvider
-                theme={isDarkMode ? createTheme(dark) : createTheme(light)}
-            >
+            <ThemeProvider theme={createTheme(textTheme)}>
                 <Switch checked={isDarkMode} onChange={changeTheme}>
                     Dark Mode
                 </Switch>
@@ -134,10 +135,11 @@ function Posts() {
                                 inputProps: { style: { textAlign: "left" } },
                             }}
                             onKeyDown={(e) => {
-                                if (e.key == "Enter") setSearch(e.target.value);
+                                if (e.key === "Enter")
+                                    setSearch(e.target.value);
                                 // check if search bar is empty
                                 else if (
-                                    e.key == "Backspace" &&
+                                    e.key === "Backspace" &&
                                     e.target.value.length === 1
                                 )
                                     setSearch("");
@@ -200,22 +202,39 @@ function Posts() {
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={4} justifyContent="center">
-                    {allPosts && (
-                        <>
-                            {allPosts
-                                .slice((page - 1) * pageSize, page * pageSize)
-                                .map((doc) => {
-                                    if (searchMatch(doc, search, searchBy))
-                                        return (
-                                            <Grid item key={doc.date}>
-                                                <PostingCard post={doc} />
-                                            </Grid>
-                                        );
-                                })}
-                        </>
-                    )}
-                </Grid>
+                <ThemeProvider
+                    theme={isDarkMode ? createTheme(dark) : createTheme(light)}
+                >
+                    <Grid container spacing={4} justifyContent="center">
+                        {allPosts && (
+                            <>
+                                {allPosts
+                                    .slice(
+                                        (page - 1) * pageSize,
+                                        page * pageSize
+                                    )
+                                    .map((doc) => {
+                                        if (searchMatch(doc, search, searchBy))
+                                            return (
+                                                <Grid item key={doc.date}>
+                                                    <PostingCard post={doc} />
+                                                </Grid>
+                                            );
+                                    })}
+                            </>
+                        )}
+                    </Grid>
+
+                    {/* <button
+                    onClick={() => {
+                        createRandomPosts(1);
+                    }}
+                >
+                    Add
+                </button> */}
+                    <br></br>
+                    <br></br>
+                </ThemeProvider>
                 {maxPages !== 1 ? (
                     <Stack alignItems="center" sx={{ my: 2 }}>
                         <Pagination
@@ -232,16 +251,6 @@ function Posts() {
                         />
                     </Stack>
                 ) : null}
-
-                {/* <button
-                    onClick={() => {
-                        createRandomPosts(1);
-                    }}
-                >
-                    Add
-                </button> */}
-                <br></br>
-                <br></br>
             </ThemeProvider>
         </>
     );
