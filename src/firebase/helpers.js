@@ -277,7 +277,7 @@ export async function isCurrentUserRequestPending(postID) {
 export async function requestToJoinGroup(postID) {
     // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
     const waiting = await isCurrentUserPostOwner(postID);
-    if (currentUserEmail() == null) {
+    if (currentUserEmail() === null) {
         console.log("requestToJoinGroup: not signed in");
         return;
     } else if (waiting === true) {
@@ -308,7 +308,7 @@ export async function requestToJoinGroup(postID) {
 export async function leaveGroup(postID) {
     const postRef = doc(db, "/Posts/" + postID);
     const postSnap = await getDoc(postRef);
-    if (!postSnap.exists() || currentUserEmail() == null) {
+    if (!postSnap.exists() || currentUserEmail() === null) {
         console.log("leaveGroup: invalid post or not signed in");
         return;
     }
