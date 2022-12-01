@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogContent, Grid } from "@mui/material";
+import { Button, Dialog, DialogContent } from "@mui/material";
 import "./profile.css";
 import {
     getUser,
@@ -122,6 +122,7 @@ const ModalRequests = ({ thePost }) => {
                                     return (
                                         <div className="modal-buttons">
                                             <Button
+                                                size="large"
                                                 className="ew"
                                                 onClick={() =>
                                                     handleClick(item)

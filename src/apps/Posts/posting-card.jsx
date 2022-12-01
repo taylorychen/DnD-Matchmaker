@@ -23,6 +23,7 @@ import {
 import { currentUserEmail } from "../../firebase/auth";
 import ModalInfo from "./modal-info";
 
+//this is for the general posting cards that will appear in both the postings page and the profile page
 const PostingCards = ({ post }) => {
     const [postID, setPostID] = useState(postToID(post));
     const [isRequested, setisRequested] = useState(false);
@@ -49,7 +50,6 @@ const PostingCards = ({ post }) => {
     //checking for previous request
     async function checkifRequested() {
         var status = await isCurrentUserRequestPending(postToID(post));
-        //console.log(status);
         if (status) {
             setisRequested(true);
         } else {
@@ -60,7 +60,6 @@ const PostingCards = ({ post }) => {
     //checking if you are already part of this group
     async function checkifApproved() {
         var status = await isCurrentUserRequestApproved(postToID(post));
-        //console.log(status);
         if (status) {
             setisApproved(true);
         } else {
@@ -75,16 +74,12 @@ const PostingCards = ({ post }) => {
     const handleActivation = (theBool) => {
         if (theBool) {
             //if it is true meaning IT IS active, deactivate it
-            console.log("1", post.isActive, "state:", isActive);
             setisActive(false);
             setInactive(postToID(post), post.owner);
-            console.log("after function:", post.isActive);
         } else {
             //if it is FALSE meaning it is NOT active, activate it
-            console.log("2x", post.isActive, "state", isActive);
             setisActive(true);
             setActive(postToID(post), post.owner);
-            console.log("after function:", post.isActive);
         }
     };
 

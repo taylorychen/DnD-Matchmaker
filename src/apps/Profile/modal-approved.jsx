@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogContent, Grid } from "@mui/material";
+import { Button, Dialog, DialogContent } from "@mui/material";
 import "./profile.css";
 import { getUser } from "../../firebase/helpers";
 
@@ -9,9 +9,6 @@ const ModalApproved = ({ thePost }) => {
     const [owner, setOwner] = useState(thePost.owner);
     const [approved, setApproved] = useState(thePost.approvedUsers);
     const [current, setCurrent] = useState("");
-    const [thePostID, setThePostID] = useState(
-        `${thePost.owner}_${thePost.date.seconds}.${thePost.date.nanoseconds}`
-    );
     const [name, setName] = useState("Click on someone to see more info");
     const [discord, setDiscord] = useState("");
     const [email, setEmail] = useState("");
@@ -40,8 +37,6 @@ const ModalApproved = ({ thePost }) => {
         setDiscord(person.discordTag);
         setEmail(thing);
         setDescription(person.description);
-        console.log("discord", person.discordTag);
-        console.log("discord", person); //this is a promise
     }
 
     function DisplayCurrent(theEmail) {
@@ -97,6 +92,7 @@ const ModalApproved = ({ thePost }) => {
                                 {
                                     <div className="modal-buttons">
                                         <Button
+                                            size="large"
                                             className="ew"
                                             onClick={() => handleClick(owner)}
                                             color="error"
@@ -118,6 +114,7 @@ const ModalApproved = ({ thePost }) => {
                                             key={item}
                                         >
                                             <Button
+                                                size="large"
                                                 className="ew"
                                                 onClick={() =>
                                                     handleClick(item)

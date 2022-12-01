@@ -38,10 +38,11 @@ Users will be logged and authenticated with Google Authentication. This will aut
 ## Postings
 
 This page displays all of the active posts (excuding full games and the user's own posts). \
-The posts show information about the Dungeon Master's game, including number of players, tags, location, and description. \
+The posts show information about the owner/Dungeon Master's game including number of players, location, and title. For further information about the game, there is a more information button that will display additional information including the tags and description. \
 Logged in users can interact with these posts by requesting to join them. \
 The `CREATE` button for users to create their own posts. \
-A toggle allows users to switch between dark and light mode.
+A toggle allows users to switch between a dark and light dungeons and dragons mode for the posting cards on the postings page depending on which color scheme they liked better. \
+Postings are split up by pages in the postings page. Each page can have up to 24 postings and the application will automatically add a new page after one page fills up and decrease pages if enough postings are deleted.
 
 ### Searching
 
@@ -52,10 +53,10 @@ Users can also filter by tags.
 ### Post interactions
 
 Buttons appear under each post depending on the user's status in relation to them. \
-If the user own the post, users will see options to `delete`, `deactivate`, view `requests`, and view `approved` users. \
+If the user own the post, users will see options to `delete`, `deactivate`, view `requests` and the basic information and descriptions of users who sent requests, and view `approved` users along with additional information associated with those users such as discord contact information. \
 Other posts will show with an option to `request to join`. \
 If the user has already requested, a button to `unrequest` will appear instead. \
-If the user is already approved, buttons will show to `leave group` and view `approved` users.
+If the user is already approved, buttons will show to `leave group` and view `approved` users and their information like contact information associated with the other group members as well as the group owner's information.
 
 ## Profile
 
