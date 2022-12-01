@@ -2,8 +2,6 @@ import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "./config";
 import { createUser } from "./helpers";
 
-import { useNavigate } from "react-router-dom";
-
 const provider = new GoogleAuthProvider();
 
 export function currentUser() {
@@ -29,7 +27,6 @@ export async function login() {
                 const fullname = user.displayName;
                 createUser(user.email, fullname);
                 resolve(true);
-                //useNavigate("/Profile");
             })
             .catch((error) => {
                 console.log("Error " + error.code + " " + error.message);
