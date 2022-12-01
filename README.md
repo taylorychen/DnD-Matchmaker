@@ -47,7 +47,7 @@ Postings are split up by pages in the postings page. Each page can have up to 24
 ### Searching
 
 The top of the page displays a search bar. \
-Users can search by a string that may appear in post's `Location` or `Title` and will have to hit enter to search \
+Users can search by a string that may appear in post's `Location` or `Title` \
 Users can also filter by tags.
 
 ### Post interactions
