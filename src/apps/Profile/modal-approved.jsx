@@ -45,7 +45,7 @@ const ModalApproved = ({ thePost }) => {
     }
 
     function DisplayCurrent(theEmail) {
-        if (current == "") {
+        if (current === "") {
             return (
                 <>
                     <h3>{name}</h3>
