@@ -48,15 +48,11 @@ const ModalRequests = ({ thePost }) => {
         if (theBool) {
             approveOrDenyRequestToJoinGroup(thePostID, current, true);
             setRequests(thePost.pendingUsers);
-            alert(
-                "you have approved a member, please refresh the page to see the update"
-            );
+            setOpen(false);
         } else {
             approveOrDenyRequestToJoinGroup(thePostID, current, false);
             setRequests(thePost.pendingUsers);
-            alert(
-                "you have denied this person, please refresh the page to see the update"
-            );
+            setOpen(false);
         }
     };
 
