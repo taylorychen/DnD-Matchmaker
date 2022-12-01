@@ -273,7 +273,6 @@ export async function isCurrentUserRequestPending(postID) {
 /**
  * add current user to post's pendingUsers and update user's pendingRequests
  * @param {string} postID
- * @returns
  */
 export async function requestToJoinGroup(postID) {
     // given a user and a post, try to join the post's "pendingUsers" and update user's "pendingRequests"
@@ -299,7 +298,6 @@ export async function requestToJoinGroup(postID) {
     updateDoc(userRef, {
         pendingRequests: arrayUnion(postID),
     });
-    // return true;
 }
 
 /**
@@ -418,7 +416,7 @@ export async function getCurrentUserDiscord() {
     return userData ? userData.discordTag : "No User Data";
 }
 
-/** CHANGES
+/**
  * Returns the current user's description tag
  * if the data doesn't exist, returns "No User Data"
  * @returns {string}

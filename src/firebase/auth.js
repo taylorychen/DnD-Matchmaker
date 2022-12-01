@@ -29,7 +29,6 @@ export async function login() {
                 const fullname = user.displayName;
                 createUser(user.email, fullname);
                 resolve(true);
-                //useNavigate("/Profile");
             })
             .catch((error) => {
                 console.log("Error " + error.code + " " + error.message);
