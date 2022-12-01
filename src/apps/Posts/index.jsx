@@ -110,7 +110,6 @@ function Posts() {
                 posts.push(post);
         });
 
-        // console.log(posts);
         setMaxPages(Math.ceil(posts.length / pageSize));
         setAllPosts(posts);
     };
@@ -134,15 +133,8 @@ function Posts() {
                             InputProps={{
                                 inputProps: { style: { textAlign: "left" } },
                             }}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter")
-                                    setSearch(e.target.value);
-                                // check if search bar is empty
-                                else if (
-                                    e.key === "Backspace" &&
-                                    e.target.value.length === 1
-                                )
-                                    setSearch("");
+                            onChange={(e) => {
+                                setSearch(e.target.value);
                             }}
                         />
                     </Grid>
@@ -226,14 +218,12 @@ function Posts() {
                     </Grid>
 
                     {/* <button
-                    onClick={() => {
-                        createRandomPosts(1);
-                    }}
-                >
-                    Add
-                </button> */}
-                    <br></br>
-                    <br></br>
+                        onClick={() => {
+                            createRandomPosts(1);
+                        }}
+                    >
+                        Add
+                    </button> */}
                 </ThemeProvider>
                 {maxPages !== 1 ? (
                     <Stack alignItems="center" sx={{ my: 2 }}>
