@@ -122,6 +122,7 @@ const ModalRequests = ({ thePost }) => {
                                     return (
                                         <div className="modal-buttons">
                                             <Button
+                                                size="large"
                                                 className="ew"
                                                 onClick={() =>
                                                     handleClick(item)

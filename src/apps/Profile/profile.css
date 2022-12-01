@@ -36,7 +36,7 @@
     border-radius: 15px;
     text-align: center;
     font-size: 3rem;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 
 .info-tag {
@@ -255,8 +255,10 @@ body {
 .player-info h3 {
     padding-top: 10px;
     color: #9e0b0f;
+    font-size: 1.25rem;
 }
 
 .player-info p {
     color: black;
+    font-size: 1.25rem;
 }

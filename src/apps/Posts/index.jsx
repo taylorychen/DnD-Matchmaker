@@ -118,88 +118,88 @@ function Posts() {
 
     return (
         <>
+            <Switch checked={isDarkMode} onChange={changeTheme} sx={{ mb: 2 }}>
+                Dark Mode
+            </Switch>
+            <Grid container spacing={2} alignItems="center" sx={{ mb: 3 }}>
+                <Grid item xs={5}>
+                    <TextField
+                        label="Search"
+                        variant="standard"
+                        fullWidth
+                        InputProps={{
+                            inputProps: { style: { textAlign: "left" } },
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key == "Enter") setSearch(e.target.value);
+                            // check if search bar is empty
+                            else if (
+                                e.key == "Backspace" &&
+                                e.target.value.length === 1
+                            )
+                                setSearch("");
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <FormControl fullWidth>
+                        <InputLabel>Search By</InputLabel>
+                        <Select
+                            variant="standard"
+                            value={searchBy}
+                            label="Search By"
+                            onChange={(e) => {
+                                setSearchBy(e.target.value);
+                            }}
+                        >
+                            <MenuItem value="location">Location</MenuItem>
+                            <MenuItem value="title">Title</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={4}>
+                    <FormControl fullWidth>
+                        <InputLabel>Tags</InputLabel>
+                        <Select
+                            variant="standard"
+                            multiple
+                            value={searchTags}
+                            label="Tags"
+                            renderValue={(selected) => (
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: 0.5,
+                                    }}
+                                >
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} />
+                                    ))}
+                                </Box>
+                            )}
+                            onChange={(e) => {
+                                setSearchTags(e.target.value);
+                            }}
+                        >
+                            {Object.entries(TAGS).map((tag) => {
+                                return (
+                                    <MenuItem key={tag[0]} value={tag[0]}>
+                                        {tag[0]}
+                                    </MenuItem>
+                                );
+                            })}
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={1} size="large">
+                    <ModalCreate />
+                </Grid>
+            </Grid>
+            <br></br>
             <ThemeProvider
                 theme={isDarkMode ? createTheme(dark) : createTheme(light)}
             >
-                <Switch checked={isDarkMode} onChange={changeTheme}>
-                    Dark Mode
-                </Switch>
-                <Grid container spacing={2} alignItems="center" sx={{ mb: 3 }}>
-                    <Grid item xs={5}>
-                        <TextField
-                            label="Search"
-                            variant="standard"
-                            fullWidth
-                            InputProps={{
-                                inputProps: { style: { textAlign: "left" } },
-                            }}
-                            onKeyDown={(e) => {
-                                if (e.key == "Enter") setSearch(e.target.value);
-                                // check if search bar is empty
-                                else if (
-                                    e.key == "Backspace" &&
-                                    e.target.value.length === 1
-                                )
-                                    setSearch("");
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <FormControl fullWidth>
-                            <InputLabel>Search By</InputLabel>
-                            <Select
-                                variant="standard"
-                                value={searchBy}
-                                label="Search By"
-                                onChange={(e) => {
-                                    setSearchBy(e.target.value);
-                                }}
-                            >
-                                <MenuItem value="location">Location</MenuItem>
-                                <MenuItem value="title">Title</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <FormControl fullWidth>
-                            <InputLabel>Tags</InputLabel>
-                            <Select
-                                variant="standard"
-                                multiple
-                                value={searchTags}
-                                label="Tags"
-                                renderValue={(selected) => (
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexWrap: "wrap",
-                                            gap: 0.5,
-                                        }}
-                                    >
-                                        {selected.map((value) => (
-                                            <Chip key={value} label={value} />
-                                        ))}
-                                    </Box>
-                                )}
-                                onChange={(e) => {
-                                    setSearchTags(e.target.value);
-                                }}
-                            >
-                                {Object.entries(TAGS).map((tag) => {
-                                    return (
-                                        <MenuItem key={tag[0]} value={tag[0]}>
-                                            {tag[0]}
-                                        </MenuItem>
-                                    );
-                                })}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={1} size="large">
-                        <ModalCreate />
-                    </Grid>
-                </Grid>
-
                 <Grid container spacing={4} justifyContent="center">
                     {allPosts && (
                         <>
@@ -216,33 +216,34 @@ function Posts() {
                         </>
                     )}
                 </Grid>
-                {maxPages !== 1 ? (
-                    <Stack alignItems="center" sx={{ my: 2 }}>
-                        <Pagination
-                            hideNextButton
-                            hidePrevButton
-                            variant="outlined"
-                            shape="rounded"
-                            siblingCount={1}
-                            count={maxPages}
-                            page={page}
-                            onChange={(e) => {
-                                setPage(parseInt(e.target.outerText));
-                            }}
-                        />
-                    </Stack>
-                ) : null}
+            </ThemeProvider>
+            <br></br>
+            {maxPages !== 1 ? (
+                <Stack alignItems="center" sx={{ my: 2 }}>
+                    <Pagination
+                        hideNextButton
+                        hidePrevButton
+                        variant="filled"
+                        shape="rounded"
+                        siblingCount={1}
+                        count={maxPages}
+                        page={page}
+                        onChange={(e) => {
+                            setPage(parseInt(e.target.outerText));
+                        }}
+                    />
+                </Stack>
+            ) : null}
 
-                {/* <button
+            {/* <button
                     onClick={() => {
                         createRandomPosts(1);
                     }}
                 >
                     Add
                 </button> */}
-                <br></br>
-                <br></br>
-            </ThemeProvider>
+            <br></br>
+            <br></br>
         </>
     );
 }
