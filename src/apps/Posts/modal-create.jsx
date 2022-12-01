@@ -13,7 +13,6 @@ import "./modal.css";
 import { createPost } from "../../firebase/helpers";
 import { currentUserEmail } from "../../firebase/auth";
 import { TAGS } from "./index";
-//import "../Login/login.css";
 import dragon_red from "../../images/dragon_red.webp";
 
 // this modal component is for when users are trying to create a new post (database writing)
@@ -50,7 +49,6 @@ const ModalCreate = () => {
             alert("Your inputs are missing or invalid!");
         } else {
             setOpen(false);
-            console.log("finalTags:", tags);
             createPost(
                 currentUserEmail(),
                 gname,
@@ -63,7 +61,6 @@ const ModalCreate = () => {
                 location,
                 parseInt(number)
             );
-            // alert("You have successfully created a post!");
             setGname("");
             setLocation("");
             setDescription("");
@@ -81,19 +78,14 @@ const ModalCreate = () => {
     const handleTag = (theTag) => {
         if (theTag === "t_looseRules") {
             setLRules(!looseRules);
-            console.log("looseRules:", !looseRules);
         } else if (theTag === "t_oneShot") {
             setOneShot(!oneShot);
-            console.log("oneshot:", !oneShot);
         } else if (theTag === "t_campaign") {
             setCampaign(!campaign);
-            console.log("campaign:", !campaign);
         } else if (theTag === "t_homebrew") {
             setHomebrew(!homebrew);
-            console.log("hombrew:", !homebrew);
         } else {
             setPrewritten(!prewritten);
-            console.log("prewritten:", !prewritten);
         }
     };
 
@@ -110,23 +102,6 @@ const ModalCreate = () => {
 
             <Dialog open={open} sx={{ Width: 700 }} maxWidth="lg">
                 <DialogContent>
-                    {/* <Grid container sx={{ mb: 5 }}>
-                        <Grid item xs={10}></Grid>
-                        <Grid item xs={2}>
-                             <button className="x" onClick={handleClose}>
-                                X
-                            </button> 
-                            <Button
-                                onClick={handleClose}
-                                color="error"
-                                variant="contained"
-                                sx={{ backgroundColor: "darkred" }}
-                            >
-                                close
-                            </Button>
-                        </Grid>
-                    </Grid> */}
-
                     <FormControl>
                         <h1 className="create_post">Create A New Game Post</h1>
                         <button
@@ -159,7 +134,6 @@ const ModalCreate = () => {
                                     sx={{ mb: 2 }}
                                     onChange={(e) => {
                                         setGname(e.target.value);
-                                        console.log(gname);
                                     }}
                                 />
 
@@ -172,7 +146,6 @@ const ModalCreate = () => {
                                     sx={{ mb: 2 }}
                                     onChange={(e) => {
                                         setLocation(e.target.value);
-                                        console.log(location);
                                     }}
                                 />
                                 <TextField
@@ -184,7 +157,6 @@ const ModalCreate = () => {
                                     sx={{ mb: 2 }}
                                     onChange={(e) => {
                                         setNumber(e.target.value);
-                                        console.log(number);
                                     }}
                                 />
 
@@ -197,7 +169,6 @@ const ModalCreate = () => {
                                     sx={{ mb: 2 }}
                                     onChange={(e) => {
                                         setDescription(e.target.value);
-                                        console.log(description);
                                     }}
                                 />
 
@@ -230,16 +201,6 @@ const ModalCreate = () => {
                                 </button>
                             </Grid>
                         </Grid>
-
-                        {/* <Button
-                            type="submit"
-                            variant="contained"
-                            color="error"
-                            sx={{ mt: 3, backgroundColor: "darkred" }}
-                            onClick={handleSubmit}
-                        >
-                            Submit
-                        </Button> */}
                     </FormControl>
                 </DialogContent>
                 <div className="modal-content"></div>

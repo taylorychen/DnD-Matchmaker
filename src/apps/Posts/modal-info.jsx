@@ -19,7 +19,6 @@ const ModalInfo = ({ thePost }) => {
     const handleOpen = () => {
         setOpen(true);
         handleTags();
-        console.log(tags);
     };
 
     const handleClose = () => {
