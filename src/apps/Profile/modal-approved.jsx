@@ -97,6 +97,7 @@ const ModalApproved = ({ thePost }) => {
                                 {
                                     <div className="modal-buttons">
                                         <Button
+                                            size="large"
                                             className="ew"
                                             onClick={() => handleClick(owner)}
                                             color="error"
@@ -118,6 +119,7 @@ const ModalApproved = ({ thePost }) => {
                                             key={item}
                                         >
                                             <Button
+                                                size="large"
                                                 className="ew"
                                                 onClick={() =>
                                                     handleClick(item)
