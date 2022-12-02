@@ -83,3 +83,5 @@ Users can view the posts they've requested to join and `unrequest` if they wish.
 
 Users can view the posts they've been approved to join. and `leave` if they wish. \
 Users can also view other `approved` users.
+
+* All use of images and artwork is protected by the Copyright Fair Use Clause because it is used for educational purposes.
