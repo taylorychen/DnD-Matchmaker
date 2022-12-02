@@ -28,7 +28,7 @@ You will then be able to use it in your browser.
 
 # Using Unhinged: A Dungeons & Dragons Matchmaker
 
-This README was last updated 12/01/22 at around 8:45 PM PST.
+This README was last updated 12/01/22 at around 8:45 PM PST. \
 All use of images and artwork is protected by the Copyright Fair Use Clause because it is used for educational purposes.
 
 ## Home page
