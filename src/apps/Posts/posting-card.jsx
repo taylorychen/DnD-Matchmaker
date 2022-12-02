@@ -132,7 +132,7 @@ const PostingCards = ({ post }) => {
                                 variant="outlined"
                                 color="error"
                             >
-                                Archive
+                                Deactivate
                             </Button>
                         </Grid>
                     </Grid>

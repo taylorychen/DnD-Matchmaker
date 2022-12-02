@@ -65,10 +65,10 @@ const searchMatch = (item, search, property) => {
 
 function Posts() {
     const postsRef = collection(db, "Posts");
-    const [search, setSearch] = useState("");
     const [searchBy, setSearchBy] = useState("location");
     const [searchTags, setSearchTags] = useState([]);
     const [allPosts, setAllPosts] = useState([]);
+    const [visiblePosts, setVisiblePosts] = useState([]);
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const pageSize = 24;
@@ -112,6 +112,16 @@ function Posts() {
 
         setMaxPages(Math.ceil(posts.length / pageSize));
         setAllPosts(posts);
+        setVisiblePosts(posts);
+    };
+
+    const processSearch = (searchtext) => {
+        const newPosts = allPosts.filter((post) => {
+            if (searchMatch(post, searchtext, searchBy)) return post;
+        });
+        setVisiblePosts(newPosts);
+        setMaxPages(Math.ceil(newPosts.length / pageSize));
+        setPage(1);
     };
 
     useEffect(() => {
@@ -134,7 +144,7 @@ function Posts() {
                                 inputProps: { style: { textAlign: "left" } },
                             }}
                             onChange={(e) => {
-                                setSearch(e.target.value);
+                                processSearch(e.target.value);
                             }}
                         />
                     </Grid>
@@ -198,20 +208,19 @@ function Posts() {
                     theme={isDarkMode ? createTheme(dark) : createTheme(light)}
                 >
                     <Grid container spacing={4} justifyContent="center">
-                        {allPosts && (
+                        {visiblePosts && (
                             <>
-                                {allPosts
+                                {visiblePosts
                                     .slice(
                                         (page - 1) * pageSize,
                                         page * pageSize
                                     )
                                     .map((doc) => {
-                                        if (searchMatch(doc, search, searchBy))
-                                            return (
-                                                <Grid item key={doc.date}>
-                                                    <PostingCard post={doc} />
-                                                </Grid>
-                                            );
+                                        return (
+                                            <Grid item key={doc.date}>
+                                                <PostingCard post={doc} />
+                                            </Grid>
+                                        );
                                     })}
                             </>
                         )}
