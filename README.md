@@ -28,7 +28,7 @@ You will then be able to use it in your browser.
 
 # Using Unhinged: A Dungeons & Dragons Matchmaker
 
-This README was last updated 11/22/22 at around 7:00 PM PST.
+This README was last updated 12/01/22 at around 8:45 PM PST.
 
 ## Home page
 
@@ -53,15 +53,15 @@ Users can also filter by tags.
 ### Post interactions
 
 Buttons appear under each post depending on the user's status in relation to them. \
-If the user own the post, users will see options to `delete`, `deactivate`, view `requests` and the basic information and descriptions of users who sent requests, and view `approved` users along with additional information associated with those users such as discord contact information. \
-Other posts will show with an option to `request to join`. \
+Users will not be able to view their own postings in the Postings page. However, posts from other users will appear. \
+These posts will show with an option to `request to join`. \
 If the user has already requested, a button to `unrequest` will appear instead. \
 If the user is already approved, buttons will show to `leave group` and view `approved` users and their information like contact information associated with the other group members as well as the group owner's information.
 
 ## Profile
 
-If the user is logged in, the Profile page will show a side tab showing the user's name, email, and discord tag. \
-The main window has three options: Edit Profile, My Postings, and My Requests.
+If the user is logged in, the Profile page will show a side tab showing the user's name, email, discord tag, and description. \
+The main window has three options: Edit Profile, My Postings, Pending, and Approved.
 
 ### Edit Profile
 
@@ -72,7 +72,7 @@ Note: Discord tags and description are not set to anything by default.
 
 Users can view the posts they've created. \
 Posts will be split into `ACTIVE` and `INACTIVE`. \
-Similar to the Postings page, users will see options to `delete`, `deactivate`, view `requests`, and view `approved` users. \
+Similar to the Postings page, users will see options to `delete`, `archive`, view `requests`, and view `approved` users. \
 For inactive posts, users will see options to `delete` or `activate`.
 
 ### Pending
